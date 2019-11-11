@@ -16,7 +16,7 @@
  color: gray;
  display: flex;
  font-weight: bold;
- padding: 1em 0em 0em;
+ padding: 0.7em 0em 0em;
  pointer-events: none;
  position: absolute;
  top: 0;
@@ -28,7 +28,7 @@
 .text-input__field:focus + .text-input__label{
  text-transform: uppercase;
  transform-origin: 0 0 0;
- transform: translateY(-0.65em) scale(0.65);
+ transform: translateY(-1.2em) scale(0.65);
  transition: transform 75ms linear
 }
 .text-input__field:disabled + .text-input__label{

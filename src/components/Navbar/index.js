@@ -9,7 +9,10 @@ export default class Nav extends Component{
             <div className={styles.navBar}>
             {/* <Link to="/donations" className="item"> */}
             <div className={styles.navItem}>
-                Donations
+                New Donation
+            </div>
+            <div className={styles.navItem}>
+                Donor Information
             </div>
             {/* </Link> */}
             </div>
