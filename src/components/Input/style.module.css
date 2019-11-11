@@ -1,0 +1,118 @@
+.text-input{
+ box-sizing: border-box;
+ display: block;
+ font-size: 1.15em;
+ position: relative;
+ margin-bottom: 1.95em;
+ flex: 1;
+ min-width: 1em;
+}
+
+.text-input :hover{
+   cursor: text;
+}
+.text-input__label{
+ align-items: center;
+ color: gray;
+ display: flex;
+ font-weight: bold;
+ padding: 1em 0em 0em;
+ pointer-events: none;
+ position: absolute;
+ top: 0;
+ transform-origin: 0 0 0;
+ transition: transform 125ms linear;
+ will-change: transform;
+}
+.text-input__label.has-value,
+.text-input__field:focus + .text-input__label{
+ text-transform: uppercase;
+ transform-origin: 0 0 0;
+ transform: translateY(-0.65em) scale(0.65);
+ transition: transform 75ms linear
+}
+.text-input__field:disabled + .text-input__label{
+ color: gray;
+}
+.text-input__field{
+ background: transparent;
+ box-sizing: border-box;
+ border: none;
+ border-bottom: 1px solid gray;
+ line-height: 1.75em;
+ padding: 1em 0em 0em;
+ resize: none;
+ transition: border 75ms linear;
+ width: 100%;
+}
+.text-input__field :disabled{
+   border-bottom: 1px solid senseLightGray
+}
+text-input__field :disabled :focus{
+   border-bottom: 1px solid var(--primary-color);
+   outline: none;
+   transition: border 250ms ease-in;
+}
+textarea.text-input__field{
+ height: 6.5em;
+/* @keyframes shake
+ 20% { transform: translate3d(-1px, 0, 0) }
+ 40% { transform: translate3d(2px, 0, 0) }
+ 60% { transform: translate3d(-4px, 0, 0) }
+ 80% { transform: translate3d(4px, 0, 0) } */
+}
+.text-input__error{
+ animation: shake 0.41s cubic-bezier(.36,.07,.19,.97) both;
+ color: red;
+ font-size: 0.75em;
+ font-weight: bold;
+ left: 0px;
+ line-height: 1.25em;
+ top: 105%;
+ transform: translate3d(0,0,0);
+}
+.select-input{
+ margin-bottom: 1.25em;
+ display: block;
+ position: relative;
+ flex: 1;
+ min-width: 1em;
+}
+.select-input__label{
+ color: gray;
+ display: block;
+ font-weight: bold;
+ font-size: 0.75em;
+ margin-right: 1.25em;
+ text-transform: uppercase;
+}
+.select-input__field{
+ background: transparent;
+ width: 16em;
+ -moz-appearance : none;
+ -webkit-appearance: none;
+ border-radius: 0px;
+ border: none;
+ outline: none;
+ border-bottom: 1px solid gray;
+ font-family: Arial, Helvetica, sans-serif;
+ font-size: 1.25em;
+ font-weight: bold;
+ padding: 7px 0px 7px;
+ text-align: center;
+}
+.select-input__field :hover{
+   cursor: pointer;
+}
+.select-input__field :focus{
+   outline: none;
+   border-bottom: 1px solid var(--primary-color);
+}
+.chevron{
+ color: gray;
+ font-size: 0.75em;
+ pointer-events: none;
+ position: relative;
+ right: -195px;
+ top: -25px;
+}
