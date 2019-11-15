@@ -2,6 +2,7 @@ import React     from 'react';
 import PropTypes from 'prop-types';
 import filter    from 'lodash/filter';
 import style     from './style.module.css';
+
 // import Icon      from 'shared/components/Icon';
 // import DateTime  from 'react-datetime';
 // import 'react-datetime/css/react-datetime.css';
