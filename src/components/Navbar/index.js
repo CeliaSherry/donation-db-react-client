@@ -1,21 +1,32 @@
 import { Component } from "react";
 import styles from "./style.module.css";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter as Router, NavLink, Route } from "react-router-dom";
 import React from 'react'
+import Home from '../Home'
+import CreateDonor from "../../containers/CreateDonor";
 
-export default class Nav extends Component{
-    render(){
-        return(
-            <div className={styles.navBar}>
-            {/* <Link to="/donations" className="item"> */}
-            <div className={styles.navItem}>
-                New Donation
-            </div>
-            <div className={styles.navItem}>
-                Donor Information
-            </div>
-            {/* </Link> */}
-            </div>
+export default class Nav extends Component {
+    render() {
+        return (
+            <Router>
+                <div className={styles.navBar}>
+                    <NavLink to="/">
+                        <div className={styles.navItem}>
+                            Home
+                        </div>
+                    </NavLink>
+
+                    <NavLink to="/donations" className="item">
+                        <div className={styles.navItem}>
+                            New Donation
+                        </div>
+                    </NavLink>
+                    <div className="content">
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/donations" component={CreateDonor}></Route>
+                    </div>
+                </div>
+            </Router>
         )
     }
 }

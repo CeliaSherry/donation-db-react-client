@@ -5,7 +5,7 @@ import { Component } from 'react';
 import Navbar from './components/Navbar';
 
 import { Field, reduxForm } from 'redux-form';
-import CreateDonor from './containers/CreateDonor';
+import CreateDonor from './components/Home';
 import './App.css'
 
 
