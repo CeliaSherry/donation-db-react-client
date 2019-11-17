@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import * as actions from "./actions";
 import Card from "react-bootstrap/Card";
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -12,7 +14,7 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export class  DonationList  extends Component {
+export class DonationList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -28,39 +30,55 @@ export class  DonationList  extends Component {
         })
     }
 
-    render(){
-    const { data } = this.state;
-    return (
+    render() {
+        const { data } = this.state;
+        return (
+            <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Card style={{ width: "80em" }}>
-        <Table responsive>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-{this.state.data.donations ?
-
-    this.state.data.donations.map(donation => (
-                        <tr>
-                            <td>{donation.id}</td>
-                            <td>{donation.donationAmount}</td>
-                            <td>{donation.donationDate}</td>
-                            <td>{donation.note}</td>
-                        </tr>
-                    ))
-            :''
-}
-            </tbody>
-        </Table>
-        </Card>
+          <div style={{ width: "80em" }}>
+            <Button
+              style={{ float: "right", width: "10em" , marginBottom: "10px"}}
+              href="/donation/create"
+              variant="dark"
+            >
+              Add Donation
+            </Button>
+          </div>
         </div>
+
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+
+                <Card style={{ width: "80em" }}>
+                    <Table responsive>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.data.length > 0 ?
+
+                                this.state.data.map(donation => (
+                                    <tr>
+                                        <td>{donation.id}</td>
+                                        <td>{donation.donationAmount}</td>
+                                        <td>{donation.donationDate}</td>
+                                        <td>{donation.note}</td>
+                                    </tr>
+                                ))
+                                : ''
+                            }
+                        </tbody>
+                    </Table>
+                </Card>
+            </div> 
+             </div >
     )
-}
+    }
 
 }
 

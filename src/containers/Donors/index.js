@@ -10,18 +10,17 @@ export class Donors extends Component {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Card style={{ width: "80em" }}>
+          <div style={{ width: "80em" }}>
             <Button
-              style={{ float: "right", width: "10em" }}
+              style={{ float: "right", width: "10em", marginBottom: "10px"}}
               href="/donor/create"
               variant="dark"
             >
               Add Donor
             </Button>
-          </Card>
+          </div>
         </div>
-        <br></br>
-        <br></br>
+
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
             <br></br>
