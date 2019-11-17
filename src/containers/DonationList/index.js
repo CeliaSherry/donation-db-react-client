@@ -35,7 +35,9 @@ export class DonationList extends Component {
         return (
             <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
+       
           <div style={{ width: "80em" }}>
+          <h3>Donations</h3>
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
               href="/donation/create"
@@ -54,7 +56,7 @@ export class DonationList extends Component {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Amount</th>
+                                <th data-field="donationAmount" data-sortable="true">Amount</th>
                                 <th>Date</th>
                                 <th>Notes</th>
                             </tr>
