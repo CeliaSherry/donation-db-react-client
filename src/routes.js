@@ -21,9 +21,10 @@ export default (
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
-                <Route path="/donors/:donorId/donations" render={(props)=> <DonationList {...props} />} />
+                <Route path={`/donors/:donorId/donations`} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors" component={Donors} />
-            {/* </Route> */}
         </Switch>
     </BrowserRouter>
 );
+
+

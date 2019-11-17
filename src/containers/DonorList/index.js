@@ -42,8 +42,10 @@ export class DonorList extends Component {
                         <th>Institution</th>
                     </tr>
                 </thead>
+             
                 <tbody>
-                    {data.map(donor => (
+                {this.state.data ?
+                    data.map(donor => (
                         <tr>
                             <td>{donor.id}</td>
                             <td><Link to={`/donors/${donor.id}/donations`}>{donor.donorName}</Link></td>
@@ -52,7 +54,8 @@ export class DonorList extends Component {
                             <td>{donor.address}</td>
                             <td>Institution</td>
                         </tr>
-                    ))}
+                    )) :''
+                }
                 </tbody>
             </Table>
         );
