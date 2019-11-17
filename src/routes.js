@@ -8,7 +8,7 @@ import Donor from "./containers/Donors";
 import DonorList from "./containers/DonorList";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
-import Donors from "./containers/Donors";
+import {Donors }from "./containers/Donors";
 
 
 import { Route, IndexRoute } from "react-router";

@@ -24,75 +24,82 @@ export default function Donor(props) {
   }
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
-    <Card style={{ width: '48rem' }}>
-  <Card.Header as="h5">Create Donor</Card.Header>
-  <Card.Body>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Card style={{ width: "48rem" }}>
+        <Card.Header as="h5">Create Donor</Card.Header>
+        <Card.Body>
+          <div className="Login">
+            <form onSubmit={handleSubmit}>
+              <Row>
+                <Col>
+                  <Form.Control placeholder="First name" />
+                </Col>
+                <Col>
+                  <Form.Control placeholder="Last name" />
+                </Col>
+              </Row>
+              <br></br>
+              <FormGroup controlId="email" bsSize="large">
+                <FormControl
+                  placeholder="Email"
+                  value={email}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                />
+              </FormGroup>
+              <br></br>
+              <FormGroup controlId="email" bsSize="large">
+                <FormControl
+                  placeholder="Phone"
+                  value={email}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                />
+              </FormGroup>
+              <br></br>
+              <FormGroup controlId="address" bsSize="large">
+                <FormControl
+                  placeholder="Street"
+                  value={email}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                />
+              </FormGroup>
+              <br></br>
+              <Row>
+                <Col>
+                  <Form.Control placeholder="City" />
+                </Col>
+                <Col>
+                  <Form.Control placeholder="State" />
+                </Col>
+                <Col>
+                  <Form.Control placeholder="Zip" />
+                </Col>
+              </Row>
+              <br></br>
 
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <Row>
-    <Col>
-      <Form.Control placeholder="First name" />
-    </Col>
-    <Col>
-      <Form.Control placeholder="Last name" />
-    </Col>
-  </Row>
-  <br></br>
-        <FormGroup controlId="email" bsSize="large">
-          <FormControl placeholder="Email"
-            value={email}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <br></br>
-        <FormGroup controlId="email" bsSize="large">
-          <FormControl placeholder="Phone"
-            value={email}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <br></br>
-        <FormGroup controlId="address" bsSize="large">
-          <FormControl placeholder="Street"
-            value={email}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <br></br>
-        <Row>
-    <Col>
-      <Form.Control placeholder="City" />
-    </Col>
-    <Col>
-      <Form.Control placeholder="State" />
-    </Col>
-    <Col>
-      <Form.Control placeholder="Zip" />
-    </Col>
-  </Row>
-  <br></br>
-
-        <FormGroup controlId="address" bsSize="large">
-          <FormControl placeholder="Institution"
-            value={email}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <br></br>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Submit
-        </Button>
-      </form>
+              <FormGroup controlId="address" bsSize="large">
+                <FormControl
+                  placeholder="Institution"
+                  value={email}
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                />
+              </FormGroup>
+              <br></br>
+              <Button
+                block
+                bsSize="large"
+                disabled={!validateForm()}
+                type="submit"
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+        </Card.Body>
+      </Card>
     </div>
-
-  </Card.Body>
-</Card>
-</div>
   );
 }
