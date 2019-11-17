@@ -7,9 +7,6 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
 import FormControl from "react-bootstrap/FormControl";
-// import ControlLabel  from "react-bootstrap/ControlLabel";
-
-import "./Donor.css";
 
 export default function Donor(props) {
   const [email, setEmail] = useState("");

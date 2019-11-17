@@ -9,41 +9,33 @@ import Card from "react-bootstrap/Card";
 
 
 export default function DonationList(props) {
+    console.log(props);
     return (
-<Table responsive>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Contact Name</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-    </tr>
-  </tbody>
-</Table>
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Card style={{ width: "80em" }}>
+        <Table responsive>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Contact Name</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                </tr>
+            </tbody>
+        </Table>
+        </Card>
+        </div>
     )
 
 }

@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import * as Types from '../Donors/actionTypes';
 
 
 export function getAllDonors(){

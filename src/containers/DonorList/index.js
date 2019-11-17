@@ -1,41 +1,34 @@
 
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import FormGroup from "react-bootstrap/FormGroup";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Card from "react-bootstrap/Card";
 import { bindActionCreators } from "redux";
-import { exportSpecifier } from "@babel/types";
-// import { connect } from "tls";
 import { connect } from "react-redux";
 import * as actions from "./actions";
+import { Link } from "react-router-dom";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
-      }, dispatch);
-  }
+    }, dispatch);
+}
 
-export class DonorList extends Component  {
+export class DonorList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          data: []
+            data: []
         }
-      }
-    
-      componentWillMount() {
-        this.props.getAllDonors().then(response => {
-          console.log('Data fetched', response)
-          this.setState({
-            data: response.payload
-          })
-        })
-      }
+    }
 
-    render(){
+    componentWillMount() {
+        this.props.getAllDonors().then(response => {
+            this.setState({
+                data: response.payload
+            })
+        })
+    }
+
+    render() {
         const { data } = this.state;
         return (
             <Table responsive>
@@ -47,24 +40,24 @@ export class DonorList extends Component  {
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Institution</th>
-                    </tr>   
+                    </tr>
                 </thead>
                 <tbody>
-               { data.map(donor => (
-                    <tr>
-                        <td>{donor.id}</td>
-                        <td>{donor.donorName}</td>
-                        <td>{donor.email}</td>
-                        <td>{donor.phone}</td>
-                        <td>{donor.address}</td>
-                        <td>Institution</td>
-                    </tr>
-               ))}
+                    {data.map(donor => (
+                        <tr>
+                            <td>{donor.id}</td>
+                            <td><Link to={`/donors/${donor.id}/donations`}>{donor.donorName}</Link></td>
+                            <td>{donor.email}</td>
+                            <td>{donor.phone}</td>
+                            <td>{donor.address}</td>
+                            <td>Institution</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         );
     }
-    
+
 }
-  
-  export default connect(null,mapDispatchToProps)(DonorList);
+
+export default connect(null, mapDispatchToProps)(DonorList);
