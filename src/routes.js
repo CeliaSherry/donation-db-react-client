@@ -1,4 +1,6 @@
 import CreateDonor from "./containers/CreateDonor";
+import EditDonor from "./containers/EditDonor";
+
 // import {Switch, IndexRoute } from "react-router";
 import store from "./store.js";
 import React from "react";
@@ -21,6 +23,7 @@ export default (
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
+                <Route path={"/donor/:donorId/edit"} render={(props)=> <DonationList {...props} />}  component={EditDonor} />
                 <Route path={`/donors/:donorId/donations`} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors" component={Donors} />
         </Switch>

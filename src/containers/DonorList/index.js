@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -40,6 +41,7 @@ export class DonorList extends Component {
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Institution</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
              
@@ -53,6 +55,22 @@ export class DonorList extends Component {
                             <td>{donor.phone}</td>
                             <td>{donor.address}</td>
                             <td>Institution</td>
+                            <td>
+                                <Button
+                                style={{width: "8em", marginBottom: "10px", marginRight: "10px"}}
+                                href={`/donor/${donor.id}/edit`}
+                                variant="dark"
+                            >
+                                Edit Donor
+                            </Button>
+                                <Button
+                                style={{width: "8em", marginBottom: "10px"}}
+                                href="/donor/create"
+                                variant="danger"
+                            >
+                                Delete Donor
+                            </Button>
+                            </td>
                         </tr>
                     )) :''
                 }
