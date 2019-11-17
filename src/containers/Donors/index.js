@@ -24,8 +24,6 @@ export class Donors extends Component {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
-            <br></br>
-            <br></br>
             <DonorList />
           </Card>
         </div>
