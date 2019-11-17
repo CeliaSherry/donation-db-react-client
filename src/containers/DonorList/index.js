@@ -34,18 +34,6 @@ export class DonorList extends Component  {
           })
         })
       }
-    
-//     componentWillMount () {
-//          this.getAllDonors();
-//     }
-
-//   getAllDonors = () =>{
-//       try{
-//            this.props.getAllDonors()
-//       }catch(e){
-
-//       }
-//   };
 
     render(){
         const { data } = this.state;
@@ -54,8 +42,7 @@ export class DonorList extends Component  {
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Address</th>
@@ -67,7 +54,6 @@ export class DonorList extends Component  {
                     <tr>
                         <td>{donor.id}</td>
                         <td>{donor.donorName}</td>
-                        <td>Last Name</td>
                         <td>{donor.email}</td>
                         <td>{donor.phone}</td>
                         <td>{donor.address}</td>

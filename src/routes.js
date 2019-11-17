@@ -1,19 +1,15 @@
 import CreateDonor from "./containers/CreateDonor";
 import { Router, Switch } from "react-router";
-import store from "./store.js";
 import React from "react";
 import App from "./containers/App";
 import createHistory from "history/createBrowserHistory";
-import Donor from "./containers/Donors";
-import DonorList from "./containers/DonorList";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import {Donors }from "./containers/Donors";
 
 
-import { Route, IndexRoute } from "react-router";
+import { Route } from "react-router";
 
-import { BrowserRouter } from "react-router-dom";
 
 const history = createHistory();
 

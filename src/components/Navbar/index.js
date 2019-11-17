@@ -1,13 +1,10 @@
 import { Component } from "react";
-import styles from "./style.module.css";
-import { Link } from "react-router-dom";
 import React from 'react'
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import FormControl from "react-bootstrap/FormControl";
-import Card from "react-bootstrap/Card";
 
 export default class NavbarCustom extends Component{
     render(){
