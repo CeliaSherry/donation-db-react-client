@@ -29,18 +29,16 @@ export default function Institution(props) {
             <form onSubmit={handleSubmit}>
               <Row>
                 <Col>
-                  <Form.Control placeholder="Institution name" />
+                  <Form.Control placeholder="Institution Name" />
                 </Col>
               </Row>
               <br></br>
-              <FormGroup controlId="email" bsSize="large">
-                <FormControl
-                  placeholder="Address"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
-                />
-              </FormGroup>
+                <Row>
+                <Col>
+                  <Form.Control placeholder="Address" />
+                </Col>
+                </Row>
+                <br></br>
               <Row>
                 <Col>
                   <Form.Control placeholder="City" />
@@ -57,7 +55,7 @@ export default function Institution(props) {
               <Button
                 block
                 bsSize="large"
-                disabled={!validateForm()}
+                disabled={validateForm()}
                 type="submit"
               >
                 Submit
