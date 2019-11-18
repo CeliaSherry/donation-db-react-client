@@ -9,7 +9,7 @@ import { Donors } from "./containers/Donors";
 
 import { Route, BrowserRouter, Switch} from "react-router-dom";
 import { Institution } from "./containers/Institutions";
-import { InstitutionContacts } from "./containers/InstitutionContacts";
+import InstitutionContacts  from "./containers/InstitutionContacts";
 
 // import { Route } from "react-router";
 
