@@ -11,6 +11,7 @@ export class Donors extends Component {
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
+          <h3>Donors</h3>
             <Button
               style={{ float: "right", width: "10em", marginBottom: "10px"}}
               href="/donor/create"
@@ -23,8 +24,6 @@ export class Donors extends Component {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
-            <br></br>
-            <br></br>
             <DonorList />
           </Card>
         </div>

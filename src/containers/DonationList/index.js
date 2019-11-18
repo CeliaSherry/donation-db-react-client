@@ -6,6 +6,7 @@ import * as actions from "./actions";
 import Card from "react-bootstrap/Card";
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import { FaEdit,FaTrash} from 'react-icons/fa';
 
 
 function mapDispatchToProps(dispatch) {
@@ -35,7 +36,9 @@ export class DonationList extends Component {
         return (
             <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
+       
           <div style={{ width: "80em" }}>
+          <h3>Donations</h3>
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
               href="/donation/create"
@@ -54,9 +57,11 @@ export class DonationList extends Component {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Amount</th>
+                                <th data-field="donationAmount" data-sortable="true">Amount</th>
                                 <th>Date</th>
                                 <th>Notes</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +73,8 @@ export class DonationList extends Component {
                                         <td>{donation.donationAmount}</td>
                                         <td>{donation.donationDate}</td>
                                         <td>{donation.note}</td>
+                                        <td><FaEdit /></td>
+                                        <td><FaTrash/></td>
                                     </tr>
                                 ))
                                 : ''
