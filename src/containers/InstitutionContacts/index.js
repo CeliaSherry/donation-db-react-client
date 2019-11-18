@@ -49,27 +49,35 @@ export class InstitutionContacts extends Component {
         </div>
 
 
-            {/* <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
 
-                <Card style={{ width: "80em" }}>
+                <Card style={{ width: "80em", paddingLeft:"1em" }}>
                     <Table responsive>
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th data-field="donationAmount" data-sortable="true">Amount</th>
-                                <th>Date</th>
-                                <th>Notes</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zip Code</th>
                             </tr>
                         </thead>
                         <tbody>
                             {this.state.data.length > 0 ?
 
-                                this.state.data.map(donation => (
+                                this.state.data.map(contact => (
                                     <tr>
-                                        <td>{donation.id}</td>
-                                        <td>{donation.donationAmount}</td>
-                                        <td>{donation.donationDate}</td>
-                                        <td>{donation.note}</td>
+                                        <td>{contact.id}</td>
+                                        <td>{contact.contactName}</td>
+                                        <td>{contact.phone}</td>
+                                        <td>{contact.email}</td>
+                                        <td>{contact.address}</td>
+                                        <td>{contact.city}</td>
+                                        <td>{contact.state}</td>
+                                        <td>{contact.zipCode}</td>
                                     </tr>
                                 ))
                                 : ''
@@ -77,7 +85,7 @@ export class InstitutionContacts extends Component {
                         </tbody>
                     </Table>
                 </Card>
-            </div>  */}
+            </div> 
              </div >
     )
     }
