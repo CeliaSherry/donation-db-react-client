@@ -11,7 +11,8 @@ export class Institution extends Component {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ width: "80em" }}>
+          <div style={{ width: "80em", paddingLeft: "1em" }}>
+          <h3>Institutions</h3>
             <Button
               style={{ float: "right", width: "10em", marginBottom: "10px"}}
               href="/institutions/create"
