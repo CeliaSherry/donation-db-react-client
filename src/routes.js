@@ -11,6 +11,7 @@ import { Donors } from "./containers/Donors";
 
 import { Route, BrowserRouter, Switch} from "react-router-dom";
 import { Institution } from "./containers/Institutions";
+import { InstitutionContacts } from "./containers/InstitutionContacts";
 
 // import { Route } from "react-router";
 
@@ -28,7 +29,7 @@ export default (
                 //institutions bit
                 <Route exact path="/" component={Institution} />
                 <Route path="/institutions/create" component={CreateInstitution} />
-                <Route path={`/donors/:donorId/donations`} render={(props)=> <DonationList {...props} />} />
+                {/* <Route path={`/institutions/:institutionId/contacts`} render={(props)=> <DonationList {...props} />} /> */}
                 <Route path="/institutions" component={Institution} />
         </Switch>
     </BrowserRouter>
