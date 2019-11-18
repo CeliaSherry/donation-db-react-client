@@ -49,11 +49,11 @@ export class InstitutionList extends Component {
                     data.map(institution => (
                         <tr>
                             <td>{institution.id}</td>
-                            <td><Link to={`/institutions/${institution.id}`}>{institution.institutionName}</Link></td>
-                            <td>{institution.email}</td>
-                            <td>{institution.phone}</td>
+                            <td><Link to={`/institutions/${institution.id}/donations`}>{institution.institutionName}</Link></td>
                             <td>{institution.address}</td>
-                            <td>Institution</td>
+                            <td>{institution.city}</td>
+                            <td>{institution.state}</td>
+                            <td>{institution.zipCode}</td>
                         </tr>
                     )) :''
                 }
