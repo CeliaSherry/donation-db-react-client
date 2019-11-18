@@ -29,40 +29,18 @@ export default function Institution(props) {
             <form onSubmit={handleSubmit}>
               <Row>
                 <Col>
-                  <Form.Control placeholder="First name" />
-                </Col>
-                <Col>
-                  <Form.Control placeholder="Last name" />
+                  <Form.Control placeholder="Institution name" />
                 </Col>
               </Row>
               <br></br>
               <FormGroup controlId="email" bsSize="large">
                 <FormControl
-                  placeholder="Email"
+                  placeholder="Address"
                   value={email}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
                 />
               </FormGroup>
-              <br></br>
-              <FormGroup controlId="email" bsSize="large">
-                <FormControl
-                  placeholder="Phone"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
-                />
-              </FormGroup>
-              <br></br>
-              <FormGroup controlId="address" bsSize="large">
-                <FormControl
-                  placeholder="Street"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
-                />
-              </FormGroup>
-              <br></br>
               <Row>
                 <Col>
                   <Form.Control placeholder="City" />
@@ -75,15 +53,6 @@ export default function Institution(props) {
                 </Col>
               </Row>
               <br></br>
-
-              <FormGroup controlId="address" bsSize="large">
-                <FormControl
-                  placeholder="Institution"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
-                />
-              </FormGroup>
               <br></br>
               <Button
                 block
