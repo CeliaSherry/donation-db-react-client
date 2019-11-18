@@ -16,31 +16,31 @@ function mapDispatchToProps(dispatch) {
 
 export class InstitutionContacts extends Component {
     constructor(props) {
-        super(props)
+        super(props)   
         this.state = {
             data: []
         }
     }
 
     componentWillMount() {
-        this.props.getContacts(this.props.match.params.institutionId).then(response => {
-            this.setState({
-                data: response.payload
-            })
-        })
+        // this.props.getContacts(this.props.match.params.institutionId).then(response => {
+        //     this.setState({
+        //         data: response.payload
+        //     })
+        // })
     }
 
     render() {
         const { data } = this.state;
         return (
             <div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "left", justifyContent: "center" }}>
        
-          <div style={{ width: "80em" }}>
+          <div style={{ width: "80em", paddingLeft: "2em" }}>
           <h3>Contacts</h3>
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
-              href="/institution/create"
+              href="/institutions/create"
               variant="dark"
             >
               Add Contact

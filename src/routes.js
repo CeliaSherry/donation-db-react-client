@@ -1,9 +1,7 @@
 import CreateDonor from "./containers/CreateDonor";
 // import {Switch, IndexRoute } from "react-router";
 import CreateInstitution from "./containers/CreateInstitution";
-import store from "./store.js";
 import React from "react";
-import App from "./containers/App";
 import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
@@ -29,7 +27,7 @@ export default (
                 //institutions bit
                 <Route exact path="/" component={Institution} />
                 <Route path="/institutions/create" component={CreateInstitution} />
-                {/* <Route path={`/institutions/:institutionId/contacts`} render={(props)=> <DonationList {...props} />} /> */}
+                <Route path={`/institutions/:institutionId/contacts`} render={(props)=> <InstitutionContacts {...props} />} />
                 <Route path="/institutions" component={Institution} />
         </Switch>
     </BrowserRouter>
