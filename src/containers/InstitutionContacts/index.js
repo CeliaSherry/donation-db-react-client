@@ -34,13 +34,13 @@ export class InstitutionContacts extends Component {
         const { data } = this.state;
         return (
             <div>
-        <div style={{ display: "left", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
        
           <div style={{ width: "80em", paddingLeft: "2em" }}>
           <h3>Contacts</h3>
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
-              href="/institutions/create"
+              href="/contacts/create"
               variant="dark"
             >
               Add Contact
