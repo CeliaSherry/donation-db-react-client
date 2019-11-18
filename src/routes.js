@@ -23,7 +23,7 @@ export default (
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
-                <Route path={"/donor/:donorId/edit"} render={(props)=> <DonationList {...props} />}  component={EditDonor} />
+                <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={`/donors/:donorId/donations`} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors" component={Donors} />
         </Switch>

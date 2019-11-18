@@ -1,7 +1,6 @@
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import Button from "react-bootstrap/Button";
 import FormGroup from "react-bootstrap/FormGroup";
-import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
@@ -20,25 +19,27 @@ export class EditDonor extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {},
-      id: "",
       name: "",
       phone: "",
       email: "",
       address: "",
       city: "",
-      state: "",
+      addrState: "",
       zipCode: "",
-      setEmail: "",
-      password: "",
-      setPassword: ""
+      institution: ""
     }
   }
 
   componentDidMount() {
     this.props.getDonor(this.props.match.params.donorId).then(response => {
       this.setState({
-        data: response.payload,
+        name: response.payload.donorName,
+        phone: response.payload.phone,
+        email: response.payload.email,
+        address: response.payload.address,
+        city: response.payload.city,
+        addrState: response.payload.state,
+        zipCode: response.payload.zipCode
       })
     })
   }
@@ -55,74 +56,107 @@ export class EditDonor extends Component {
 
   render() {
     return (
-    <div style={{display: "flex", justifyContent: "center"}}>
+
+        <div style={{display: "flex", justifyContent: "center"}}>
           <Card style={{width: "48rem"}}>
             <Card.Header as="h5">Edit Donor</Card.Header>
             <Card.Body>
-              <div className="Login">
+              <div className="Edit Donor">
                 <form onSubmit={this.handleSubmit}>
                   <Row>
                     <Col>
-                      <Form.Control placeholder= "First Name" />
-                    </Col>
-                    <Col>
-                      <Form.Control placeholder=  {this.state.data.email != null ?
-                           (this.state.id):'Last Name'}
-                          />
+                      <label htmlFor="inputFullName">Full Name</label>
+                      {(this.state.name != null) ?
+                          <FormControl value={this.state.name}
+                                       onChange={e => this.setState({name: e.target.value})}
+                                       type="text"/>
+                          : <FormControl value={this.name}
+                                         onChange={e => this.setState({name: e.target.value})}
+                                         type="text"/>}
                     </Col>
                   </Row>
                   <br></br>
                   <FormGroup controlId="email" bsSize="large">
-                    <FormControl
-                        placeholder={this.state.data.email != null ?
-                            (this.state.data.email): 'Email'}
-                        value={this.email}
-                        onChange={e => this.setState({
-                          email: e.target.value})}
-                        type="text"
-                    />
+                    <label htmlFor="inputEmail">Email Address</label>
+                    {(this.state.email != null) ?
+                        <FormControl value={this.state.email}
+                                     onChange={e => this.setState({email: e.target.value})}
+                                     type="text"/>
+                        : <FormControl value={this.email}
+                                       onChange={e => this.setState({email: e.target.value})}
+                                       type="text"/>}
                   </FormGroup>
                   <br></br>
+                  <label htmlFor="inputPhone">Phone Number</label>
                   <FormGroup controlId="phone" bsSize="large">
-                    <FormControl
-                        placeholder={this.state.data.phone != null ?
-                        (this.state.data.phone): 'Phone'}
-                        value={this.phone}
-                        onChange={e => this.setState({
-                          phone: e.target.value})}
-                        type="text"
-                    />
+                    {(this.state.phone != null) ?
+                        <FormControl value={this.state.phone}
+                                     onChange={e => this.setState({phone: e.target.value})}
+                                     type="text"/>
+                        : <FormControl value={this.phone}
+                                       onChange={e => this.setState({phone: e.target.value})}
+                                       type="text"/>}
                   </FormGroup>
                   <br></br>
                   <FormGroup controlId="address" bsSize="large">
-                    <FormControl
-                        placeholder="Street"
-                        value={this.email}
-                        onChange={e => this.setPassword(e.target.value)}
-                        type="text"
-                    />
+                    <label htmlFor="inputStreet">Street Address</label>
+                    {(this.state.address != null) ?
+                        <FormControl value={this.state.address}
+                                     onChange={e => this.setState({address: e.target.value})}
+                                     type="text"/>
+                        : <FormControl value={this.address}
+                                       onChange={e => this.setState({address: e.target.value})}
+                                       type="text"/>}
                   </FormGroup>
                   <br></br>
                   <Row>
                     <Col>
-                      <Form.Control placeholder="City"/>
+                      <FormGroup controlId="city" bsSize="large">
+                        <label htmlFor="inputCity">City</label>
+                        {(this.state.city != null) ?
+                            <FormControl value={this.state.city}
+                                         onChange={e => this.setState({city: e.target.value})}
+                                         type="text"/>
+                            : <FormControl value={this.city}
+                                           onChange={e => this.setState({city: e.target.value})}
+                                           type="text"/>}
+                      </FormGroup>
                     </Col>
                     <Col>
-                      <Form.Control placeholder="State"/>
+                      <FormGroup controlId="state" bsSize="large">
+                        <label htmlFor="inputState">State</label>
+                        {(this.state.addrState != null) ?
+                            <FormControl value={this.state.addrState}
+                                         onChange={e => this.setState({addrState: e.target.value})}
+                                         type="text"/>
+                            : <FormControl value={this.addrState}
+                                           onChange={e => this.setState({addrState: e.target.value})}
+                                           type="text"/>}
+                      </FormGroup>
                     </Col>
                     <Col>
-                      <Form.Control placeholder="Zip"/>
+                      <FormGroup controlId="zip" bsSize="large">
+                        <label htmlFor="inputZip">Zip</label>
+                        {(this.state.zipCode != null) ?
+                            <FormControl value={this.state.zipCode}
+                                         onChange={e => this.setState({zipCode: e.target.value})}
+                                         type="text"/>
+                            : <FormControl value={this.zipCode}
+                                           onChange={e => this.setState({zipCode: e.target.value})}
+                                           type="text"/>}
+                      </FormGroup>
                     </Col>
                   </Row>
                   <br></br>
-
                   <FormGroup controlId="institution" bsSize="large">
-                    <FormControl
-                        placeholder="Institution"
-                        value={this.email}
-                        onChange={e => this.setPassword(e.target.value)}
-                        type="password"
-                    />
+                    <label htmlFor="inputInstitution">Institution</label>
+                    {(this.state.institution != null) ?
+                        <FormControl value={this.state.institution}
+                                     onChange={e => this.setState({institution: e.target.value})}
+                                     type="text"/>
+                        : <FormControl value={this.city}
+                                       onChange={e => this.setState({institution: e.target.value})}
+                                       type="text"/>}
                   </FormGroup>
                   <br></br>
                   <Button
@@ -132,6 +166,15 @@ export class EditDonor extends Component {
                       type="submit"
                   >
                     Save
+                  </Button>
+                  <Button
+                      block
+                      bsSize="large"
+                      href={`/donors`}
+                      // disabled={!this.validateForm()}
+                      type="submit"
+                  >
+                    Cancel
                   </Button>
                 </form>
               </div>

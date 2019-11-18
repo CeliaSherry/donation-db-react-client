@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
+import { FaEdit,FaTrash} from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 
 function mapDispatchToProps(dispatch) {
