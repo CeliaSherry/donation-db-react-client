@@ -23,11 +23,11 @@ export class InstitutionContacts extends Component {
     }
 
     componentWillMount() {
-        // this.props.getContacts(this.props.match.params.institutionId).then(response => {
-        //     this.setState({
-        //         data: response.payload
-        //     })
-        // })
+        this.props.getContacts(this.props.match.params.institutionId).then(response => {
+            this.setState({
+                data: response.payload
+            })
+        })
     }
 
     render() {
