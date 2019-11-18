@@ -5,14 +5,15 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
+import Institution from "../CreateInstitution";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        getAllDonors: actions.getAllDonors,
+        getAllInstitutions: actions.getAllInstitutions,
     }, dispatch);
 }
 
-export class DonorList extends Component {
+export class InstitutionList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,7 +22,7 @@ export class DonorList extends Component {
     }
 
     componentWillMount() {
-        this.props.getAllDonors().then(response => {
+        this.props.getAllInstitutions().then(response => {
             this.setState({
                 data: response.payload
             }) 
@@ -36,22 +37,22 @@ export class DonorList extends Component {
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
                         <th>Address</th>
-                        <th>Institution</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
                     </tr>
                 </thead>
              
                 <tbody>
                 {this.state.data ?
-                    data.map(donor => (
+                    data.map(institution => (
                         <tr>
-                            <td>{donor.id}</td>
-                            <td><Link to={`/donors/${donor.id}/donations`}>{donor.donorName}</Link></td>
-                            <td>{donor.email}</td>
-                            <td>{donor.phone}</td>
-                            <td>{donor.address}</td>
+                            <td>{institution.id}</td>
+                            <td><Link to={`/institutions/${institution.id}`}>{institution.institutionName}</Link></td>
+                            <td>{institution.email}</td>
+                            <td>{institution.phone}</td>
+                            <td>{institution.address}</td>
                             <td>Institution</td>
                         </tr>
                     )) :''
@@ -63,4 +64,4 @@ export class DonorList extends Component {
 
 }
 
-export default connect(null, mapDispatchToProps)(DonorList);
+export default connect(null, mapDispatchToProps)(InstitutionList);
