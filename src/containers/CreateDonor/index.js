@@ -23,15 +23,21 @@ function mapDispatchToProps(dispatch) {
 export class CreateDonor extends Component{
   state = {
     donorName: '',
+    email: '',
+    phone: '',
+    address: '',
+    state: '',
+    city: '',
+    zip:'',
+    institution: '',
 
   }
 
    handleSubmit = (e) => {
      e.preventDefault();
-     const {donorName}  = this.state;
+     const {donorName,email,phone,address,state,city,zip,institution}  = this.state;
      const {createDonor} = this.props;
-
-    createDonor(donorName);
+    createDonor(donorName,email,phone,address,state,city,zip,institution);
   }
 
   
@@ -47,71 +53,60 @@ export class CreateDonor extends Component{
             <FormGroup bsSize="large">
                 <FormControl
                    onChange = {(e) => this.setState({ donorName: e.target.value})}
-                   placeholder="First name" 
+                   placeholder="Name" 
                 />
               </FormGroup>
-
-              {/* <Row>
-                <Col>
-                  <Form.Control 
-                   onChange = {(e) => this.setState({ firstName: e.target.value})}
-                   placeholder="First name" />
-                </Col>
-                <Col>
-                  <Form.Control placeholder="Last name" />
                   
-                </Col>
-              </Row> */}
-              {/* <br></br>
-              <FormGroup controlId="email" bsSize="large">
+              <br></br>
+              <FormGroup  bsSize="large">
                 <FormControl
-                  placeholder="Email"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
+                    onChange = {(e) => this.setState({ email: e.target.value})}
+                    placeholder="Email" 
                 />
               </FormGroup>
               <br></br>
-              <FormGroup controlId="email" bsSize="large">
+              <FormGroup  bsSize="large">
                 <FormControl
                   placeholder="Phone"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
+                  onChange = {(e) => this.setState({ phone: e.target.value})}
                 />
               </FormGroup>
               <br></br>
-              <FormGroup controlId="address" bsSize="large">
+              <FormGroup bsSize="large">
                 <FormControl
-                  placeholder="Street"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
+                  placeholder="Address"
+                  onChange = {(e) => this.setState({ address: e.target.value})}
                 />
               </FormGroup>
               <br></br>
               <Row>
                 <Col>
-                  <Form.Control placeholder="City" />
+                  <Form.Control 
+                  placeholder="City"
+                  onChange = {(e) => this.setState({ city: e.target.value})}
+                   />
                 </Col>
                 <Col>
-                  <Form.Control placeholder="State" />
+                  <Form.Control 
+                  placeholder="State" 
+                  onChange = {(e) => this.setState({ state: e.target.value})}
+                  />
                 </Col>
                 <Col>
-                  <Form.Control placeholder="Zip" />
+                  <Form.Control 
+                  placeholder="Zip"
+                  onChange = {(e) => this.setState({ zip: e.target.value})}
+                   />
                 </Col>
               </Row>
               <br></br>
 
-              <FormGroup controlId="address" bsSize="large">
+              <FormGroup bsSize="large">
                 <FormControl
                   placeholder="Institution"
-                  value={email}
-                  onChange={e => setPassword(e.target.value)}
-                  type="password"
-                />
+                  onChange = {(e) => this.setState({ institution: e.target.value})}                />
               </FormGroup>
-              <br></br> */}
+              <br></br> 
               <Button
                 block
                 bssize="large"

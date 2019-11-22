@@ -1,8 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function createDonor(donorName){
-    console.log(donorName);
+export function createDonor(donorName,email,phone,address,state,city,zip,institution){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -12,7 +11,14 @@ export function createDonor(donorName){
               },
             endpoint: `http://localhost:8080/api/donors`,
             body:    JSON.stringify({
-               donorName: donorName 
+               donorName: donorName,
+               email: email,
+               phone: phone,
+               address: address,
+               state: state,
+               city: city,
+               zip:zip,
+               institution: institution, 
               }),
             method:'POST',
         },
