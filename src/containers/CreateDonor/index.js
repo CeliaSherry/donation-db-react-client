@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import Button from "react-bootstrap/Button";
 import FormGroup from "react-bootstrap/FormGroup";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
+import { bindActionCreators } from "redux";
+import * as actions from "./actions";
+import { connect } from "react-redux";
+
 
 import FormControl from "react-bootstrap/FormControl";
 
-export default function Donor(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    createDonor: actions.createDonor,
+  }, dispatch);
+}
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
+
+
+export class CreateDonor extends Component{
+  state = {
+    donorName: '',
+
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+   handleSubmit = (e) => {
+     e.preventDefault();
+     const {donorName}  = this.state;
+     const {createDonor} = this.props;
+
+    createDonor(donorName);
   }
+
+  
+  render(){
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -26,16 +43,26 @@ export default function Donor(props) {
         <Card.Header as="h5">Create Donor</Card.Header>
         <Card.Body>
           <div className="Login">
-            <form onSubmit={handleSubmit}>
-              <Row>
+            <Form >
+            <FormGroup bsSize="large">
+                <FormControl
+                   onChange = {(e) => this.setState({ donorName: e.target.value})}
+                   placeholder="First name" 
+                />
+              </FormGroup>
+
+              {/* <Row>
                 <Col>
-                  <Form.Control placeholder="First name" />
+                  <Form.Control 
+                   onChange = {(e) => this.setState({ firstName: e.target.value})}
+                   placeholder="First name" />
                 </Col>
                 <Col>
                   <Form.Control placeholder="Last name" />
+                  
                 </Col>
-              </Row>
-              <br></br>
+              </Row> */}
+              {/* <br></br>
               <FormGroup controlId="email" bsSize="large">
                 <FormControl
                   placeholder="Email"
@@ -84,19 +111,21 @@ export default function Donor(props) {
                   type="password"
                 />
               </FormGroup>
-              <br></br>
+              <br></br> */}
               <Button
                 block
-                bsSize="large"
-                disabled={!validateForm()}
-                type="submit"
+                bssize="large"
+                onClick={this.handleSubmit}
               >
                 Submit
               </Button>
-            </form>
+            </Form>
           </div>
         </Card.Body>
       </Card>
     </div>
   );
+  }
 }
+
+export default connect(null, mapDispatchToProps)(CreateDonor);
