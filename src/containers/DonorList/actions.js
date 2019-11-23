@@ -10,3 +10,13 @@ export function getAllDonors(){
         },
     };
 }
+
+export function deleteDonor(donorId){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donor/${donorId}`,
+            method:'DELETE',
+        },
+    };
+}

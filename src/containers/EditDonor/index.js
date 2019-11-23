@@ -29,7 +29,7 @@ export class EditDonor extends Component {
       address: "",
       city: "",
       addrState: "",
-      zipCode: "",
+      zipCode: -1,
       institution: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -168,7 +168,7 @@ export class EditDonor extends Component {
                         <Col>
                           <FormGroup controlId="zip" bsSize="large">
                             <label htmlFor="inputZip">Zip</label>
-                            {(this.state.zipCode != null) ?
+                            {(this.state.zipCode !== -1) ?
                                 <FormControl value={this.state.zipCode}
                                              onChange={e => this.setState({zipCode: e.target.value})}
                                              type="text"/>

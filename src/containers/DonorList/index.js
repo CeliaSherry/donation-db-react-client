@@ -7,16 +7,19 @@ import * as actions from "./actions";
 import { Link } from "react-router-dom";
 import { FaEdit,FaTrash} from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
+        deleteDonor: actions.deleteDonor
     }, dispatch);
 }
 
 export class DonorList extends Component {
     constructor(props) {
         super(props)
+        this.myRef = React.createRef();
         this.state = {
             data: []
         }
@@ -30,10 +33,37 @@ export class DonorList extends Component {
         })
     }
 
+
+    handleSubmit = (id) => {
+       //e.preventDefault();
+        const { deleteDonor } = this.props;
+        deleteDonor(id).then(response => {
+            this.setState({ submitted: true })
+            if (response.type === 'SUCCESS') {
+                this.setState({ success: true })
+            }
+            if (response.type === 'FAILURE') {
+                this.setState({ success: false })
+            }
+            setTimeout(() => {
+                this.setState({ submitted: false });
+            }, 3000);
+        });
+        window.scrollTo(0, this.myRef.current.top);
+    }
     render() {
         const { data } = this.state;
-        console.log(data);
+        //console.log(data);
         return (
+            <div>
+                <div ref={this.myRef}/>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    {this.state.success && this.state.submitted ?
+                        <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
+                            deletion</Alert>
+                        : !this.state.success && this.state.submitted ?
+                            <Alert style={{width: "48rem"}} variant='danger'> Error!</Alert> : ''}
+                </div>
             <Table responsive>
                 <thead>
                     <tr>
@@ -67,6 +97,7 @@ export class DonorList extends Component {
                             </Button>
                                 <Button
                                 style={{width: "8em", marginBottom: "10px"}}
+                                onClick={this.handleSubmit(donor.id)}
                                 href="/donor/create"
                                 variant="danger"
                             >
@@ -78,6 +109,7 @@ export class DonorList extends Component {
                 }
                 </tbody>
             </Table>
+            </div>
         );
     }
 
