@@ -32,6 +32,7 @@ export class DonorList extends Component {
 
     render() {
         const { data } = this.state;
+        console.log(data);
         return (
             <Table responsive>
                 <thead>
@@ -47,7 +48,7 @@ export class DonorList extends Component {
                 </thead>
              
                 <tbody>
-                {this.state.data ?
+                {this.state.data?
                     data.map(donor => (
                         <tr>
                             <td>{donor.id}</td>
