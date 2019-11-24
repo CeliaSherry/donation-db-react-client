@@ -94,12 +94,14 @@ export class DonorList extends Component {
                             <td>Institution</td>
                             <td>
                                 <Button
+                                title = "Edit"
                                 style={{ marginBottom: "10px", marginRight: "10px"}}
                                 href={`/donor/${donor.id}/edit`}
                                 variant="clear" >
                                     <FaEdit/>
                             </Button>
                                 <Button
+                                title = "Delete"
                                 style={{marginBottom: "10px"}}
                                 onClick={(e) => this.handleSubmit(e, donor.id, index)}
                                 variant="clear"

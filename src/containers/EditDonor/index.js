@@ -10,7 +10,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Alert from "react-bootstrap/Alert";
 
-//TODO get zipcode update and institution get and update to work!  Rerender list and forms on back button
+//TODO get institution to work! Fix zipcode leading 0 issue
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getDonor: actions.getDonor,
@@ -29,7 +29,7 @@ export class EditDonor extends Component {
       address: "",
       city: "",
       addrState: "",
-      zipCode: null,
+      zipCode: "",
       institution: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +44,7 @@ export class EditDonor extends Component {
         address: response.payload.address,
         city: response.payload.city,
         addrState: response.payload.state,
-        zipCode: response.payload.zipCode != null ? toString(response.payload.zipCode) : null,
+        zipCode:  response.payload.zipCode,
         institution: response.payload.institution
       })
     })
@@ -62,10 +62,11 @@ export class EditDonor extends Component {
     e.preventDefault();
     const { name, email, phone, address, addrState, city, zipCode, institution } = this.state;
     const { updateDonor } = this.props;
-    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, parseInt(zipCode), institution).then(response => {
+    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, institution).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
+          //this.props.history.push('/donors')
       }
       if (response.type === 'FAILURE') {
         this.setState({ success: false })
@@ -97,97 +98,65 @@ export class EditDonor extends Component {
                       <Row>
                         <Col>
                           <label htmlFor="inputFullName">Full Name</label>
-                          {(this.state.name != null) ?
-                              <FormControl value={this.state.name}
-                                           onChange={e => this.setState({name: e.target.value})}
-                                           type="text"/>
-                              : <FormControl value={this.name}
-                                             onChange={e => this.setState({name: e.target.value})}
-                                             type="text"/>}
+                            <FormControl value={this.state.name || ''}
+                                         onChange={e => this.setState({name: e.target.value})}
+                                         type="text"/>
                         </Col>
                       </Row>
                       <br></br>
                       <FormGroup controlId="email" bsSize="large">
                         <label htmlFor="inputEmail">Email Address</label>
-                        {(this.state.email != null) ?
-                            <FormControl value={this.state.email}
+                            <FormControl value={this.state.email || ''}
                                          onChange={e => this.setState({email: e.target.value})}
                                          type="email"/>
-                            : <FormControl value={this.email}
-                                           onChange={e => this.setState({email: e.target.value})}
-                                           type="email"/>}
                       </FormGroup>
-                      <br></br>
+                        <br></br>
                       <label htmlFor="inputPhone">Phone Number</label>
                       <FormGroup controlId="phone" bsSize="large">
-                        {(this.state.phone != null) ?
-                            <FormControl value={this.state.phone}
-                                         onChange={e => this.setState({phone: e.target.value})}
-                                         type="text"/>
-                            : <FormControl value={this.phone}
-                                           onChange={e => this.setState({phone: e.target.value})}
-                                           type="text"/>}
+                          <FormControl value={this.state.phone || ''}
+                                       onChange={e => this.setState({phone: e.target.value})}
+                                       type="text"/>
                       </FormGroup>
                       <br></br>
                       <FormGroup controlId="address" bsSize="large">
                         <label htmlFor="inputStreet">Street Address</label>
-                        {(this.state.address != null) ?
-                            <FormControl value={this.state.address}
-                                         onChange={e => this.setState({address: e.target.value})}
-                                         type="text"/>
-                            : <FormControl value={this.address}
-                                           onChange={e => this.setState({address: e.target.value})}
-                                           type="text"/>}
+                          <FormControl value={this.state.address || ''}
+                                       onChange={e => this.setState({address: e.target.value})}
+                                       type="text"/>
                       </FormGroup>
                       <br></br>
                       <Row>
                         <Col>
                           <FormGroup controlId="city" bsSize="large">
                             <label htmlFor="inputCity">City</label>
-                            {(this.state.city != null) ?
-                                <FormControl value={this.state.city}
-                                             onChange={e => this.setState({city: e.target.value})}
-                                             type="text"/>
-                                : <FormControl value={this.city}
-                                               onChange={e => this.setState({city: e.target.value})}
-                                               type="text"/>}
+                              <FormControl value={this.state.city || ''}
+                                           onChange={e => this.setState({city: e.target.value})}
+                                           type="text"/>
                           </FormGroup>
                         </Col>
                         <Col>
                           <FormGroup controlId="state" bsSize="large">
                             <label htmlFor="inputState">State</label>
-                            {(this.state.addrState != null) ?
-                                <FormControl value={this.state.addrState}
-                                             onChange={e => this.setState({addrState: e.target.value})}
-                                             type="text"/>
-                                : <FormControl value={this.addrState}
-                                               onChange={e => this.setState({addrState: e.target.value})}
-                                               type="text"/>}
+                              <FormControl value={this.state.addrState || ''}
+                                           onChange={e => this.setState({addrState: e.target.value})}
+                                           type="text"/>
                           </FormGroup>
                         </Col>
                         <Col>
                           <FormGroup controlId="zip" bsSize="large">
                             <label htmlFor="inputZip">Zip</label>
-                            {(this.state.zipCode != null) ?
-                                <FormControl value={this.state.zipCode}
-                                             onChange={event => this.setState({zipCode: event.target.value.replace(/\D/,'')})}
-                                             />
-                                : <FormControl value={this.zipCode}
-                                               onChange={event => this.setState({zipCode:  event.target.value.replace(/\D/,'')})}
-                                               type="text"/>}
+                              <FormControl value={this.state.zipCode || ''}
+                                           onChange={e => this.setState({zipCode: e.target.value.replace(/\D/,'')})}
+                                           type="text"/>
                           </FormGroup>
                         </Col>
                       </Row>
                       <br></br>
                       <FormGroup controlId="institution" bsSize="large">
                         <label htmlFor="inputInstitution">Institution</label>
-                        {(this.state.institution != null) ?
-                            <FormControl value={this.state.institution}
-                                         onChange={e => this.setState({institution: e.target.value})}
-                                         type="text"/>
-                            : <FormControl value={this.institution}
-                                           onChange={e => this.setState({institution: e.target.value})}
-                                           type="text"/>}
+                          <FormControl value={this.state.institution || ''}
+                                       onChange={e => this.setState({institution: e.target.value})}
+                                       type="text"/>
                       </FormGroup>
 
                       <br></br>

@@ -27,7 +27,7 @@ export function updateDonor(donorId, donorName,email,phone,address,state,city,zi
                 address: address,
                 state: state,
                 city: city,
-                zip:zip,
+                zipCode: zip,
                 institution: institution,
             }),
             method:'PUT',
