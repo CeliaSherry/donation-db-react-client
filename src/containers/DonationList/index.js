@@ -32,7 +32,7 @@ export class DonationList extends Component {
     }
 
     render() {
-        const { data } = this.state;
+        // const { data } = this.state;
         return (
             <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
