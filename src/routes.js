@@ -11,6 +11,7 @@ import { Donors } from "./containers/Donors";
 import { Route, BrowserRouter, Switch} from "react-router-dom";
 import { Institution } from "./containers/Institutions";
 import InstitutionContacts  from "./containers/InstitutionContacts";
+import { Contacts } from "./containers/Contacts";
 
 // import { Route } from "react-router";
 
@@ -31,7 +32,9 @@ export default (
                 <Route path={`/institutions/:institutionId/contacts`} render={(props)=> <InstitutionContacts {...props} />} />
                 <Route path="/institutions" component={Institution} />
                 //contacts
+                <Route exact path="/" component={Contacts} />
                 <Route path="/contacts/create" component={CreateContact} />
+                <Route path="/contacts" component={Contacts} />
         </Switch>
     </BrowserRouter>
 );

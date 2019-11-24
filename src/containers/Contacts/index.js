@@ -1,8 +1,7 @@
-import DonorList from "../DonorList";
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import InstitutionList from "../InstitutionList";
+import  ContactList from "../ContactList";
 
 
 export class Contacts extends Component {
@@ -23,13 +22,13 @@ export class Contacts extends Component {
           </div>
         </div>
 
-        {/* <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
             <br></br>
             <br></br>
-            <InstitutionList />
+            <ContactList />
           </Card>
-        </div> */}
+        </div>
       </div>
     );
   }

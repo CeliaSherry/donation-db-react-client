@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        getAllInstitutions: actions.getAllInstitutions,
+        getAllContacts: actions.getAllContacts,
     }, dispatch);
 }
 
-export class InstitutionList extends Component {
+export class ContactList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -21,7 +21,7 @@ export class InstitutionList extends Component {
     }
 
     componentWillMount() {
-        this.props.getAllInstitutions().then(response => {
+        this.props.getAllContacts().then(response => {
             this.setState({
                 data: response.payload
             }) 
@@ -40,19 +40,21 @@ export class InstitutionList extends Component {
                         <th>City</th>
                         <th>State</th>
                         <th>Zip Code</th>
+                        <th>Institution</th>
                     </tr>
                 </thead>
              
                 <tbody>
                 {this.state.data ?
-                    data.map(institution => (
+                    data.map(contact => (
                         <tr>
-                            <td>{institution.id}</td>
-                            <td><Link to={`/institutions/${institution.id}/contacts`}>{institution.institutionName}</Link></td>
-                            <td>{institution.address}</td>
-                            <td>{institution.city}</td>
-                            <td>{institution.state}</td>
-                            <td>{institution.zipCode}</td>
+                            <td>{contact.id}</td>
+                            <td>{contact.contactName}</td>
+                            <td>{contact.address}</td>
+                            <td>{contact.city}</td>
+                            <td>{contact.state}</td>
+                            <td>{contact.zipCode}</td>
+                            <td>{contact.institutionName}</td>
                         </tr>
                     )) :''
                 }
@@ -63,4 +65,4 @@ export class InstitutionList extends Component {
 
 }
 
-export default connect(null, mapDispatchToProps)(InstitutionList);
+export default connect(null, mapDispatchToProps)(ContactList);
