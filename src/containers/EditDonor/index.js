@@ -29,7 +29,7 @@ export class EditDonor extends Component {
       address: "",
       city: "",
       addrState: "",
-      zipCode: -1,
+      zipCode: null,
       institution: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +44,7 @@ export class EditDonor extends Component {
         address: response.payload.address,
         city: response.payload.city,
         addrState: response.payload.state,
-        zipCode: response.payload.zipCode,
+        zipCode: response.payload.zipCode != null ? toString(response.payload.zipCode) : null,
         institution: response.payload.institution
       })
     })
@@ -62,7 +62,7 @@ export class EditDonor extends Component {
     e.preventDefault();
     const { name, email, phone, address, addrState, city, zipCode, institution } = this.state;
     const { updateDonor } = this.props;
-    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, institution).then(response => {
+    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, parseInt(zipCode), institution).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -112,10 +112,10 @@ export class EditDonor extends Component {
                         {(this.state.email != null) ?
                             <FormControl value={this.state.email}
                                          onChange={e => this.setState({email: e.target.value})}
-                                         type="text"/>
+                                         type="email"/>
                             : <FormControl value={this.email}
                                            onChange={e => this.setState({email: e.target.value})}
-                                           type="text"/>}
+                                           type="email"/>}
                       </FormGroup>
                       <br></br>
                       <label htmlFor="inputPhone">Phone Number</label>
@@ -168,12 +168,12 @@ export class EditDonor extends Component {
                         <Col>
                           <FormGroup controlId="zip" bsSize="large">
                             <label htmlFor="inputZip">Zip</label>
-                            {(this.state.zipCode !== -1) ?
+                            {(this.state.zipCode != null) ?
                                 <FormControl value={this.state.zipCode}
-                                             onChange={e => this.setState({zipCode: e.target.value})}
-                                             type="text"/>
+                                             onChange={event => this.setState({zipCode: event.target.value.replace(/\D/,'')})}
+                                             />
                                 : <FormControl value={this.zipCode}
-                                               onChange={e => this.setState({zipCode: e.target.value})}
+                                               onChange={event => this.setState({zipCode:  event.target.value.replace(/\D/,'')})}
                                                type="text"/>}
                           </FormGroup>
                         </Col>

@@ -34,13 +34,15 @@ export class DonorList extends Component {
     }
 
 
-    handleSubmit = (id) => {
-       //e.preventDefault();
+    handleSubmit = (e, id, index) => {
+       e.preventDefault();
         const { deleteDonor } = this.props;
         deleteDonor(id).then(response => {
             this.setState({ submitted: true })
             if (response.type === 'SUCCESS') {
-                this.setState({ success: true })
+                this.setState({
+                    success: true,
+                    data: this.state.data.filter((_, i) => i !== index)})
             }
             if (response.type === 'FAILURE') {
                 this.setState({ success: false })
@@ -50,13 +52,16 @@ export class DonorList extends Component {
             }, 3000);
         });
         window.scrollTo(0, this.myRef.current.top);
+
     }
+
+
     render() {
         const { data } = this.state;
         //console.log(data);
         return (
             <div>
-                <div ref={this.myRef}/>
+               <div ref={this.myRef}/>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     {this.state.success && this.state.submitted ?
                         <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
@@ -79,7 +84,7 @@ export class DonorList extends Component {
              
                 <tbody>
                 {this.state.data?
-                    data.map(donor => (
+                    data.map((donor, index) => (
                         <tr>
                             <td>{donor.id}</td>
                             <td><Link to={`/donors/${donor.id}/donations`}>{donor.donorName}</Link></td>
@@ -89,19 +94,17 @@ export class DonorList extends Component {
                             <td>Institution</td>
                             <td>
                                 <Button
-                                style={{width: "8em", marginBottom: "10px", marginRight: "10px"}}
+                                style={{ marginBottom: "10px", marginRight: "10px"}}
                                 href={`/donor/${donor.id}/edit`}
-                                variant="dark"
-                            >
-                                Edit Donor
+                                variant="clear" >
+                                    <FaEdit/>
                             </Button>
                                 <Button
-                                style={{width: "8em", marginBottom: "10px"}}
-                                onClick={this.handleSubmit(donor.id)}
-                                href="/donor/create"
-                                variant="danger"
+                                style={{marginBottom: "10px"}}
+                                onClick={(e) => this.handleSubmit(e, donor.id, index)}
+                                variant="clear"
                             >
-                                Delete Donor
+                                <FaTrash/>
                             </Button>
                             </td>
                         </tr>
