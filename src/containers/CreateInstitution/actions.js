@@ -2,7 +2,7 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function createInstitution(institutionName, address, state, city, zip) {
+export function createInstitution(institutionName, address, state, city, zipCode) {
     return {
         [RSAA]: {
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -16,7 +16,7 @@ export function createInstitution(institutionName, address, state, city, zip) {
                 address: address,
                 state: state,
                 city: city,
-                zip: zip,
+                zipCode: zipCode,
             }),
             method: 'POST',
         },

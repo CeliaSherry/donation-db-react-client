@@ -28,7 +28,7 @@ export class CreateInstitution extends Component {
     address: '',
     state: '',
     city: '',
-    zip: '',
+    zipCode: '',
     success: false,
     submitted: false,
     visible: false,
@@ -39,9 +39,9 @@ export class CreateInstitution extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { institutionName, address, state, city, zip } = this.state;
+    const { institutionName, address, state, city, zipCode } = this.state;
     const { createInstitution } = this.props;
-    createInstitution(institutionName, address, state, city, zip).then(response => {
+    createInstitution(institutionName, address, state, city, zipCode).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -105,7 +105,7 @@ export class CreateInstitution extends Component {
                     <Col>
                       <Form.Control
                         placeholder="Zip"
-                        onChange={(e) => this.setState({ zip: e.target.value })}
+                        onChange={(e) => this.setState({ zipCode: e.target.value })}
                       />
                     </Col>
                   </Row>

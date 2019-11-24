@@ -39,6 +39,9 @@ export class DonorList extends Component {
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
                         <th>Institution</th>
                     </tr>
                 </thead>
@@ -52,6 +55,9 @@ export class DonorList extends Component {
                             <td>{donor.email}</td>
                             <td>{donor.phone}</td>
                             <td>{donor.address}</td>
+                            <td>{donor.city}</td>
+                            <td>{donor.state}</td>
+                            <td>{donor.zipCode}</td>
                             <td>Institution</td>
                         </tr>
                     )) :''

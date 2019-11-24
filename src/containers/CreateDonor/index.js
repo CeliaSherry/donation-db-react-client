@@ -29,7 +29,7 @@ export class CreateDonor extends Component {
     address: '',
     state: '',
     city: '',
-    zip: '',
+    zipCode: '',
     institution: '',
     success: false,
     submitted: false,
@@ -41,9 +41,9 @@ export class CreateDonor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { donorName, email, phone, address, state, city, zip, institution } = this.state;
+    const { donorName, email, phone, address, state, city, zipCode, institution } = this.state;
     const { createDonor } = this.props;
-    createDonor(donorName, email, phone, address, state, city, zip, institution).then(response => {
+    createDonor(donorName, email, phone, address, state, city, zipCode, institution).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -122,7 +122,7 @@ export class CreateDonor extends Component {
                     <Col>
                       <Form.Control
                         placeholder="Zip"
-                        onChange={(e) => this.setState({ zip: e.target.value })}
+                        onChange={(e) => this.setState({ zipCode: e.target.value })}
                       />
                     </Col>
                   </Row>

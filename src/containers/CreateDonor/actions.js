@@ -2,7 +2,7 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function createDonor(donorName,email,phone,address,state,city,zip,institution){
+export function createDonor(donorName,email,phone,address,state,city,zipCode,institution){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -18,7 +18,7 @@ export function createDonor(donorName,email,phone,address,state,city,zip,institu
                address: address,
                state: state,
                city: city,
-               zip:zip,
+               zipCode:zipCode,
                institution: institution, 
               }),
             method:'POST',
