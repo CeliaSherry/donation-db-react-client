@@ -44,11 +44,11 @@ export class CreateDonor extends Component {
     e.preventDefault();
     const { donorName, email, phone, address, state, city, zipCode, institution } = this.state;
     const { createDonor } = this.props;
-    if (!!(donorName) || donorName === '') {
-      this.setState({ error: true });
-    }
-    else {
-      this.setState({ error: false });
+    // if (!!(donorName) || donorName === '') {
+    //   this.setState({ error: true });
+    // }
+    // else {
+      //this.setState({ error: false });
       createDonor(donorName, email, phone, address, state, city, zipCode, institution).then(response => {
         this.setState({ submitted: true })
         if (response.type === 'SUCCESS') {
@@ -65,7 +65,7 @@ export class CreateDonor extends Component {
         }, 3000);
 
       });
-    }
+    //}
   }
 
 
@@ -90,7 +90,7 @@ export class CreateDonor extends Component {
                       onChange={(e) => this.setState({ donorName: e.target.value })}
                       placeholder="Name"
                     />
-                    {this.state.error ? <span style={{ color: "red" }}>Username is required</span> : ''}
+                    {/*{this.state.error ? <span style={{ color: "red" }}>Username is required</span> : ''}*/}
                   </FormGroup>
 
                   <br></br>
