@@ -105,7 +105,7 @@ export class EditDonor extends Component {
                         </Col>
                       </Row>
                       <br></br>
-                      <FormGroup controlId="email" bsSize="large">
+                      <FormGroup controlId="email" bssize="large">
                         <label htmlFor="inputEmail">Email Address</label>
                             <FormControl value={this.state.email || ''}
                                          onChange={e => this.setState({email: e.target.value})}
@@ -113,13 +113,13 @@ export class EditDonor extends Component {
                       </FormGroup>
                         <br></br>
                       <label htmlFor="inputPhone">Phone Number</label>
-                      <FormGroup controlId="phone" bsSize="large">
+                      <FormGroup controlId="phone" bssize="large">
                           <FormControl value={this.state.phone || ''}
                                        onChange={e => this.setState({phone: e.target.value})}
                                        type="text"/>
                       </FormGroup>
                       <br></br>
-                      <FormGroup controlId="address" bsSize="large">
+                      <FormGroup controlId="address" bssize="large">
                         <label htmlFor="inputStreet">Street Address</label>
                           <FormControl value={this.state.address || ''}
                                        onChange={e => this.setState({address: e.target.value})}
@@ -128,7 +128,7 @@ export class EditDonor extends Component {
                       <br></br>
                       <Row>
                         <Col>
-                          <FormGroup controlId="city" bsSize="large">
+                          <FormGroup controlId="city" bssize="large">
                             <label htmlFor="inputCity">City</label>
                               <FormControl value={this.state.city || ''}
                                            onChange={e => this.setState({city: e.target.value})}
@@ -136,7 +136,7 @@ export class EditDonor extends Component {
                           </FormGroup>
                         </Col>
                         <Col>
-                          <FormGroup controlId="state" bsSize="large">
+                          <FormGroup controlId="state" bssize="large">
                             <label htmlFor="inputState">State</label>
                               <FormControl value={this.state.addrState || ''}
                                            onChange={e => this.setState({addrState: e.target.value})}
@@ -144,7 +144,7 @@ export class EditDonor extends Component {
                           </FormGroup>
                         </Col>
                         <Col>
-                          <FormGroup controlId="zip" bsSize="large">
+                          <FormGroup controlId="zip" bssize="large">
                             <label htmlFor="inputZip">Zip</label>
                               <FormControl value={this.state.zipCode || ''}
                                            onChange={e => this.setState({zipCode: e.target.value.replace(/\D/,'')})}
@@ -153,7 +153,7 @@ export class EditDonor extends Component {
                         </Col>
                       </Row>
                       <br></br>
-                      <FormGroup controlId="institution" bsSize="large">
+                      <FormGroup controlId="institution" bssize="large">
                         <label htmlFor="inputInstitution">Institution</label>
                           <FormControl value={this.state.institution || ''}
                                        onChange={e => this.setState({institution: e.target.value})}
@@ -163,7 +163,7 @@ export class EditDonor extends Component {
                       <br></br>
                       <Button
                           block
-                          bsSize="large"
+                          bssize="large"
                           // disabled={!this.validateForm()}
                           type="submit"
                       >
@@ -171,7 +171,7 @@ export class EditDonor extends Component {
                       </Button>
                       <Button
                           block
-                          bsSize="large"
+                          bssize="large"
                           href={`/donors`}
                           type="reset"
                       >

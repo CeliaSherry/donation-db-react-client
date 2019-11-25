@@ -1,7 +1,13 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function createDonation(donationAmount,donationDate,note){
+export function createDonationForDonor(donorId,donationAmount,donationDate,note){
+
+    console.log(JSON.stringify({
+        donationAmount: donationAmount,
+        donationDate: donationDate,
+        note: note,
+       }));
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -9,7 +15,7 @@ export function createDonation(donationAmount,donationDate,note){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/donations`,
+            endpoint: `http://localhost:8080/api/donor/${donorId}/donation`,
             body:    JSON.stringify({
                donationAmount: donationAmount,
                donationDate: donationDate,
@@ -19,3 +25,5 @@ export function createDonation(donationAmount,donationDate,note){
         },
     };
 }
+
+

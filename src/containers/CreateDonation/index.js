@@ -1,30 +1,30 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import FormGroup from "react-bootstrap/FormGroup";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import { bindActionCreators } from "redux";
 import * as actions from "./actions";
 import { connect } from "react-redux";
+import moment from "moment";
+
 
 
 import FormControl from "react-bootstrap/FormControl";
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    createDonation: actions.createDonation,
+    createDonationForDonor: actions.createDonationForDonor,
   }, dispatch);
 }
 
 
 export class CreateDonation extends Component {
-    
+
   state = {
     donationAmount: '',
-    donationDate: new Date(),
+    donationDate: moment(new Date()).format("YYYY-MM-DD"),
     note: '',
     success: false,
     submitted: false,
@@ -36,10 +36,10 @@ export class CreateDonation extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { donationAmount, donationDate, note} = this.state;
-    const { createDonation } = this.props;
+    const { donationAmount, donationDate, note } = this.state;
+    const { createDonationForDonor } = this.props;
     console.log(this.props);
-    createDonation(donationAmount, donationDate, note).then(response => {
+    createDonationForDonor(this.props.match.params.donorId, donationAmount, donationDate, note).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -49,6 +49,9 @@ export class CreateDonation extends Component {
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if (this.state.success === true) {
+          this.props.history.push({ pathname: `/donors/${this.props.match.params.donorId}/donations`, state: { donorName: this.props.location.state.donorName } })
+        }
       }, 3000);
 
     });
@@ -72,7 +75,7 @@ export class CreateDonation extends Component {
             <Card.Body>
               <div className="Login">
                 <Form >
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       onChange={(e) => this.setState({ donationAmount: e.target.value })}
                       placeholder="$"
@@ -80,17 +83,18 @@ export class CreateDonation extends Component {
                   </FormGroup>
 
                   <br></br>
-                  <FormGroup bsSize="large">
-                  <input type="date"
-                  onChange={(e) => this.setState({ donationAmount: e.target.value })}
-                  />
+                  <FormGroup bssize="large">
+                    <input type="date"
+                    value = {this.state.donationDate}
+                      onChange={(e) => this.setState({ donationDate: e.target.value })}
+                    />
 
                   </FormGroup>
                   <br></br>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       placeholder="Notes"
-                      style={{height: "140px"}}
+                      style={{ height: "140px" }}
 
                       onChange={(e) => this.setState({ note: e.target.value })}
                     />

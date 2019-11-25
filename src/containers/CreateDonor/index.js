@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import FormGroup from "react-bootstrap/FormGroup";
 import Form from "react-bootstrap/Form";
@@ -53,6 +53,9 @@ export class CreateDonor extends Component {
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if (this.state.success === true) {
+          this.props.history.push('/donors')
+        }
       }, 3000);
 
     });
@@ -77,7 +80,7 @@ export class CreateDonor extends Component {
             <Card.Body>
               <div className="Login">
                 <Form >
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       onChange={(e) => this.setState({ donorName: e.target.value })}
                       placeholder="Name"
@@ -85,21 +88,21 @@ export class CreateDonor extends Component {
                   </FormGroup>
 
                   <br></br>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       onChange={(e) => this.setState({ email: e.target.value })}
                       placeholder="Email"
                     />
                   </FormGroup>
                   <br></br>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       placeholder="Phone"
                       onChange={(e) => this.setState({ phone: e.target.value })}
                     />
                   </FormGroup>
                   <br></br>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       placeholder="Address"
                       onChange={(e) => this.setState({ address: e.target.value })}
