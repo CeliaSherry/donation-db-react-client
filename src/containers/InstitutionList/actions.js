@@ -10,3 +10,13 @@ export function getAllInstitutions(){
         },
     };
 }
+
+export function deleteInstitution(institutionId){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institution/${institutionId}`,
+            method:'DELETE',
+        },
+    };
+}

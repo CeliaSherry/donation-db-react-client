@@ -5,16 +5,21 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
+        deleteDonor: actions.deleteDonor
     }, dispatch);
 }
 
 export class DonorList extends Component {
     constructor(props) {
         super(props)
+        this.myRef = React.createRef();
         this.state = {
             data: []
         }
@@ -24,46 +29,90 @@ export class DonorList extends Component {
         this.props.getAllDonors().then(response => {
             this.setState({
                 data: response.payload
-            }) 
+            })
         })
     }
+
+
+    handleSubmit = (e, id, index) => {
+        e.preventDefault();
+        const { deleteDonor } = this.props;
+        deleteDonor(id).then(response => {
+            this.setState({ submitted: true })
+            if (response.type === 'SUCCESS') {
+                this.setState({
+                    success: true,
+                    data: this.state.data.filter((_, i) => i !== index)
+                })
+            }
+            if (response.type === 'FAILURE') {
+                this.setState({ success: false })
+            }
+            setTimeout(() => {
+                this.setState({ submitted: false });
+            }, 3000);
+        });
+        window.scrollTo(0, this.myRef.current.top);
+
+    }
+
 
     render() {
         const { data } = this.state;
         return (
-            <Table responsive>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Zip Code</th>
-                        <th>Institution</th>
-                    </tr>
-                </thead>
-             
-                <tbody>
-                {this.state.data ?
-                    data.map(donor => (
+            <div>
+                <div ref={this.myRef} />
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    {this.state.success && this.state.submitted ?
+                        <Alert isOpen={this.state.visible} style={{ width: "48rem" }} variant='success'> Successful donor
+                            deletion</Alert>
+                        : !this.state.success && this.state.submitted ?
+                            <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
+                </div>
+                <Table responsive>
+                    <thead>
                         <tr>
-                            <td>{donor.id}</td>
-                            <td><Link to={`/donors/${donor.id}/donations`}>{donor.donorName}</Link></td>
-                            <td>{donor.email}</td>
-                            <td>{donor.phone}</td>
-                            <td>{donor.address}</td>
-                            <td>{donor.city}</td>
-                            <td>{donor.state}</td>
-                            <td>{donor.zipCode}</td>
-                            <td>Institution</td>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Institution</th>
+                            <th>Action</th>
                         </tr>
-                    )) :''
-                }
-                </tbody>
-            </Table>
+                    </thead>
+
+                    <tbody>
+                        {this.state.data ?
+                            data.map((donor, index) => (
+                                <tr>
+                                    <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
+                                    <td>{donor.email}</td>
+                                    <td>{donor.phone}</td>
+                                    <td>{donor.address}</td>
+                                    <td>Institution</td>
+                                    <td>
+                                        <Button
+                                            title="Edit"
+                                            style={{ marginBottom: "10px", marginRight: "10px" }}
+                                            href={`/donor/${donor.id}/edit`}
+                                            variant="clear" >
+                                            <FaEdit />
+                                        </Button>
+                                        <Button
+                                            title="Delete"
+                                            style={{ marginBottom: "10px" }}
+                                            onClick={(e) => this.handleSubmit(e, donor.id, index)}
+                                            variant="clear"
+                                        >
+                                            <FaTrash />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            )) : ''
+                        }
+                    </tbody>
+                </Table>
+            </div>
         );
     }
 
