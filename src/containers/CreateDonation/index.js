@@ -50,7 +50,7 @@ export class CreateDonation extends Component {
       setTimeout(() => {
         this.setState({ submitted: false });
         if (this.state.success === true) {
-          this.props.history.push({ pathname: `/donors/${this.props.match.params.donorId}/donations`, state: { donorName: this.props.location.state.donorName } })
+          this.props.history.push({ pathname: `/donor/${this.props.match.params.donorId}/donations`, state: { donorName: this.props.location.state.donorName } })
         }
       }, 3000);
 
