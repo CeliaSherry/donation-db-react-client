@@ -29,6 +29,7 @@ export default (
                 //institutions bit
                 <Route exact path="/" component={Institution} />
                 <Route path="/institutions/create" component={CreateInstitution} />
+                {/* <Route path="/institutions/:institutionId/contacts/create" component={CreateContact} /> */}
                 <Route path={`/institutions/:institutionId/contacts`} render={(props)=> <InstitutionContacts {...props} />} />
                 <Route path="/institutions" component={Institution} />
                 //contacts
