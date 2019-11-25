@@ -1,18 +1,13 @@
 import CreateDonor from "./containers/CreateDonor";
-import CreateDonation from "./containers/CreateDonation";
 import EditDonor from "./containers/EditDonor";
-
-
+import CreateDonation from "./containers/CreateDonation";
 import React from "react";
 import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import { Donors } from "./containers/Donors";
-
 import { Route, BrowserRouter, Switch} from "react-router-dom";
 import EditDonation from "./containers/EditDonation";
-
-// import { Route } from "react-router";
 
 
 const history = createHistory();
