@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -38,14 +39,12 @@ export class DonationList extends Component {
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
-            {/* { this.props.location.state.donorName != null ? <h3>Donations by {this.props.location.state.donorName}</h3> : <h3>Donations</h3>} */}
            { this.props.location.state.donorName != null ? <h3>Donations by {this.props.location.state.donorName}</h3> : <h3>Donations</h3>}
 
             
             <Button
               style={{ float: "right", width: "10em", marginBottom: "10px" }}
-            //   href={`/donor/${this.props.match.params.donorId}/donation/create`}
-              variant="dark"
+              variant="light"
             > 
             <Link to={{pathname:`/donor/${this.props.match.params.donorId}/donation/create`, state: {donorName:this.props.location.state.donorName}}}>Add Donation</Link>
               
@@ -74,7 +73,7 @@ export class DonationList extends Component {
                       <tr>
                         <td>{donation.id}</td>
                         <td>{donation.donationAmount}</td>
-                        <td>{donation.donationDate}</td>
+                        <td> <Moment  format="MM/DD/YYYY">{donation.donationDate}</Moment></td>
                         <td>{donation.note}</td>
                         <td>
                           <Button
