@@ -44,7 +44,7 @@ export class CreateDonor extends Component {
     e.preventDefault();
     const { donorName, email, phone, address, state, city, zipCode, institution } = this.state;
     const { createDonor } = this.props;
-    if (donorName === '') {
+    if (!!(donorName) || donorName === '') {
       this.setState({ error: true });
     }
     else {
