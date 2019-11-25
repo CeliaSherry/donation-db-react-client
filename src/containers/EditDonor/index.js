@@ -72,6 +72,9 @@ export class EditDonor extends Component {
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if (this.state.success === true) {
+          this.props.history.push('/donors');
+        }
       }, 3000);
     });
     window.scrollTo(0, this.myRef.current.top);
@@ -83,10 +86,8 @@ export class EditDonor extends Component {
             <div ref={this.myRef}/>
           <div style={{display: "flex", justifyContent: "center"}}>
             {this.state.success && this.state.submitted ?
-                (setTimeout(() => {window.location.href = "/donors"}, 2000),
-                    //this.props.history.push('/donors'))
                     <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
-                update!</Alert>)
+                update!</Alert>
                 : !this.state.success && this.state.submitted ?
                     <Alert style={{width: "48rem"}} variant='danger'> Error!</Alert> : ''}
           </div>
