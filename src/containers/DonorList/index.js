@@ -85,7 +85,7 @@ export class DonorList extends Component {
                         {this.state.data ?
                             data.map((donor, index) => (
                                 <tr>
-                                    <td><Link to={{ pathname: `/donors/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
+                                    <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
                                     <td>{donor.email}</td>
                                     <td>{donor.phone}</td>
                                     <td>{donor.address}</td>

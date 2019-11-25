@@ -66,7 +66,8 @@ export class EditDonation extends Component {
       setTimeout(() => {
         this.setState({ submitted: false });
         if (this.state.success === true) {
-          this.props.history.push("donor/:donorId/donations");
+          this.props.history.push({pathname:`/donor/${this.props.location.state.donorId}/donations`,
+          state:{donorName:this.props.location.state.donorName}});
         }
       }, 3000);
     });
@@ -74,6 +75,7 @@ export class EditDonation extends Component {
   };
 
   render() {
+      console.log(this.props.location.state.donorName);
     return (
       <div>
         <div ref={this.myRef} />
@@ -115,7 +117,7 @@ export class EditDonation extends Component {
                     </Col>
                   </Row>
                   <br></br>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <input
                       type="date"
                       value={moment(this.state.donationDate).format(
@@ -129,7 +131,7 @@ export class EditDonation extends Component {
 
                   <br></br>
                   <label htmlFor="inputNote">Note</label>
-                  <FormGroup bsSize="large">
+                  <FormGroup bssize="large">
                     <FormControl
                       value={this.state.note}
                       onChange={e => this.setState({ note: e.target.value })}
@@ -138,10 +140,10 @@ export class EditDonation extends Component {
                   </FormGroup>
                   <br></br>
                   <br></br>
-                  <Button block bsSize="large" type="submit">
+                  <Button block bssize="large" type="submit">
                     Save
                   </Button>
-                  <Button block bsSize="large" href={`/donors`} type="submit">
+                  <Button block bssize="large" href={`/donors`} type="submit">
                     Cancel
                   </Button>
                 </form>

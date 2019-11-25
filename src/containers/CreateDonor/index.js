@@ -34,6 +34,7 @@ export class CreateDonor extends Component {
     success: false,
     submitted: false,
     visible: false,
+    error: false
 
   }
 
@@ -43,22 +44,28 @@ export class CreateDonor extends Component {
     e.preventDefault();
     const { donorName, email, phone, address, state, city, zipCode, institution } = this.state;
     const { createDonor } = this.props;
-    createDonor(donorName, email, phone, address, state, city, zipCode, institution).then(response => {
-      this.setState({ submitted: true })
-      if (response.type === 'SUCCESS') {
-        this.setState({ success: true })
-      }
-      if (response.type === 'FAILURE') {
-        this.setState({ success: false })
-      }
-      setTimeout(() => {
-        this.setState({ submitted: false });
-        if (this.state.success === true) {
-          this.props.history.push('/donors')
+    if (!!(donorName) || donorName === '') {
+      this.setState({ error: true });
+    }
+    else {
+      this.setState({ error: false });
+      createDonor(donorName, email, phone, address, state, city, zipCode, institution).then(response => {
+        this.setState({ submitted: true })
+        if (response.type === 'SUCCESS') {
+          this.setState({ success: true })
         }
-      }, 3000);
+        if (response.type === 'FAILURE') {
+          this.setState({ success: false })
+        }
+        setTimeout(() => {
+          this.setState({ submitted: false });
+          if (this.state.success === true) {
+            this.props.history.push('/donors')
+          }
+        }, 3000);
 
-    });
+      });
+    }
   }
 
 
@@ -73,8 +80,6 @@ export class CreateDonor extends Component {
             : !this.state.success && this.state.submitted ? <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-
-
           <Card style={{ width: "48rem" }}>
             <Card.Header as="h5">Create Donor</Card.Header>
             <Card.Body>
@@ -85,6 +90,7 @@ export class CreateDonor extends Component {
                       onChange={(e) => this.setState({ donorName: e.target.value })}
                       placeholder="Name"
                     />
+                    {this.state.error ? <span style={{ color: "red" }}>Username is required</span> : ''}
                   </FormGroup>
 
                   <br></br>
@@ -138,6 +144,7 @@ export class CreateDonor extends Component {
                   </FormGroup>
                   <br></br>
                   <Button
+                    type="submit"
                     block
                     bssize="large"
                     onClick={this.handleSubmit}
