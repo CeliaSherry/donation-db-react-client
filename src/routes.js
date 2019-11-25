@@ -1,14 +1,16 @@
 import CreateDonor from "./containers/CreateDonor";
 import CreateDonation from "./containers/CreateDonation";
-import store from "./store.js";
+import EditDonor from "./containers/EditDonor";
+
+
 import React from "react";
-import App from "./containers/App";
 import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import { Donors } from "./containers/Donors";
 
 import { Route, BrowserRouter, Switch} from "react-router-dom";
+import EditDonation from "./containers/EditDonation";
 
 // import { Route } from "react-router";
 
@@ -21,8 +23,10 @@ export default (
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
-                <Route path="/donation/create" component={CreateDonation} />
-                <Route path={`/donors/:donorId/donations`} render={(props)=> <DonationList {...props} />} />
+                <Route path="/donor/:donorId/donation/create" component={CreateDonation} />
+                <Route path={"/donor/:donorId/edit"} component={EditDonor} />
+                <Route path={"/donation/:donationId/edit"} component={EditDonation} />
+                <Route path={"/donors/:donorId/donations"} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors" component={Donors} />
         </Switch>
     </BrowserRouter>

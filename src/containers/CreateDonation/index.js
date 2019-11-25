@@ -15,7 +15,7 @@ import FormControl from "react-bootstrap/FormControl";
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    createDonation: actions.createDonation,
+    createDonationForDonor: actions.createDonationForDonor,
   }, dispatch);
 }
 
@@ -37,9 +37,9 @@ export class CreateDonation extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { donationAmount, donationDate, note} = this.state;
-    const { createDonation } = this.props;
+    const { createDonationForDonor } = this.props;
     console.log(this.props);
-    createDonation(donationAmount, donationDate, note).then(response => {
+    createDonationForDonor(this.props.match.params.donorId,donationAmount, donationDate, note).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -49,6 +49,9 @@ export class CreateDonation extends Component {
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if(this.state.success == true){
+          this.props.history.push({pathname:`/donors/${this.props.match.params.donorId}/donations`, state: { donorName: this.props.location.state.donorName  }}) 
+      }
       }, 3000);
 
     });
@@ -82,7 +85,7 @@ export class CreateDonation extends Component {
                   <br></br>
                   <FormGroup bsSize="large">
                   <input type="date"
-                  onChange={(e) => this.setState({ donationAmount: e.target.value })}
+                  onChange={(e) => this.setState({ donationDate: e.target.value })}
                   />
 
                   </FormGroup>

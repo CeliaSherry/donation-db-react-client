@@ -53,6 +53,9 @@ export class CreateDonor extends Component {
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if(this.state.success == true){
+          this.props.history.push('/donors') 
+      }
       }, 3000);
 
     });

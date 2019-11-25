@@ -1,7 +1,7 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function getDonor(donorId){
+export function getDonationsForDonor(donorId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
