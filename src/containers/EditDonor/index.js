@@ -66,13 +66,15 @@ export class EditDonor extends Component {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
-          //this.props.history.push('/donors')
       }
       if (response.type === 'FAILURE') {
         this.setState({ success: false })
       }
       setTimeout(() => {
         this.setState({ submitted: false });
+        if (this.state.success === true) {
+          this.props.history.push('/donors');
+        }
       }, 3000);
     });
     window.scrollTo(0, this.myRef.current.top);
@@ -84,8 +86,8 @@ export class EditDonor extends Component {
             <div ref={this.myRef}/>
           <div style={{display: "flex", justifyContent: "center"}}>
             {this.state.success && this.state.submitted ?
-                <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
-                  update!</Alert>
+                    <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
+                update!</Alert>
                 : !this.state.success && this.state.submitted ?
                     <Alert style={{width: "48rem"}} variant='danger'> Error!</Alert> : ''}
           </div>
@@ -172,8 +174,7 @@ export class EditDonor extends Component {
                           block
                           bssize="large"
                           href={`/donors`}
-                          // disabled={!this.validateForm()}
-                          type="submit"
+                          type="reset"
                       >
                         Cancel
                       </Button>
