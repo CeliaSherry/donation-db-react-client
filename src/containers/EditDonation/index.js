@@ -29,7 +29,8 @@ export class EditDonation extends Component {
     this.state = {
       donationAmount: "",
       donationDate: "",
-      note: ""
+      note: "",
+      donor:""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -41,20 +42,22 @@ export class EditDonation extends Component {
         this.setState({
           donationAmount: response.payload.donationAmount,
           donationDate: response.payload.donationDate,
-          note: response.payload.note
+          note: response.payload.note,
+          donor: response.payload.donor
         });
       });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const { donationAmount, donationDate, note } = this.state;
+    const { donationAmount, donationDate, note, donor} = this.state;
     const { updateDonation } = this.props;
     updateDonation(
       this.props.match.params.donationId,
       donationAmount,
       donationDate,
-      note
+      note,
+      donor
     ).then(response => {
       this.setState({ submitted: true });
       if (response.type === "SUCCESS") {

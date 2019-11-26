@@ -30,7 +30,8 @@ export class EditDonor extends Component {
       city: "",
       addrState: "",
       zipCode: "",
-      institution: ""
+      institution: "",
+      contact: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -45,7 +46,8 @@ export class EditDonor extends Component {
         city: response.payload.city,
         addrState: response.payload.state,
         zipCode:  response.payload.zipCode,
-        institution: response.payload.institution
+        institution: response.payload.institution,
+        contact: response.payload.contact
       })
     })
   }
@@ -60,9 +62,9 @@ export class EditDonor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, phone, address, addrState, city, zipCode, institution } = this.state;
+    const { name, email, phone, address, addrState, city, zipCode, institution, contact } = this.state;
     const { updateDonor } = this.props;
-    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, institution).then(response => {
+    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, institution, contact).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
