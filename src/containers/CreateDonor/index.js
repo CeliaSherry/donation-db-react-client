@@ -87,7 +87,7 @@ export class CreateDonor extends Component {
     const { createDonorWithContact, createDonationForDonor } = this.props;
     if (donorName === "" || donorName == null) {
       this.setState({ errorName: true });
-    } else if (donationAmount == null) {
+    } else if (!donationAmount) {
       this.setState({ errorDate: true });
     } else {
       this.setState({ errorName: false });
@@ -125,25 +125,28 @@ export class CreateDonor extends Component {
               this.setState({ success: true });
             }
           });
+          this.setState({ submitted: false });
         }
         if (response.type === "FAILURE") {
           this.setState({ success: false });
-        }
-        setTimeout(() => {
           this.setState({ submitted: false });
-          if (this.state.success === true) {
-            this.props.history.push("/donors");
-          }
-        }, 3000);
+        }
+       
       });
     }
+    setTimeout(() => {
+      if (this.state.success === true) {
+        this.props.history.push("/donors");
+      }
+    }, 3000);
+
   };
 
   render() {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {this.state.success && this.state.submitted ? (
+          {this.state.success ? (
             <Alert
               isOpen={this.state.visible}
               style={{ width: "48rem" }}
@@ -152,7 +155,7 @@ export class CreateDonor extends Component {
               {" "}
               Successful donor creation!
             </Alert>
-          ) : !this.state.success && this.state.submitted ? (
+          ) : !this.state.success && this.state.submitted && !this.state.errorDate && !this.state.errorName ? (
             <Alert style={{ width: "48rem" }} variant="danger">
               {" "}
               Error!
