@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
@@ -58,6 +58,7 @@ export class DonorList extends Component {
 
 
     render() {
+        console.log(this.state.data);
         const { data } = this.state;
         return (
             <div>
@@ -77,12 +78,13 @@ export class DonorList extends Component {
                             <th>Phone Number</th>
                             <th>Address</th>
                             <th>Institution</th>
-                            <th>Action</th>
+                            <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {this.state.data ?
+                        {
+                            this.state.data.length > 0 ?
                             data.map((donor, index) => (
                                 <tr>
                                     <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
@@ -106,6 +108,15 @@ export class DonorList extends Component {
                                         >
                                             <FaTrash />
                                         </Button>
+                                        <Link
+                                           style={{ color: "black",marginLeft: "15px" }}
+                                            to={{
+                                                pathname: `/donor/${donor.id}/donation/create`,
+                                                state: { donorName: donor.donorName  }
+                                              }}
+                                        >
+                                            <FaPlus style={{height:"32px",paddingBottom:"4px"}}/>
+                                        </Link>
                                     </td>
                                 </tr>
                             )) : ''

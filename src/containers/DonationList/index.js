@@ -130,7 +130,7 @@ export class DonationList extends Component {
                         </td>
                         <td>${donation.donationAmount}</td>
                         <td>{donation.note}</td>
-                        <td style={{ paddingTop: "20px", color: "black" }}>
+                        <td style={{ paddingTop: "20px"}}>
                           <Link
                             style={{ color: "black" }}
                             to={{

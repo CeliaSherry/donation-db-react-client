@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
 
 export class CreateDonation extends Component {
   state = {
-    donationAmount: "",
+    donationAmount: null,
     donationDate: moment(new Date()).format("YYYY-MM-DD"),
     note: "",
     success: false,
@@ -35,7 +35,8 @@ export class CreateDonation extends Component {
     e.preventDefault();
     const { donationAmount, donationDate, note } = this.state;
     const { createDonationForDonor } = this.props;
-    if (!!donationAmount || donationAmount === "") {
+    console.log(donationAmount);
+    if (donationAmount == null) {
       this.setState({ error: true });
     } else {
       this.setState({ error: false });
@@ -89,7 +90,7 @@ export class CreateDonation extends Component {
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "48rem" }}>
-            <Card.Header as="h5">Create Donation</Card.Header>
+            <Card.Header as="h5">Add Donation for donor {this.props.location.state.donorName}</Card.Header>
             <Card.Body>
               <div className="Login">
                 <Form>
