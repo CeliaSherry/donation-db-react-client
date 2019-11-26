@@ -58,8 +58,8 @@ export class EditInstitution extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { institutionName, address, state, city, zipCode } = this.state;
-        const { createInstitution } = this.props;
-        createInstitution(institutionName, address, state, city, zipCode).then(response => {
+        const { updateInstitution } = this.props;
+        updateInstitution(institutionName, address, state, city, zipCode).then(response => {
           this.setState({ submitted: true })
           if (response.type === 'SUCCESS') {
             this.setState({ success: true })
@@ -95,7 +95,7 @@ export class EditInstitution extends Component {
                                         <Col>
                                             <label htmlFor="inputFullName">Institution Name</label>
                                             <FormControl value={this.state.institutionName || ''}
-                                                onChange={e => this.setState({ name: e.target.value })}
+                                                onChange={e => this.setState({ institutionName: e.target.value })}
                                                 type="text" />
                                         </Col>
                                     </Row>

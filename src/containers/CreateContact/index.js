@@ -47,6 +47,7 @@ export class CreateContact extends Component {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
+        
       }
       if (response.type === 'FAILURE') {
         this.setState({ success: false })
@@ -137,6 +138,9 @@ export class CreateContact extends Component {
                     block
                     bssize="large"
                     onClick={this.handleSubmit}
+                    href={`/contacts`}
+                    type="submit"
+    
                   >
                     Submit
               </Button>

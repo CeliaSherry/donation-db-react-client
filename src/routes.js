@@ -16,6 +16,7 @@ import { Institution } from "./containers/Institutions";
 import InstitutionContacts from "./containers/InstitutionContacts";
 import { Contacts } from "./containers/Contacts";
 import EditInstitution from "./containers/EditInstitution";
+import EditContact from "./containers/EditContact";
 
 // import { Route } from "react-router";
 
@@ -42,6 +43,7 @@ export default (
             <Route path="/institutions" component={Institution} />
             //contacts
             <Route exact path="/" component={Contacts} />
+            <Route path={"/contacts/:contactId/edit"} component={EditContact} />
             <Route path="/contacts/create" component={CreateContact} />
             <Route path="/contacts" component={Contacts} />
         </Switch>
