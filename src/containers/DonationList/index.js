@@ -41,7 +41,7 @@ export class DonationList extends Component {
           <h3>Donations</h3>
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
-              href="/donation/create"
+              href="/donor/:donorId/donation/create"
               variant="dark"
             >
               Add Donation
