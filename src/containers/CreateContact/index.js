@@ -41,9 +41,9 @@ export class CreateContact extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { contactName, email, phone, address, state, city, zipCode, institution } = this.state;
+    const { contactName, email, phone, address, state, city, zipCode, institutionName, institutionAddress, institutionState, institutionZipCode } = this.state;
     const { createContact } = this.props;
-    createContact(contactName, email, phone, address, state, city, zipCode, institution).then(response => {
+    createContact(contactName, email, phone, address, state, city, zipCode, institutionName, institutionAddress, institutionState, institutionZipCode).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -128,11 +128,40 @@ export class CreateContact extends Component {
                     </Col>
                   </Row>
                   <br></br>
+                  <Card.Header as="h6">Institution Details</Card.Header>
+                  <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
-                      placeholder="Institution"
-                      onChange={(e) => this.setState({ institution: e.target.value })} />
+                      placeholder="Institution Name"
+                      onChange={(e) => this.setState({ institutionName: e.target.value })} />
                   </FormGroup>
+                  <br></br>
+                  <FormGroup bsSize="large">
+                    <FormControl
+                      placeholder="Institution Address"
+                      onChange={(e) => this.setState({ institutionAddress: e.target.value })} />
+                  </FormGroup>
+                  <br></br>
+                  <Row>
+                    <Col>
+                      <Form.Control
+                        placeholder="City"
+                        onChange={(e) => this.setState({ institutionCity: e.target.value })}
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Control
+                        placeholder="State"
+                        onChange={(e) => this.setState({ institutionState: e.target.value })}
+                      />
+                    </Col>
+                    <Col>
+                      <Form.Control
+                        placeholder="Zip"
+                        onChange={(e) => this.setState({ institutionZipCode: e.target.value })}
+                      />
+                    </Col>
+                  </Row>
                   <br></br>
                   <Button
                     block

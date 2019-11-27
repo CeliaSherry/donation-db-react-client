@@ -2,7 +2,7 @@
 import { RSAA } from 'redux-api-middleware';
 
 
-export function createContact(contactName, email, phone, address, state, city, zipCode, institution) {
+export function createContact(contactName, email, phone, address, state, city, zipCode, institutionName, institutionAddress, institutionCity, institutionState, institutionZipCode) {
     return {
         [RSAA]: {
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -19,7 +19,7 @@ export function createContact(contactName, email, phone, address, state, city, z
                 state: state,
                 city: city,
                 zipCode: zipCode,
-                institution: institution,
+                institution: {institutionName: institutionName, address: institutionAddress, city: institutionCity, state: institutionState, zipCode: institutionZipCode}
             }),
             method: 'POST',
         },

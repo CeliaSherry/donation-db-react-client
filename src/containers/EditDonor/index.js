@@ -30,7 +30,7 @@ export class EditDonor extends Component {
       city: "",
       addrState: "",
       zipCode: "",
-      institution: ""
+      institution: "",
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }

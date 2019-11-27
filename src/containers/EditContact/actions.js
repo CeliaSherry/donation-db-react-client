@@ -11,7 +11,7 @@ export function getContact(contactId){
     };
 }
 
-export function updateContact(contactId, contactName,email,phone,address,state,city,zip,institution){
+export function updateContact(contactId, contactName,email,phone,address,state,city,zip,institutionName){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -28,7 +28,7 @@ export function updateContact(contactId, contactName,email,phone,address,state,c
                 state: state,
                 city: city,
                 zipCode: zip,
-                institution: institution,
+                institution: {institutionName: institutionName},
             }),
             method:'PUT',
         },

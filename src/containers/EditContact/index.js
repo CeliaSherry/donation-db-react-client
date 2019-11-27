@@ -30,12 +30,13 @@ export class EditContact extends Component {
       city: "",
       addrState: "",
       zipCode: "",
-      institution: ""
+      institution: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    console.log("Hello");
     this.props.getContact(this.props.match.params.contactId).then(response => {
       this.setState({
         name: response.payload.contactName,
@@ -45,7 +46,8 @@ export class EditContact extends Component {
         city: response.payload.city,
         addrState: response.payload.state,
         zipCode:  response.payload.zipCode,
-        institution: response.payload.institution
+        institutionName: [response.payload.institution],
+      
       })
     })
   }
@@ -60,9 +62,9 @@ export class EditContact extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, phone, address, addrState, city, zipCode, institution } = this.state;
+    const { name, email, phone, address, addrState, city, zipCode, institutionName } = this.state;
     const { updateContact } = this.props;
-    updateContact(this.props.match.params.contactId, name, email, phone, address, addrState, city, zipCode, institution).then(response => {
+    updateContact(this.props.match.params.contactId, name, email, phone, address, addrState, city, zipCode, institutionName).then(response => {
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -155,7 +157,7 @@ export class EditContact extends Component {
                       <FormGroup controlId="institution" bssize="large">
                         <label htmlFor="inputInstitution">Institution</label>
                           <FormControl value={this.state.institution || ''}
-                                       onChange={e => this.setState({institution: e.target.value})}
+                                       onChange={e => this.setState({institutionName: e.target.value})}
                                        type="text"/>
                       </FormGroup>
 
