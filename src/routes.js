@@ -1,13 +1,23 @@
+
 import CreateDonor from "./containers/CreateDonor";
-import EditDonor from "./containers/EditDonor";
-import CreateDonation from "./containers/CreateDonation";
+import CreateContact from "./containers/CreateContact"
+import CreateDonation from "./containers/CreateDonation"
+import EditDonor from "./containers/EditDonor"
+import EditDonation from "./containers/EditDonation"
+// import {Switch, IndexRoute } from "react-router";
+import CreateInstitution from "./containers/CreateInstitution";
 import React from "react";
 import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import { Donors } from "./containers/Donors";
-import { Route, BrowserRouter, Switch} from "react-router-dom";
-import EditDonation from "./containers/EditDonation";
+
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Institution } from "./containers/Institutions";
+import InstitutionContacts from "./containers/InstitutionContacts";
+import { Contacts } from "./containers/Contacts";
+import EditInstitution from "./containers/EditInstitution";
+import EditContact from "./containers/EditContact";
 
 
 const history = createHistory();
