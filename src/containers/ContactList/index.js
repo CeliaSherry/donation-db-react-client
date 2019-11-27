@@ -19,6 +19,7 @@ function mapDispatchToProps(dispatch) {
 export class ContactList extends Component {
     constructor(props) {
         super(props)
+        this.myRef = React.createRef();
         this.state = {
             data: []
         }
@@ -50,7 +51,7 @@ export class ContactList extends Component {
                 this.setState({ submitted: false });
             }, 3000);
         });
-        // window.scrollTo(0, this.myRef.current.top);
+        window.scrollTo(0, this.myRef.current.top);
 
     }
     render() {
