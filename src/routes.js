@@ -23,8 +23,17 @@ export default (
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />
                 <Route path={"/donor/:donorId/donations"} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors" component={Donors} />
+                //institutions bit
+                <Route exact path="/" component={Institution} />
+                <Route path="/institutions/create" component={CreateInstitution} />
+                <Route path={"/institutions/:institutionId/edit"} component={EditInstitution} />
+                <Route path={`/institutions/:institutionId/contacts`} render={(props) => <InstitutionContacts {...props} />} />
+                <Route path="/institutions" component={Institution} />
+                //contacts
+                <Route exact path="/" component={Contacts} />
+                <Route path={"/contacts/:contactId/edit"} component={EditContact} />
+                <Route path="/contacts/create" component={CreateContact} />
+                <Route path="/contacts" component={Contacts} />
         </Switch>
     </BrowserRouter>
 );
-
-
