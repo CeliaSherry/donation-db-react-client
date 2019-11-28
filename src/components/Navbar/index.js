@@ -17,7 +17,6 @@ export default class NavbarCustom extends Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/donors">Donors</Nav.Link>
                         <Nav.Link href="/institutions">Institutions</Nav.Link>
-                        <Nav.Link href="/contacts">Contacts</Nav.Link>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
