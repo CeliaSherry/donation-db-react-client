@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import  './bootstrap.min.css';
+import style from './bootstrap.min.css';
 
 const propTypes = {
     items: PropTypes.array.isRequired,
@@ -114,8 +114,10 @@ class Pagination extends React.Component {
             return null;
         }
 
+
         return (
-        <div id = "pagination">
+
+        <div className={style}>
             <ul className="pagination">
                 <li className={pager.currentPage === 1 ? 'disabled' : ''}>
                     <a onClick={() => this.setPage(1)}>First</a>

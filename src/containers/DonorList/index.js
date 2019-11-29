@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Pagination from '../../components/Pagination';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -21,8 +22,10 @@ export class DonorList extends Component {
         super(props)
         this.myRef = React.createRef();
         this.state = {
-            data: []
+            data: [],
+            pageOfDonor: []
         }
+        this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentWillMount() {
@@ -33,6 +36,11 @@ export class DonorList extends Component {
         })
     }
 
+
+    onChangePage(pageOfDonor) {
+        // update state with new page of items
+        this.setState({ pageOfDonor: pageOfDonor});
+    }
 
     handleSubmit = (e, id, index) => {
         e.preventDefault();
@@ -58,8 +66,7 @@ export class DonorList extends Component {
 
 
     render() {
-        console.log(this.state.data);
-        const { data } = this.state;
+
         return (
             <div>
                 <div ref={this.myRef} />
@@ -85,8 +92,8 @@ export class DonorList extends Component {
                     <tbody>
                         {
                             this.state.data.length > 0 ?
-                            data.map((donor, index) => (
-                                <tr>
+                            this.state.pageOfDonor.map((donor, index) => (
+                                <tr key={index}>
                                     <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
                                     <td>{donor.email}</td>
                                     <td>{donor.phone}</td>
@@ -123,6 +130,8 @@ export class DonorList extends Component {
                         }
                     </tbody>
                 </Table>
+                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
+
             </div>
         );
     }
