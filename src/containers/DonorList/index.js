@@ -28,6 +28,7 @@ export class DonorList extends Component {
             sortedData: []
         }
         this.onChangePage = this.onChangePage.bind(this);
+        this.onNameButtonClick = this.onNameButtonClick.bind(this);
         // this.sortBy = this.sortBy.bind(this);
     }
 
@@ -49,6 +50,14 @@ export class DonorList extends Component {
     //         data: this.state.data.sort((a,b) => a[key] < b[key])
     //                   })
     // }
+
+    onNameButtonClick(){
+        this.props.getAllDonorsSorted().then(response => {
+            this.setState({
+                              data: response.payload
+                          })
+        })
+    }
 
     onChangePage(pageOfDonor) {
         // update state with new page of items
@@ -93,17 +102,7 @@ export class DonorList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <button
-                                //onClick={ () => this.props.sortBy(this.donorName)}
-                                //  onClick={ () => this.props.getAllDonorsSorted("ascending").then(response => {
-                                //      this.setState({
-                                //                        data: response.payload,
-                                //                         pageOfDonor: this.pageOfDonor
-                                //                    })
-                                //                  })}
-                            >
-                            <th>Name</th>
-                                </button>
+                            <button onClick={this.onNameButtonClick.bind(this)}> <th>Name</th></button>
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Address</th>
@@ -111,7 +110,6 @@ export class DonorList extends Component {
                             <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {
                             this.state.data.length > 0 ?
@@ -154,7 +152,6 @@ export class DonorList extends Component {
                     </tbody>
                 </Table>
                 <Pagination items={this.state.data} onChangePage={this.onChangePage} />
-
             </div>
         );
     }

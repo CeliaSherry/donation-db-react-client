@@ -2,6 +2,7 @@ import * as Types from '../Donors/actionTypes';
 
 const defaultState = {
     loading: true,
+    data:[]
 };
 
 
@@ -11,7 +12,8 @@ export default function donorsListReducer (state = {}, action){
         case Types.GET_DONORS_REQUEST:
         return { loading: true};
         case Types.GET_DONORS_SUCCESS:
-        return { loading: false};
+        return { loading: false,
+                 data:action.response};
         case Types.GET_DONORS_FAILURE:
         return { loading: false};
         default:
