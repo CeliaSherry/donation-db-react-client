@@ -22,6 +22,16 @@ export function getAllDonorsSortedAscending(){
     };
 }
 
+export function getAllDonorsSortedDescending(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donors?sortOrder=descending`,
+            method:'GET',
+        },
+    };
+}
+
 export function deleteDonor(donorId){
     return{
         [RSAA]:{
