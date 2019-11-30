@@ -13,7 +13,8 @@ import Pagination from '../../components/Pagination';
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
-        deleteDonor: actions.deleteDonor
+        deleteDonor: actions.deleteDonor,
+        getAllDonorsSorted:actions.getAllDonorsSortedAscending
     }, dispatch);
 }
 
@@ -23,9 +24,11 @@ export class DonorList extends Component {
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfDonor: []
+            pageOfDonor: [],
+            sortedData: []
         }
         this.onChangePage = this.onChangePage.bind(this);
+        // this.sortBy = this.sortBy.bind(this);
     }
 
     componentWillMount() {
@@ -36,6 +39,16 @@ export class DonorList extends Component {
         })
     }
 
+    // onSort(pageOfDonor) {
+    //     // update state with new page of items
+    //     this.setState({ sortedData: pageOfDonor});
+    // }
+    // sortBy(key){
+    //     console.log(key);
+    //     this.setState({
+    //         data: this.state.data.sort((a,b) => a[key] < b[key])
+    //                   })
+    // }
 
     onChangePage(pageOfDonor) {
         // update state with new page of items
@@ -80,7 +93,17 @@ export class DonorList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
+                            <button
+                                //onClick={ () => this.props.sortBy(this.donorName)}
+                                //  onClick={ () => this.props.getAllDonorsSorted("ascending").then(response => {
+                                //      this.setState({
+                                //                        data: response.payload,
+                                //                         pageOfDonor: this.pageOfDonor
+                                //                    })
+                                //                  })}
+                            >
                             <th>Name</th>
+                                </button>
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Address</th>
@@ -139,3 +162,4 @@ export class DonorList extends Component {
 }
 
 export default connect(null, mapDispatchToProps)(DonorList);
+
