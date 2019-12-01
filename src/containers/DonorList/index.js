@@ -100,30 +100,31 @@ export class DonorList extends Component {
                                     <td>{donor.address}</td>
                                     <td>Institution</td>
                                     <td>
+                                        <Link
+                                            title="Add Donation"
+                                            style={{ color: "black",marginLeft: "15px", marginRight: "10px"}}
+                                            to={{
+                                                pathname: `/donor/${donor.id}/donation/create`,
+                                                state: { donorName: donor.donorName  }
+                                            }}
+                                        >
+                                            <FaPlus style={{height:"32px",paddingBottom:"4px", marginRight: "10px"}}/>
+                                        </Link>
                                         <Button
-                                            title="Edit"
+                                            title="Edit Info"
                                             style={{ marginBottom: "10px", marginRight: "10px" }}
                                             href={`/donor/${donor.id}/edit`}
                                             variant="clear" >
                                             <FaEdit />
                                         </Button>
                                         <Button
-                                            title="Delete"
+                                            title="Delete Donor"
                                             style={{ marginBottom: "10px" }}
                                             onClick={(e) => this.handleSubmit(e, donor.id, index)}
                                             variant="clear"
                                         >
                                             <FaTrash />
                                         </Button>
-                                        <Link
-                                           style={{ color: "black",marginLeft: "15px" }}
-                                            to={{
-                                                pathname: `/donor/${donor.id}/donation/create`,
-                                                state: { donorName: donor.donorName  }
-                                              }}
-                                        >
-                                            <FaPlus style={{height:"32px",paddingBottom:"4px"}}/>
-                                        </Link>
                                     </td>
                                 </tr>
                             )) : ''
