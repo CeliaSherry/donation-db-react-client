@@ -11,6 +11,8 @@ import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import { Donors } from "./containers/Donors";
+import SearchDonors from "./containers/SearchDonors";
+
 
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { Institution } from "./containers/Institutions";
@@ -28,6 +30,7 @@ export default (
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
+                <Route path="/donors/search" component={SearchDonors} />
                 <Route path="/donor/:donorId/donation/create" component={CreateDonation} />
                 <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />

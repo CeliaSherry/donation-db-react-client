@@ -12,6 +12,13 @@ export class Donors extends Component {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
           <h3>Donors</h3>
+              <Button
+                  style={{width: "10em", marginBottom: "10px"}}
+                  href="/donors/search"
+                  variant="dark"
+              >
+                  Search Donors
+              </Button>
             <Button
               style={{ float: "right", width: "10em", marginBottom: "10px"}}
               href="/donor/create"
