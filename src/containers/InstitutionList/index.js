@@ -76,6 +76,7 @@ export class InstitutionList extends Component {
                             <th>City</th>
                             <th>State</th>
                             <th>Zip Code</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
