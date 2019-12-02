@@ -76,6 +76,7 @@ export class ContactList extends Component {
                             <th>State</th>
                             <th>Zip Code</th>
                             <th>Institution</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
