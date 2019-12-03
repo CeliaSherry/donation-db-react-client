@@ -19,10 +19,6 @@ export default class NavbarCustom extends Component {
                         <Nav.Link href="/institutions">Institutions</Nav.Link>
                         <Nav.Link href="/contacts">Contacts</Nav.Link>
                     </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
-                    </Form>
                 </Navbar>
                 <br />
             </>

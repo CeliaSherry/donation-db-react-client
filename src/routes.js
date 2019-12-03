@@ -11,6 +11,8 @@ import createHistory from "history/createBrowserHistory";
 import DonationList from "./containers/DonationList";
 import Navbar from './components/Navbar';
 import { Donors } from "./containers/Donors";
+import SearchDonors from "./containers/SearchDonors";
+
 
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { Institution } from "./containers/Institutions";
@@ -23,16 +25,17 @@ import EditContact from "./containers/EditContact";
 const history = createHistory();
 
 export default (
-    <BrowserRouter history={history}>
+    <BrowserRouter history={history} forceRefresh={true}>
         <Navbar />
         <Switch>
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
+                <Route path="/donors/search" component={SearchDonors} />
                 <Route path="/donor/:donorId/donation/create" component={CreateDonation} />
                 <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />
                 <Route path={"/donor/:donorId/donations"} render={(props)=> <DonationList {...props} />} />
-                <Route path="/donors" component={Donors} />
+                <Route path="/donors:name?:email?:phone?:address?:city?:state?:zip?" component={Donors} />
                 //institutions bit
                 <Route exact path="/" component={Institution} />
                 <Route path="/institutions/create" component={CreateInstitution} />

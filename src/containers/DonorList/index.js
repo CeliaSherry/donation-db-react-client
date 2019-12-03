@@ -9,6 +9,9 @@ import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
+import { withRouter } from 'react-router-dom'
+import queryString from 'query-string';
+
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -23,17 +26,30 @@ export class DonorList extends Component {
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfDonor: []
+            pageOfDonor: [],
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentWillMount() {
-        this.props.getAllDonors().then(response => {
+       const values = queryString.parse(this.props.location.search)
+
+      if (Object.keys(values).length === 0) {
+          console.log(Object.keys(values).length)
+            this.props.getAllDonors().then(response => {
+                this.setState({
+                    data: response.payload
+                })
+            })
+      }
+
+       else {
+        this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
             this.setState({
                 data: response.payload
             })
         })
+       }
     }
 
 
@@ -140,9 +156,10 @@ export class DonorList extends Component {
                 <Pagination items={this.state.data} onChangePage={this.onChangePage} />
 
             </div>
+
         );
     }
 
 }
 
-export default connect(null, mapDispatchToProps)(DonorList);
+export default withRouter(connect(null, mapDispatchToProps)(DonorList));
