@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import FormGroup from "react-bootstrap/FormGroup";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
@@ -49,25 +48,6 @@ export class SearchDonors extends Component {
         return (
             <div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    {this.state.success ? (
-                        <Alert
-                            isOpen={this.state.visible}
-                            style={{ width: "48rem" }}
-                            variant="success"
-                        >
-                            {" "}
-                            Successful donor creation!
-                        </Alert>
-                    ) : !this.state.success && this.state.submitted && !this.state.errorDate && !this.state.errorName ? (
-                        <Alert style={{ width: "48rem" }} variant="danger">
-                            {" "}
-                            Error!
-                        </Alert>
-                    ) : (
-                        ""
-                    )}
-                </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
                     <Card style={{ width: "68rem" }}>
                         <Card.Header as="h5">Search Donors (All Fields Optional)</Card.Header>
                         <Card.Body>
@@ -113,7 +93,6 @@ export class SearchDonors extends Component {
                                     <Row>
                                         <Col>
                                             <Form.Control
-                                                value=''
                                                 placeholder="City"
                                                 onChange={e =>
                                                     this.setState({ donorCity: e.target.value })

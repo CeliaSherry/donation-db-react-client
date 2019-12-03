@@ -12,11 +12,11 @@ import Pagination from '../../components/Pagination';
 import { withRouter } from 'react-router-dom'
 import queryString from 'query-string';
 
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
         deleteDonor: actions.deleteDonor,
-        filterDonors: actions.getFilteredDonors
     }, dispatch);
 }
 
@@ -33,22 +33,23 @@ export class DonorList extends Component {
 
     componentWillMount() {
        const values = queryString.parse(this.props.location.search)
-        console.log(Object.keys(values).length)
-        console.log(values)
-        if (Object.keys(values).length !== 0) {
 
-             //
-             //const {name, email, phone, address, city, state, zip} = values;
-             //this.props.filterDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip)
-        }
+      if (Object.keys(values).length === 0) {
+          console.log(Object.keys(values).length)
+            this.props.getAllDonors().then(response => {
+                this.setState({
+                    data: response.payload
+                })
+            })
+      }
 
-        else {
-        this.props.getAllDonors().then(response => {
+       else {
+        this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
             this.setState({
                 data: response.payload
             })
         })
-        }
+       }
     }
 
 
@@ -155,6 +156,7 @@ export class DonorList extends Component {
                 <Pagination items={this.state.data} onChangePage={this.onChangePage} />
 
             </div>
+
         );
     }
 

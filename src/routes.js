@@ -25,7 +25,7 @@ import EditContact from "./containers/EditContact";
 const history = createHistory();
 
 export default (
-    <BrowserRouter history={history}>
+    <BrowserRouter history={history} forceRefresh={true}>
         <Navbar />
         <Switch>
                <Route exact path="/" component={Donors} />
