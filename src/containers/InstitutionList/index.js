@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Pagination from '../../components/Pagination';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
@@ -21,8 +22,10 @@ export class InstitutionList extends Component {
         super(props)
         this.myRef = React.createRef();
         this.state = {
-            data: []
+            data: [],
+            pageOfInstitution: []
         }
+        this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentWillMount() {
@@ -31,6 +34,10 @@ export class InstitutionList extends Component {
                 data: response.payload
             })
         })
+    }
+    onChangePage(pageOfInstitution) {
+        // update state with new page of items
+        this.setState({ pageOfInstitution: pageOfInstitution });
     }
 
     handleSubmit = (e, id, index) => {
@@ -56,7 +63,7 @@ export class InstitutionList extends Component {
     }
 
     render() {
-        const { data } = this.state;
+        
         return (
             <div>
                 <div ref={this.myRef} />
@@ -81,37 +88,39 @@ export class InstitutionList extends Component {
                     </thead>
 
                     <tbody>
-                        {this.state.data ?
-                            data.map((institution, index) => (
-                                <tr>
-                                    <td>{institution.id}</td>
-                                    <td><Link to={`/institutions/${institution.id}/contacts`}>{institution.institutionName}</Link></td>
-                                    <td>{institution.address}</td>
-                                    <td>{institution.city}</td>
-                                    <td>{institution.state}</td>
-                                    <td>{institution.zipCode}</td>
-                                    <td>
-                                        <Button
-                                            title="Edit"
-                                            style={{ marginBottom: "10px", marginRight: "10px" }}
-                                            href={`/institutions/${institution.id}/edit`}
-                                            variant="clear" >
-                                            <FaEdit />
-                                        </Button>
-                                        <Button
-                                            title="Delete"
-                                            style={{ marginBottom: "10px" }}
-                                            onClick={(e) => this.handleSubmit(e, institution.id, index)}
-                                            variant="clear"
-                                        >
-                                            <FaTrash />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )) : ''
+                        {
+                            this.state.data.length > 0 ?
+                            this.state.pageOfInstitution.map((institution, index) => (
+                                    <tr key={index}>
+                                        <td>{institution.id}</td>
+                                        <td><Link to={`/institutions/${institution.id}/contacts`}>{institution.institutionName}</Link></td>
+                                        <td>{institution.address}</td>
+                                        <td>{institution.city}</td>
+                                        <td>{institution.state}</td>
+                                        <td>{institution.zipCode}</td>
+                                        <td>
+                                            <Button
+                                                title="Edit"
+                                                style={{ marginBottom: "10px", marginRight: "10px" }}
+                                                href={`/institutions/${institution.id}/edit`}
+                                                variant="clear" >
+                                                <FaEdit />
+                                            </Button>
+                                            <Button
+                                                title="Delete"
+                                                style={{ marginBottom: "10px" }}
+                                                onClick={(e) => this.handleSubmit(e, institution.id, index)}
+                                                variant="clear"
+                                            >
+                                                <FaTrash />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                )) : ''
                         }
                     </tbody>
                 </Table>
+                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
             </div>
         );
     }
