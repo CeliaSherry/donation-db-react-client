@@ -35,7 +35,7 @@ export default (
                 <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />
                 <Route path={"/donor/:donorId/donations"} render={(props)=> <DonationList {...props} />} />
-                <Route path="/donors" component={Donors} />
+                <Route path="/donors:name?:email?:phone?:address?:city?:state?:zip?" component={Donors} />
                 //institutions bit
                 <Route exact path="/" component={Institution} />
                 <Route path="/institutions/create" component={CreateInstitution} />

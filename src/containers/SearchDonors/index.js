@@ -22,15 +22,15 @@ function mapDispatchToProps(dispatch) {
 
 export class SearchDonors extends Component {
     state = {
-        donorName: null,
-        donorEmail: null,
-        donorPhone: null,
-        donorAddress: null,
-        donorState: null,
-        donorCity: null,
-        donorZipCode: null,
-        contactName: null,
-        institutionName: null,
+        donorName: "",
+        donorEmail: "",
+        donorPhone: "",
+        donorAddress: "",
+        donorState: "",
+        donorCity: "",
+        donorZipCode: "",
+        contactName: "",
+        institutionName: "",
         success: false,
         submitted: false,
         visible: false,
@@ -41,40 +41,9 @@ export class SearchDonors extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.setState({ submitted: true });
-        const {
-            donorName,
-            donorEmail,
-            donorPhone,
-            donorAddress,
-            donorState,
-            donorCity,
-            donorZipCode,
-            institutionName,
-            contactName,
-        } = this.state;
-        const { getFilteredDonors } = this.props;
-        if (donorName === "" || donorName == null) {
-            this.setState({ errorName: true });
-        } else {
-            this.setState({ errorName: false });
-            this.setState({ errorDate: false });
-            getFilteredDonors(
-                donorName,
-                donorEmail,
-                donorPhone,
-                donorAddress,
-                donorState,
-                donorCity,
-                donorZipCode,
-            )
-        }
-        setTimeout(() => {
-            if (this.state.success === true) {
-                this.props.history.push("/donors?name=${donorName}&email=${email}&phone=${phone}&address=${address}&state=${state}&city=${city}&zip=${zip}");
-            }
-        }, 3000);
-
-    };
+        this.props.history.push({
+            pathname: `/donors?name=${this.state.donorName}&email=${this.state.donorEmail}&phone=${this.state.donorPhone}&address=${this.state.donorAddress}&city=${this.state.donorCity}&state=${this.state.donorState}&zip=${this.state.donorZipCode}`});
+    }
 
     render() {
         return (
@@ -144,6 +113,7 @@ export class SearchDonors extends Component {
                                     <Row>
                                         <Col>
                                             <Form.Control
+                                                value=''
                                                 placeholder="City"
                                                 onChange={e =>
                                                     this.setState({ donorCity: e.target.value })

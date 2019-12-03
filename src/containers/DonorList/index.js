@@ -9,11 +9,14 @@ import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
+import { withRouter } from 'react-router-dom'
+import queryString from 'query-string';
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
-        deleteDonor: actions.deleteDonor
+        deleteDonor: actions.deleteDonor,
+        filterDonors: actions.getFilteredDonors
     }, dispatch);
 }
 
@@ -23,17 +26,27 @@ export class DonorList extends Component {
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfDonor: []
+            pageOfDonor: [],
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
 
     componentWillMount() {
+       const values = queryString.parse(this.props.location.search)
+
+        if (values !== undefined) {
+             //
+             //const {name, email, phone, address, city, state, zip} = values;
+             //this.props.filterDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip)
+        }
+
+        else {
         this.props.getAllDonors().then(response => {
             this.setState({
                 data: response.payload
             })
         })
+        }
     }
 
 
@@ -145,4 +158,4 @@ export class DonorList extends Component {
 
 }
 
-export default connect(null, mapDispatchToProps)(DonorList);
+export default withRouter(connect(null, mapDispatchToProps)(DonorList));
