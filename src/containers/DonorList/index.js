@@ -33,8 +33,10 @@ export class DonorList extends Component {
 
     componentWillMount() {
        const values = queryString.parse(this.props.location.search)
+        console.log(Object.keys(values).length)
+        console.log(values)
+        if (Object.keys(values).length !== 0) {
 
-        if (values !== undefined) {
              //
              //const {name, email, phone, address, city, state, zip} = values;
              //this.props.filterDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip)
