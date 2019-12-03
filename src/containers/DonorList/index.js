@@ -16,7 +16,7 @@ import queryString from 'query-string';
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
-        deleteDonor: actions.deleteDonor,
+        deleteDonor: actions.deleteDonor
     }, dispatch);
 }
 
