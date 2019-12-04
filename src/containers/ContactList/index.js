@@ -77,7 +77,6 @@ export class ContactList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Name</th>
                             <th>Address</th>
                             <th>City</th>
@@ -93,7 +92,6 @@ export class ContactList extends Component {
                             this.state.data.length > 0 ?
                             this.state.pageOfContact.map((contact, index) => (
                                     <tr key={index}>
-                                        <td>{contact.id}</td>
                                         <td>{contact.contactName}</td>
                                         <td>{contact.address}</td>
                                         <td>{contact.city}</td>

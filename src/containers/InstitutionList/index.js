@@ -77,7 +77,6 @@ export class InstitutionList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Name</th>
                             <th>Address</th>
                             <th>City</th>
@@ -92,7 +91,6 @@ export class InstitutionList extends Component {
                             this.state.data.length > 0 ?
                             this.state.pageOfInstitution.map((institution, index) => (
                                     <tr key={index}>
-                                        <td>{institution.id}</td>
                                         <td><Link to={`/institutions/${institution.id}/contacts`}>{institution.institutionName}</Link></td>
                                         <td>{institution.address}</td>
                                         <td>{institution.city}</td>

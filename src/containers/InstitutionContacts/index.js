@@ -55,7 +55,6 @@ export class InstitutionContacts extends Component {
                     <Table responsive>
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Phone Number</th>
                                 <th>Email</th>
@@ -70,7 +69,6 @@ export class InstitutionContacts extends Component {
 
                                 this.state.data.map(contact => (
                                     <tr>
-                                        <td>{contact.id}</td>
                                         <td>{contact.contactName}</td>
                                         <td>{contact.phone}</td>
                                         <td>{contact.email}</td>
