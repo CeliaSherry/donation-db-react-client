@@ -11,6 +11,8 @@ import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
 import { withRouter } from 'react-router-dom'
 import queryString from 'query-string';
+import Moment from "react-moment";
+
 
 
 function mapDispatchToProps(dispatch) {
@@ -32,30 +34,30 @@ export class DonorList extends Component {
     }
 
     componentWillMount() {
-       const values = queryString.parse(this.props.location.search)
+        const values = queryString.parse(this.props.location.search)
 
-      if (Object.keys(values).length === 0) {
-          console.log(Object.keys(values).length)
+        if (Object.keys(values).length === 0) {
+            console.log(Object.keys(values).length)
             this.props.getAllDonors().then(response => {
                 this.setState({
                     data: response.payload
                 })
             })
-      }
+        }
 
-       else {
-        this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
-            this.setState({
-                data: response.payload
+        else {
+            this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
+                this.setState({
+                    data: response.payload
+                })
             })
-        })
-       }
+        }
     }
 
 
     onChangePage(pageOfDonor) {
         // update state with new page of items
-        this.setState({ pageOfDonor: pageOfDonor});
+        this.setState({ pageOfDonor: pageOfDonor });
     }
 
     handleSubmit = (e, id, index) => {
@@ -97,13 +99,10 @@ export class DonorList extends Component {
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Zip Code</th>
-                            <th>Institution</th>
+                            <th>Total Amount Donated</th>
+                            <th>Total Times Donated</th>
+                            <th>Last Donated</th>
+                            <th>Contact</th>
                             <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
@@ -111,45 +110,44 @@ export class DonorList extends Component {
                     <tbody>
                         {
                             this.state.data.length > 0 ?
-                            this.state.pageOfDonor.map((donor, index) => (
-                                <tr key={index}>
-                                    <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
-                                    <td>{donor.email}</td>
-                                    <td>{donor.phone}</td>
-                                    <td>{donor.address}</td>
-                                    <td>{donor.city}</td>
-                                    <td>{donor.state}</td>
-                                    <td>{donor.zipCode}</td>
-                                    <td>Institution</td>
-                                    <td>
-                                        <Link
-                                            title="Add Donation"
-                                            style={{ color: "black",marginLeft: "15px", marginRight: "10px"}}
-                                            to={{
-                                                pathname: `/donor/${donor.id}/donation/create`,
-                                                state: { donorName: donor.donorName  }
-                                            }}
-                                        >
-                                            <FaPlus style={{height:"32px",paddingBottom:"4px", marginRight: "10px"}}/>
-                                        </Link>
-                                        <Button
-                                            title="Edit Info"
-                                            style={{ marginBottom: "10px", marginRight: "10px" }}
-                                            href={`/donor/${donor.id}/edit`}
-                                            variant="clear" >
-                                            <FaEdit />
-                                        </Button>
-                                        <Button
-                                            title="Delete Donor"
-                                            style={{ marginBottom: "10px" }}
-                                            onClick={(e) => this.handleSubmit(e, donor.id, index)}
-                                            variant="clear"
-                                        >
-                                            <FaTrash />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )) : ''
+                                this.state.pageOfDonor.map((donor, index) => (
+                                    <tr key={index}>
+                                        <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
+                                        <td>${donor.totalDonated}</td>
+                                        <td>{donor.totalDonatedCount}</td>
+                                        <td>{donor.lastDonated ? <Moment format="MM/DD/YYYY">
+                                            {donor.lastDonated}
+                                        </Moment> : "--"}</td>
+                                        <td>{donor.contact ? <Link to={{ pathname: `/contacts/${donor.contact.id}/edit` }}>{donor.contact.contactName}</Link> : "Unknown"}</td>
+                                        <td>
+                                            <Link
+                                                title="Add Donation"
+                                                style={{ color: "black", marginLeft: "15px", marginRight: "10px" }}
+                                                to={{
+                                                    pathname: `/donor/${donor.id}/donation/create`,
+                                                    state: { donorName: donor.donorName }
+                                                }}
+                                            >
+                                                <FaPlus style={{ height: "32px", paddingBottom: "4px", marginRight: "10px" }} />
+                                            </Link>
+                                            <Button
+                                                title="Edit Info"
+                                                style={{ marginBottom: "10px", marginRight: "10px" }}
+                                                href={`/donor/${donor.id}/edit`}
+                                                variant="clear" >
+                                                <FaEdit />
+                                            </Button>
+                                            <Button
+                                                title="Delete Donor"
+                                                style={{ marginBottom: "10px" }}
+                                                onClick={(e) => this.handleSubmit(e, donor.id, index)}
+                                                variant="clear"
+                                            >
+                                                <FaTrash />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                )) : ''
                         }
                     </tbody>
                 </Table>

@@ -13,14 +13,14 @@ export class Donors extends Component {
           <div style={{ width: "80em" }}>
           <h3>Donors</h3>
               <Button
-                  style={{width: "10em", marginBottom: "10px"}}
+                  style={{float: "right", width: "10em", marginBottom: "10px", marginRight:"5px"}}
                   href="/donors/search"
                   variant="dark"
               >
                   Search Donors
               </Button>
             <Button
-              style={{ float: "right", width: "10em", marginBottom: "10px"}}
+              style={{ float: "right", width: "10em", marginBottom: "10px", marginRight:"5px"}}
               href="/donor/create"
               variant="dark"
             >
