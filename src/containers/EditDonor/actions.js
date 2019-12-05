@@ -11,7 +11,7 @@ export function getDonor(donorId){
     };
 }
 
-export function updateDonor(donorId, donorName,email,phone,address,state,city,zip,institution){
+export function updateDonor(donorId, donorName,email,phone,address,state,city,zip,institution,contact){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -29,6 +29,7 @@ export function updateDonor(donorId, donorName,email,phone,address,state,city,zi
                 city: city,
                 zipCode: zip,
                 institution: institution,
+                contact: contact
             }),
             method:'PUT',
         },
