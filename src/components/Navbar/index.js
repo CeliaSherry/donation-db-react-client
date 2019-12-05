@@ -13,7 +13,7 @@ export default class NavbarCustom extends Component {
         return (
             <>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="/donations">Lake County United</Navbar.Brand>
+                    <Navbar.Brand href="/">Lake County United</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link href="/donors">Donors</Nav.Link>
                         <Nav.Link href="/institutions">Institutions</Nav.Link>
