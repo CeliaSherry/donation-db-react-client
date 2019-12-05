@@ -30,6 +30,7 @@ export class ContactList extends Component {
 
     componentWillMount() {
         this.props.getAllContacts().then(response => {
+            
             this.setState({
                 data: response.payload
             })
@@ -97,7 +98,7 @@ export class ContactList extends Component {
                                         <td>{contact.city}</td>
                                         <td>{contact.state}</td>
                                         <td>{contact.zipCode}</td>
-                                        <td>Institution</td>
+                                        <td>{contact.institution.institutionName}</td>
                                         <td>
                                             <Button
                                                 title="Edit"
