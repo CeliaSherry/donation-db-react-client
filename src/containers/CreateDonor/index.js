@@ -47,7 +47,8 @@ export class CreateDonor extends Component {
   }
 
   componentWillMount() {
-    this.props.getAllInstitutions().then(response => {s
+    this.props.getAllInstitutions().then(response => {
+
         this.setState({
             data: response.payload
         })
