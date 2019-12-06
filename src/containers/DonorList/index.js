@@ -40,7 +40,6 @@ export class DonorList extends Component {
             
             // console.log(Object.keys(values).length)
             this.props.getAllDonors().then(response => {
-                console.log(response)
                 this.setState({
                     data: response.payload
                 })
