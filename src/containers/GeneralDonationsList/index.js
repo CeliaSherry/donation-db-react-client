@@ -133,7 +133,7 @@ export class GeneralDonationsList extends Component {
                         <td>{donation.donor? <Link to={{ pathname: `/donor/${donation.donor.id}/edit` }}>{donation.donor.donorName}</Link> : "Unknown"}</td>
                         <td>
                           {" "}
-                          <Moment format="MM/DD/YYYY">
+                          <Moment utc format="MM/DD/YYYY">
                             {donation.donationDate}
                           </Moment>
                         </td>

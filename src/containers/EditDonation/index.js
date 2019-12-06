@@ -123,7 +123,7 @@ export class EditDonation extends Component {
                   <FormGroup bssize="large">
                     <input
                       type="date"
-                      value={moment(this.state.donationDate).format(
+                      value={moment.utc(this.state.donationDate).format(
                         "YYYY-MM-DD"
                       )}
                       onChange={e =>

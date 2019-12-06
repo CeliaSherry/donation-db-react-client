@@ -124,7 +124,7 @@ export class DonationList extends Component {
                       <tr>
                         <td>
                           {" "}
-                          <Moment format="MM/DD/YYYY">
+                          <Moment utc format="MM/DD/YYYY">
                             {donation.donationDate}
                           </Moment>
                         </td>
