@@ -31,7 +31,6 @@ export class InstitutionContacts extends Component {
     }
 
     render() {
-        const { data } = this.state;
         return (
             <div>
         <div style={{ display: "flex", justifyContent: "center" }}>

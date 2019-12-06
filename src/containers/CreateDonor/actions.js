@@ -88,3 +88,24 @@ export function createDonorWithContact(donorName, donorEmail, donorPhone, donorA
         },
     };
 }
+
+
+export function getInstitution(institutionName){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institution/${institutionName}`,
+            method:'GET',
+        },
+    };
+}
+
+export function getAllInstitutions(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institutions`,
+            method:'GET',
+        },
+    };
+}
