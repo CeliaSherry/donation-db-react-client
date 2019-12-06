@@ -1,10 +1,7 @@
 import { Component } from "react";
 import React from 'react'
-import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
-import FormControl from "react-bootstrap/FormControl";
 
 export default class NavbarCustom extends Component {
     render() {
@@ -18,6 +15,7 @@ export default class NavbarCustom extends Component {
                         <Nav.Link href="/donors">Donors</Nav.Link>
                         <Nav.Link href="/institutions">Institutions</Nav.Link>
                         <Nav.Link href="/contacts">Contacts</Nav.Link>
+                        <Nav.Link href="/search">Search Donations</Nav.Link>
                     </Nav>
                 </Navbar>
                 <br />
