@@ -16,13 +16,55 @@ import FormControl from "react-bootstrap/FormControl";
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     createContact: actions.createContact,
+    getInstitution: actions.getInstitution,
+    getAllInstitutions: actions.getAllInstitutions
   }, dispatch);
 }
 
 
 
 export class CreateContact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Select Institution',
+      institutionName: "",
+      institutionAddress: "",
+      institutionCity: "",
+      institutionState: "",
+      institutionZipCode: "",
+      data: []
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.getAllInstitutions().then(response => {
+        this.setState({
+            data: response.payload
+        })
+    })
+}
+
+handleChange(event) {
+  this.setState({ value: event.target.value });
+  if (event.target.value != "Select Institution") {
+    this.props.getInstitution(event.target.value).then(response => {
+      this.setState({
+        institutionName: response.payload.institutionName,
+        institutionAddress: response.payload.address,
+        institutionCity: response.payload.city,
+        institutionState: response.payload.state,
+        institutionZipCode: response.payload.zipCode
+      })
+    })
+  }
+
+}
+
   state = {
+    value: 'Select Institution',
     contactName: '',
     email: '',
     phone: '',
@@ -130,15 +172,33 @@ export class CreateContact extends Component {
                   <br></br>
                   <Card.Header as="h6">Institution Details</Card.Header>
                   <br></br>
+                  <label>
+          <select value={this.state.value} onChange={this.handleChange}>
+                      <option value="Select Institution">Select Institution</option>
+                      {
+                        this.state.data.length > 0 ?
+                        this.state.data.map(institution => (
+                              <option key = {institution.institutionName} value = {institution.institutionName}>
+                                {institution.institutionName}
+                              </option>
+                      ))
+                      : ''
+                      }
+                    </select>
+                  </label>
+                  <br></br>
+                  <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
                       placeholder="Institution Name"
+                      value={this.state.institutionName || ''}
                       onChange={(e) => this.setState({ institutionName: e.target.value })} />
                   </FormGroup>
                   <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
                       placeholder="Institution Address"
+                      value={this.state.institutionAddress || ''}
                       onChange={(e) => this.setState({ institutionAddress: e.target.value })} />
                   </FormGroup>
                   <br></br>
@@ -146,18 +206,21 @@ export class CreateContact extends Component {
                     <Col>
                       <Form.Control
                         placeholder="City"
+                        value={this.state.institutionCity || ''}
                         onChange={(e) => this.setState({ institutionCity: e.target.value })}
                       />
                     </Col>
                     <Col>
                       <Form.Control
                         placeholder="State"
+                        value={this.state.institutionState || ''}
                         onChange={(e) => this.setState({ institutionState: e.target.value })}
                       />
                     </Col>
                     <Col>
                       <Form.Control
                         placeholder="Zip"
+                        value={this.state.institutionZipCode || ''}
                         onChange={(e) => this.setState({ institutionZipCode: e.target.value })}
                       />
                     </Col>
