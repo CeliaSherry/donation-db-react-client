@@ -31,6 +31,7 @@ export class CreateDonor extends Component {
     super(props);
     this.state = {
       value: 'Select Institution',
+      donationDate: moment(new Date()).format("YYYY-MM-DD"),
       name: "",
       phone: "",
       email: "",
@@ -57,7 +58,7 @@ export class CreateDonor extends Component {
 
   handleChange(event) {
     this.setState({ value: event.target.value });
-    if (event.target.value != "Select Institution") {
+    if (event.target.value !== "Select Institution") {
       this.props.getInstitution(event.target.value).then(response => {
         this.setState({
           institutionName: response.payload.institutionName,

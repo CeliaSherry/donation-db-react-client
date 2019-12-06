@@ -28,7 +28,7 @@ export class DonorList extends Component {
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfDonor: [],
+            pageOfDonor: []
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -37,8 +37,6 @@ export class DonorList extends Component {
         const values = queryString.parse(this.props.location.search)
 
         if (Object.keys(values).length === 0) {
-            
-            // console.log(Object.keys(values).length)
             this.props.getAllDonors().then(response => {
                 this.setState({
                     data: response.payload
@@ -47,12 +45,9 @@ export class DonorList extends Component {
         }
 
         else {
-            
             this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
-                
                 this.setState({
                     data: response.payload
-                
                 })
             })
         }

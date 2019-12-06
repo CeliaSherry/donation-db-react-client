@@ -21,6 +21,9 @@ import { Contacts } from "./containers/Contacts";
 import EditInstitution from "./containers/EditInstitution";
 import EditContact from "./containers/EditContact";
 import Home from "./containers/Home";
+import SearchDonations from "./containers/SearchDonations";
+import GeneralDonationsList from "./containers/GeneralDonationsList";
+
 
 
 const history = createHistory();
@@ -35,6 +38,7 @@ export default (
                 <Route path="/donor/:donorId/donation/create" component={CreateDonation} />
                 <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />
+                <Route path={"/donations:name?:month?:year?:thanks?:contact?:institution?"} component={GeneralDonationsList} />
                 <Route path={"/donor/:donorId/donations"} render={(props)=> <DonationList {...props} />} />
                 <Route path="/donors:name?:email?:phone?:address?:city?:state?:zip?" component={Donors} />
                 //institutions bit
@@ -48,6 +52,7 @@ export default (
                 <Route path={"/contacts/:contactId/edit"} component={EditContact} />
                 <Route path="/contacts/create" component={CreateContact} />
                 <Route path="/contacts" component={Contacts} />
+                <Route path="/search" component={SearchDonations} />
         </Switch>
     </BrowserRouter>
 );
