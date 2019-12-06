@@ -25,3 +25,22 @@ export function createContact(contactName, email, phone, address, state, city, z
         },
     };
 }
+export function getInstitution(institutionName){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institution/${institutionName}`,
+            method:'GET',
+        },
+    };
+}
+
+export function getAllInstitutions(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institutions`,
+            method:'GET',
+        },
+    };
+}
