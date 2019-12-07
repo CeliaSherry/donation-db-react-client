@@ -34,3 +34,12 @@ export function updateContact(contactId, contactName,email,phone,address,state,c
         },
     };
 }
+export function getAllInstitutions(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/institutions`,
+            method:'GET',
+        },
+    };
+}

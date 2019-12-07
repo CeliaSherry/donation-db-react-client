@@ -15,6 +15,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getContact: actions.getContact,
     updateContact: actions.updateContact,
+    getInstitutions: actions.getAllInstitutions
   }, dispatch);
 }
 
@@ -30,12 +31,29 @@ export class EditContact extends Component {
       city: "",
       addrState: "",
       zipCode: "",
-      institution: [],
+      institution: {
+        institutionName: "",
+      },
+      uniqueData: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  onlyUnique(value, index, self) { 
+    if(value != null){
+      return self.indexOf(value) === index;
+    }
+    
   }
 
   componentDidMount() {
+    this.props.getInstitutions().then(response => {
+      this.state.uniqueData = (response.payload.map(institution => (
+        institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
+      ))).filter(this.onlyUnique).sort()
+    })
+
     this.props.getContact(this.props.match.params.contactId).then(response => {
       this.setState({
         name: response.payload.contactName,
@@ -45,10 +63,21 @@ export class EditContact extends Component {
         city: response.payload.city,
         addrState: response.payload.state,
         zipCode:  response.payload.zipCode,
-        institutionName: [response.payload.institution],
+        institution: response.payload.institution,
       
       })
     })
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    if (event.target.value != "Select Institution") {
+      this.setState({
+        institution: {
+          institutionName: event.target.value
+        },
+      })
+    }
+  
   }
 
 
@@ -149,8 +178,31 @@ export class EditContact extends Component {
                       <br></br>
                       <FormGroup controlId="institution" bssize="large">
                         <label htmlFor="inputInstitution">Institution</label>
-                          <FormControl value={this.state.institution || ''}
-                                       onChange={e => this.setState({institutionName: e.target.value})}
+                        <br></br>
+                  <label>
+          <select value={this.state.value} onChange={this.handleChange}>
+                      <option value="Select Institution">Select Institution</option>
+                      
+                      {
+                        this.state.uniqueData.length > 0 ?
+                        this.state.uniqueData.map(institution => (
+                              <option key = {institution} value = {institution}>
+                                {institution}
+                              </option>
+                      ))
+                      : ''
+                      }
+                    </select>
+                  </label>
+                  <br></br>
+                  <br></br>
+                          <FormControl value={this.state.institution.institutionName || ''}
+                                       onChange={e => this.setState({institution: {
+                                         ...this.state.institution,
+                                         institutionName: e.target.value}
+                                       })
+                                      }
+                                       
                                        type="text"/>
                       </FormGroup>
 
