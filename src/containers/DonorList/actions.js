@@ -35,21 +35,11 @@ export function getAllDonorsSortedDescendingName(){
     };
 }
 
-export function getAllDonorsSortedAscendingContact(){
+export function getAllDonorsGroupedByContact(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors?sortOrder=ascendingContact`,
-            method:'GET',
-        },
-    };
-}
-
-export function getAllDonorsSortedDescendingContact(){
-    return{
-        [RSAA]:{
-            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors?sortOrder=descendingContact`,
+            endpoint: `http://localhost:8080/api/donors?sortOrder=contact`,
             method:'GET',
         },
     };

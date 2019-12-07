@@ -21,8 +21,7 @@ function mapDispatchToProps(dispatch) {
         deleteDonor: actions.deleteDonor,
         getAllDonorsSortedAscendingName: actions.getAllDonorsSortedAscendingName,
         getAllDonorsSortedDescendingName: actions.getAllDonorsSortedDescendingName,
-        getAllDonorsSortedAscendingContact: actions.getAllDonorsSortedAscendingContact,
-        getAllDonorsSortedDescendingContact: actions.getAllDonorsSortedDescendingContact
+        getAllDonorsGroupedByContact: actions.getAllDonorsGroupedByContact
     }, dispatch);
 }
 
@@ -78,21 +77,11 @@ export class DonorList extends Component {
     }
 
     onContactButtonClick() {
-        if (!this.orderContactDescending) {
-            this.props.getAllDonorsSortedAscendingContact().then(response => {
+            this.props.getAllDonorsGroupedByContact().then(response => {
                 this.setState({
                                   data: response.payload
                               })
             })
-        }
-        else{
-            this.props.getAllDonorsSortedDescendingContact().then(response => {
-                this.setState({
-                                  data: response.payload
-                              })
-            })
-        }
-        this.orderContactDescending = !this.orderContactDescending;
     }
 
 
