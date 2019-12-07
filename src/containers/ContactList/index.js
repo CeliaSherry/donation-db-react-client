@@ -4,7 +4,6 @@ import Table from "react-bootstrap/Table";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
-import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
@@ -21,9 +20,11 @@ export class ContactList extends Component {
     constructor(props) {
         super(props)
         this.myRef = React.createRef();
+        this.elementsPerPage= 10;
         this.state = {
             data: [],
-            pageOfContact: []
+            pageOfContact: [],
+            pageNumber: 1
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -36,9 +37,9 @@ export class ContactList extends Component {
         })
     }
 
-    onChangePage(pageOfContact) {
+    onChangePage(pageOfContact, page) {
         // update state with new page of items
-        this.setState({ pageOfContact: pageOfContact });
+        this.setState({ pageOfContact: pageOfContact, pageNumber: page});
     }
 
     handleSubmit = (e, id, index) => {
@@ -49,8 +50,7 @@ export class ContactList extends Component {
             if (response.type === 'SUCCESS') {
                 this.setState({
                     success: true,
-                    data: this.state.data.filter((_, i) => i !== index)
-                })
+                    data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))                })
             }
             if (response.type === 'FAILURE') {
                 this.setState({ success: false })
@@ -69,7 +69,7 @@ export class ContactList extends Component {
                 <div ref={this.myRef} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     {this.state.success && this.state.submitted ?
-                        <Alert isOpen={this.state.visible} style={{ width: "48rem" }} variant='success'> Successful donor
+                        <Alert isOpen={this.state.visible} style={{ width: "48rem" }} variant='success'> Successful contact
                         deletion</Alert>
                         : !this.state.success && this.state.submitted ?
                             <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
@@ -120,7 +120,7 @@ export class ContactList extends Component {
                         }
                     </tbody>
                 </Table>
-                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
+                <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage} />
             </div>
         );
     }

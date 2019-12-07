@@ -26,9 +26,11 @@ export class DonorList extends Component {
     constructor(props) {
         super(props)
         this.myRef = React.createRef();
+        this.elementsPerPage= 10;
         this.state = {
             data: [],
-            pageOfDonor: []
+            pageOfDonor: [],
+            pageNumber: 1
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -54,9 +56,9 @@ export class DonorList extends Component {
     }
 
 
-    onChangePage(pageOfDonor) {
+    onChangePage(pageOfDonor, page) {
         // update state with new page of items
-        this.setState({ pageOfDonor: pageOfDonor });
+        this.setState({ pageOfDonor: pageOfDonor, pageNumber: page});
     }
 
     handleSubmit = (e, id, index) => {
@@ -67,7 +69,7 @@ export class DonorList extends Component {
             if (response.type === 'SUCCESS') {
                 this.setState({
                     success: true,
-                    data: this.state.data.filter((_, i) => i !== index)
+                    data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
                 })
             }
             if (response.type === 'FAILURE') {
@@ -148,9 +150,10 @@ export class DonorList extends Component {
                                     </tr>
                                 )) : ''
                         }
+                        <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage} />
+
                     </tbody>
                 </Table>
-                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
 
             </div>
 

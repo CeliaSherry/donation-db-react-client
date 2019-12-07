@@ -28,10 +28,11 @@ export class GeneralDonationsList extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-
+    this.elementsPerPage= 10;
     this.state = {
       data: [],
-      pageOfDonation: []
+      pageOfDonation: [],
+      pageNumber: 1
     };
     this.onChangePage = this.onChangePage.bind(this);
   }
@@ -44,7 +45,7 @@ export class GeneralDonationsList extends Component {
       if (response.type === "SUCCESS") {
         this.setState({
           success: true,
-          data: this.state.data.filter((_, i) => i !== index)
+          data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
         });
       }
       if (response.type === "FAILURE") {
@@ -88,9 +89,9 @@ export class GeneralDonationsList extends Component {
     }
   }
 
-  onChangePage(pageOfDonation) {
+  onChangePage(pageOfDonation, page) {
     // update state with new page of items
-    this.setState({ pageOfDonation: pageOfDonation });
+    this.setState({ pageOfDonation: pageOfDonation, pageNumber: page});
   }
 
   render() {
@@ -176,7 +177,7 @@ export class GeneralDonationsList extends Component {
                   : ""}
               </tbody>
             </Table>
-            <Pagination items={this.state.data} onChangePage={this.onChangePage} />
+            <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage}/>
           </Card>
         </div>
       </div>

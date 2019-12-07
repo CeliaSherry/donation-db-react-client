@@ -20,10 +20,12 @@ function mapDispatchToProps(dispatch) {
 export class InstitutionList extends Component {
     constructor(props) {
         super(props)
+        this.elementsPerPage= 10;
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfInstitution: []
+            pageOfInstitution: [],
+            pageNumber: 1
         }
         this.onChangePage = this.onChangePage.bind(this);
     }
@@ -35,9 +37,9 @@ export class InstitutionList extends Component {
             })
         })
     }
-    onChangePage(pageOfInstitution) {
+    onChangePage(pageOfInstitution, page) {
         // update state with new page of items
-        this.setState({ pageOfInstitution: pageOfInstitution });
+        this.setState({ pageOfInstitution: pageOfInstitution, pageNumber: page });
     }
 
     handleSubmit = (e, id, index) => {
@@ -48,7 +50,7 @@ export class InstitutionList extends Component {
             if (response.type === 'SUCCESS') {
                 this.setState({
                     success: true,
-                    data: this.state.data.filter((_, i) => i !== index)
+                    data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
                 })
             }
             if (response.type === 'FAILURE') {
@@ -118,7 +120,7 @@ export class InstitutionList extends Component {
                         }
                     </tbody>
                 </Table>
-                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
+                <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage} />
             </div>
         );
     }

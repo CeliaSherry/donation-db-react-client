@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 import moment from "moment";
 
-//TODO get zipcode update and institution get and update to work!  Rerender list and forms on back button
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {

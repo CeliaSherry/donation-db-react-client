@@ -95,8 +95,11 @@ handleChange(event) {
         this.setState({ success: false })
       }
       setTimeout(() => {
-        this.setState({ submitted: false });
-      }, 3000);
+        this.setState({ submitted: false }
+        );
+        if (this.state.success === true) {
+          this.props.history.push("/contacts");
+        }}, 3000);
 
     });
   }
@@ -230,7 +233,6 @@ handleChange(event) {
                     block
                     bssize="large"
                     onClick={this.handleSubmit}
-                    href={`/contacts`}
                     type="submit"
     
                   >
