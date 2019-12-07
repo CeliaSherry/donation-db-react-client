@@ -20,6 +20,7 @@ import InstitutionContacts from "./containers/InstitutionContacts";
 import { Contacts } from "./containers/Contacts";
 import EditInstitution from "./containers/EditInstitution";
 import EditContact from "./containers/EditContact";
+import  DonorDetails  from "./containers/DonorDetails";
 
 
 const history = createHistory();
@@ -31,6 +32,8 @@ export default (
                <Route exact path="/" component={Donors} />
                 <Route path="/donor/create" component={CreateDonor} />
                 <Route path="/donors/search" component={SearchDonors} />
+                <Route path={"/donor/:donorId/details"} component={DonorDetails} />
+
                 <Route path="/donor/:donorId/donation/create" component={CreateDonation} />
                 <Route path={"/donor/:donorId/edit"} component={EditDonor} />
                 <Route path={"/donation/:donationId/edit"} component={EditDonation} />

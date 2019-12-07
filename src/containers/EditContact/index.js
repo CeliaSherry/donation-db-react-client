@@ -36,7 +36,7 @@ export class EditContact extends Component {
   }
 
   componentDidMount() {
-    console.log("Hello");
+    console.log(this.props);
     this.props.getContact(this.props.match.params.contactId).then(response => {
       this.setState({
         name: response.payload.contactName,
@@ -51,12 +51,6 @@ export class EditContact extends Component {
       })
     })
   }
-
-
-
-  // validateForm() {
-  //   return this.email.length > 0 && this.password.length > 0;
-  // }
 
 
 

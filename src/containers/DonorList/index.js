@@ -112,7 +112,7 @@ export class DonorList extends Component {
                             this.state.data.length > 0 ?
                                 this.state.pageOfDonor.map((donor, index) => (
                                     <tr key={index}>
-                                        <td><Link to={{ pathname: `/donor/${donor.id}/donations`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
+                                        <td><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
                                         <td>${donor.totalDonated}</td>
                                         <td>{donor.totalDonatedCount}</td>
                                         <td>{donor.lastDonated ? <Moment format="MM/DD/YYYY">

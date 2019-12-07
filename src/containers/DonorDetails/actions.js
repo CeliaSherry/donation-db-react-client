@@ -12,7 +12,6 @@ export function getDonor(donorId){
 }
 
 export function updateDonor(donorId, donorName,email,phone,address,state,city,zip,contact){
-    debugger
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -29,7 +28,6 @@ export function updateDonor(donorId, donorName,email,phone,address,state,city,zi
                 state: state,
                 city: city,
                 zipCode: zip,
-          
                 contact: contact
             }),
             method:'PUT',

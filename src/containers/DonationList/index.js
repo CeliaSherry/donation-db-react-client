@@ -65,11 +65,11 @@ export class DonationList extends Component {
         <div ref={this.myRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
-            {this.props.location.state.donorName != null ? (
+            {/* {this.props.location.state.donorName != null ? (
               <h3>Donations by {this.props.location.state.donorName}</h3>
             ) : (
               <h3>Donations</h3>
-            )}
+            )} */}
             {this.state.success && this.state.submitted ? (
               <Alert
                 isOpen={this.state.visible}
@@ -90,9 +90,10 @@ export class DonationList extends Component {
 
             <Button
               style={{ float: "right", width: "10em", marginBottom: "10px" }}
-              variant="light"
+              variant="dark"
             >
               <Link
+               style={{ color: "white"}}
                 to={{
                   pathname: `/donor/${this.props.match.params.donorId}/donation/create`,
                   state: { donorName: this.props.location.state.donorName }
@@ -106,6 +107,7 @@ export class DonationList extends Component {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
+          <Card.Header as="h5">Donations</Card.Header>
             <Table responsive>
               <thead>
                 <tr>

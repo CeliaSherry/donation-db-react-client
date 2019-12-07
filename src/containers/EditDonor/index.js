@@ -31,12 +31,22 @@ export class EditDonor extends Component {
       addrState: "",
       zipCode: "",
       institution: "",
-      contact: ""
+      contact: {
+        contactName: "",
+        email: "",
+        phone: "",
+        address: "",
+        state: "",
+        city: "",
+        zipCode: "",
+        institution:""
+      }
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+
     this.props.getDonor(this.props.match.params.donorId).then(response => {
       this.setState({
         name: response.payload.donorName,
@@ -54,17 +64,17 @@ export class EditDonor extends Component {
 
 
 
-  // validateForm() {
-  //   return this.email.length > 0 && this.password.length > 0;
-  // }
-
-
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, phone, address, addrState, city, zipCode, institution, contact } = this.state;
+    const { name, email, phone, address, addrState, city, zipCode, contact } = this.state;
+   
+
     const { updateDonor } = this.props;
-    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, institution, contact).then(response => {
+    console.log("hi");
+    console.log(contact.contactName);
+    updateDonor(this.props.match.params.donorId, name, email, phone, address, addrState, city, zipCode, contact).then(response => {
+    
       this.setState({ submitted: true })
       if (response.type === 'SUCCESS') {
         this.setState({ success: true })
@@ -87,6 +97,7 @@ export class EditDonor extends Component {
         <div>
             <div ref={this.myRef}/>
           <div style={{display: "flex", justifyContent: "center"}}>
+          
             {this.state.success && this.state.submitted ?
                     <Alert isOpen={this.state.visible} style={{width: "48rem"}} variant='success'> Successful donor
                 update!</Alert>
@@ -94,8 +105,8 @@ export class EditDonor extends Component {
                     <Alert style={{width: "48rem"}} variant='danger'> Error!</Alert> : ''}
           </div>
             <div style={{display: "flex", justifyContent: "center"}}>
-              <Card style={{width: "48rem"}}>
-                <Card.Header as="h5">Edit Donor</Card.Header>
+              <Card style={{width: "80rem"}}>
+                <Card.Header as="h5">Donor Details</Card.Header>
                 <Card.Body>
                   <div className="Edit Donor">
                     <form onSubmit={this.handleSubmit}>
@@ -156,11 +167,11 @@ export class EditDonor extends Component {
                         </Col>
                       </Row>
                       <br></br>
-                      <FormGroup controlId="institution" bssize="large">
-                        <label htmlFor="inputInstitution">Institution</label>
-                          <FormControl value={this.state.institution || ''}
-                                       onChange={e => this.setState({institution: e.target.value})}
-                                       type="text"/>
+                      <FormGroup controlId="contactName" bssize="large">
+                        <label htmlFor="inputContactName">Contact</label>
+                         <FormControl value={this.state.contact? this.state.contact.contactName || '' : ''}
+                                           onChange={e => this.setState({ contact: { ...this.state.contact, contactName: e.target.value} })}
+                                           type="text"/>
                       </FormGroup>
 
                       <br></br>
