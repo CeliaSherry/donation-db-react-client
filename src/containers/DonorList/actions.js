@@ -15,6 +15,46 @@ export function getAllDonors(donorName,email,phone,address,city,state,zip){
     };
 }
 
+export function getAllDonorsSortedAscendingName(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donors?sortOrder=ascendingName`,
+            method:'GET',
+        },
+    };
+}
+
+export function getAllDonorsSortedDescendingName(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donors?sortOrder=descendingName`,
+            method:'GET',
+        },
+    };
+}
+
+export function getAllDonorsSortedAscendingContact(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donors?sortOrder=ascendingContact`,
+            method:'GET',
+        },
+    };
+}
+
+export function getAllDonorsSortedDescendingContact(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donors?sortOrder=descendingContact`,
+            method:'GET',
+        },
+    };
+}
+
 export function deleteDonor(donorId){
     return{
         [RSAA]:{

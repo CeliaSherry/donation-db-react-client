@@ -18,7 +18,11 @@ import Moment from "react-moment";
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllDonors: actions.getAllDonors,
-        deleteDonor: actions.deleteDonor
+        deleteDonor: actions.deleteDonor,
+        getAllDonorsSortedAscendingName: actions.getAllDonorsSortedAscendingName,
+        getAllDonorsSortedDescendingName: actions.getAllDonorsSortedDescendingName,
+        getAllDonorsSortedAscendingContact: actions.getAllDonorsSortedAscendingContact,
+        getAllDonorsSortedDescendingContact: actions.getAllDonorsSortedDescendingContact
     }, dispatch);
 }
 
@@ -31,6 +35,8 @@ export class DonorList extends Component {
             pageOfDonor: []
         }
         this.onChangePage = this.onChangePage.bind(this);
+        this.onNameButtonClick = this.onNameButtonClick.bind(this);
+        this.onContactButtonClick = this.onContactButtonClick.bind(this);
     }
 
     componentWillMount() {
@@ -52,6 +58,43 @@ export class DonorList extends Component {
             })
         }
     }
+
+    onNameButtonClick() {
+        if (!this.orderNameDescending) {
+            this.props.getAllDonorsSortedAscendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllDonorsSortedDescendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderNameDescending = !this.orderNameDescending;
+    }
+
+    onContactButtonClick() {
+        if (!this.orderContactDescending) {
+            this.props.getAllDonorsSortedAscendingContact().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllDonorsSortedDescendingContact().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderContactDescending = !this.orderContactDescending;
+    }
+
 
 
     onChangePage(pageOfDonor) {
@@ -97,11 +140,15 @@ export class DonorList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <button onClick={this.onNameButtonClick.bind(this)}>
+                                <th>Name</th>
+                            </button>
                             <th>Total Amount Donated</th>
                             <th>Total Times Donated</th>
                             <th>Last Donated</th>
-                            <th>Contact</th>
+                            <button onClick={this.onContactButtonClick.bind(this)}>
+                                <th>Contact</th>
+                            </button>
                             <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
