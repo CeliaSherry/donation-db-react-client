@@ -34,3 +34,14 @@ export function updateDonor(donorId, donorName,email,phone,address,state,city,zi
         },
     };
 }
+
+
+export function deleteDonor(donorId){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/donor/${donorId}`,
+            method:'DELETE',
+        },
+    };
+}

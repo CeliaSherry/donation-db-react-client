@@ -36,7 +36,6 @@ export class EditContact extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     this.props.getContact(this.props.match.params.contactId).then(response => {
       this.setState({
         name: response.payload.contactName,

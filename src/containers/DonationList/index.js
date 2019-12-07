@@ -61,15 +61,13 @@ export class DonationList extends Component {
 
   render() {
     return (
-      <div>
+      this.state.data && this.state.data.length == 0 ? 
+      <div style={{ display: "flex", justifyContent: "center" }}><h4>No donations recorded</h4></div>
+      :
+      <div  id="donationsList">
         <div ref={this.myRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
-            {/* {this.props.location.state.donorName != null ? (
-              <h3>Donations by {this.props.location.state.donorName}</h3>
-            ) : (
-              <h3>Donations</h3>
-            )} */}
             {this.state.success && this.state.submitted ? (
               <Alert
                 isOpen={this.state.visible}
@@ -116,8 +114,7 @@ export class DonationList extends Component {
                     Amount
                   </th>
                   <th>Notes</th>
-                  <th></th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +131,7 @@ export class DonationList extends Component {
                         <td>{donation.note}</td>
                         <td style={{ paddingTop: "20px"}}>
                           <Link
-                            style={{ color: "black" }}
+                            style={{ color: "black"  ,marginRight: "10px" }} 
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
@@ -145,8 +142,8 @@ export class DonationList extends Component {
                           >
                             <FaEdit />
                           </Link>
-                        </td>
-                        <td>
+                 
+                 
                           <Button
                             style={{
                               marginBottom: "10px",
@@ -167,7 +164,9 @@ export class DonationList extends Component {
             </Table>
           </Card>
         </div>
+        :''
       </div>
+                          
     );
   }
 }

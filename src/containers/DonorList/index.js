@@ -37,7 +37,6 @@ export class DonorList extends Component {
         const values = queryString.parse(this.props.location.search)
 
         if (Object.keys(values).length === 0) {
-            console.log(Object.keys(values).length)
             this.props.getAllDonors().then(response => {
                 this.setState({
                     data: response.payload
@@ -112,7 +111,7 @@ export class DonorList extends Component {
                             this.state.data.length > 0 ?
                                 this.state.pageOfDonor.map((donor, index) => (
                                     <tr key={index}>
-                                        <td><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName } }}>{donor.donorName}</Link></td>
+                                        <td><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName, timesDonated: donor.totalDonatedCount } }}>{donor.donorName}</Link></td>
                                         <td>${donor.totalDonated}</td>
                                         <td>{donor.totalDonatedCount}</td>
                                         <td>{donor.lastDonated ? <Moment format="MM/DD/YYYY">

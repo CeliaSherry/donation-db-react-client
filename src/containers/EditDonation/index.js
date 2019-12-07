@@ -69,7 +69,7 @@ export class EditDonation extends Component {
       setTimeout(() => {
         this.setState({ submitted: false });
         if (this.state.success === true) {
-          this.props.history.push({pathname:`/donor/${this.props.location.state.donorId}/donations`,
+          this.props.history.push({pathname:`/donor/${this.props.location.state.donorId}/details`,
           state:{donorName:this.props.location.state.donorName}});
         }
       }, 3000);
@@ -78,7 +78,6 @@ export class EditDonation extends Component {
   };
 
   render() {
-      console.log(this.props.location.state.donorName);
     return (
       <div>
         <div ref={this.myRef} />

@@ -35,7 +35,6 @@ export class CreateDonation extends Component {
     e.preventDefault();
     const { donationAmount, donationDate, note } = this.state;
     const { createDonationForDonor } = this.props;
-    console.log(donationAmount);
     if (donationAmount == null) {
       this.setState({ error: true });
     } else {
@@ -57,7 +56,7 @@ export class CreateDonation extends Component {
           this.setState({ submitted: false });
           if (this.state.success === true) {
             this.props.history.push({
-              pathname: `/donor/${this.props.match.params.donorId}/donations`,
+              pathname: `/donor/${this.props.match.params.donorId}/details`,
               state: { donorName: this.props.location.state.donorName }
             });
           }
