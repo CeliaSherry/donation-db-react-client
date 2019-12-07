@@ -19,7 +19,7 @@ export function getAllDonorsSortedAscendingName(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors?sortOrder=ascendingName`,
+            endpoint: `http://localhost:8080/api/donors?sortParam=ascendingName`,
             method:'GET',
         },
     };
@@ -29,7 +29,7 @@ export function getAllDonorsSortedDescendingName(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors?sortOrder=descendingName`,
+            endpoint: `http://localhost:8080/api/donors?sortParam=descendingName`,
             method:'GET',
         },
     };
@@ -39,7 +39,7 @@ export function getAllDonorsGroupedByContact(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors?sortOrder=contact`,
+            endpoint: `http://localhost:8080/api/donors?sortParam=contact`,
             method:'GET',
         },
     };
