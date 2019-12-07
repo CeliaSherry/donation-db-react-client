@@ -41,15 +41,23 @@ export class CreateDonor extends Component {
       zipCode: "",
       institution: "",
       contact: "",
-      data: []
+      data: [],
+      uniqueData: []
     }
 
     this.handleChange = this.handleChange.bind(this);
   }
-
+  onlyUnique(value, index, self) { 
+    if(value != null){
+      return self.indexOf(value) === index;
+    }
+    
+  }
   componentWillMount() {
     this.props.getAllInstitutions().then(response => {
-
+      this.state.uniqueData = (response.payload.map(institution => (
+        institution.institutionName
+      ))).filter(this.onlyUnique)
         this.setState({
             data: response.payload
         })
@@ -401,10 +409,10 @@ export class CreateDonor extends Component {
           <select value={this.state.value} onChange={this.handleChange}>
                       <option value="Select Institution">Select Institution</option>
                       {
-                        this.state.data.length > 0 ?
-                        this.state.data.map(institution => (
-                              <option key = {institution.institutionName} value = {institution.institutionName}>
-                                {institution.institutionName}
+                        this.state.uniqueData.length > 0 ?
+                        this.state.uniqueData.map(institution => (
+                              <option key = {institution} value = {institution}>
+                                {institution}
                               </option>
                       ))
                       : ''
