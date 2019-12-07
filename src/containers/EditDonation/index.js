@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import Alert from "react-bootstrap/Alert";
 import moment from "moment";
 
-//TODO get zipcode update and institution get and update to work!  Rerender list and forms on back button
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
@@ -22,15 +21,18 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
+
 export class EditDonation extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.id = -1;
     this.state = {
       donationAmount: "",
       donationDate: "",
       note: "",
-      donor:""
+      donor:"",
+      thankYou: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -39,25 +41,29 @@ export class EditDonation extends Component {
     this.props
       .getDonation(this.props.match.params.donationId)
       .then(response => {
+        this.id= response.payload.donor.id
         this.setState({
           donationAmount: response.payload.donationAmount,
           donationDate: response.payload.donationDate,
           note: response.payload.note,
-          donor: response.payload.donor
-        });
+          donor: response.payload.donor,
+          thankYou: response.payload.thankYou,
+        }
+      );
       });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const { donationAmount, donationDate, note, donor} = this.state;
+    const { donationAmount, donationDate, note, donor, thankYou} = this.state;
     const { updateDonation } = this.props;
     updateDonation(
       this.props.match.params.donationId,
       donationAmount,
       donationDate,
       note,
-      donor
+      donor,
+        thankYou
     ).then(response => {
       this.setState({ submitted: true });
       if (response.type === "SUCCESS") {
@@ -119,10 +125,13 @@ export class EditDonation extends Component {
                     </Col>
                   </Row>
                   <br></br>
+                  <label htmlFor="inputDate">Date</label>
+
                   <FormGroup bssize="large">
+
                     <input
                       type="date"
-                      value={moment(this.state.donationDate).format(
+                      value={moment.utc(this.state.donationDate).format(
                         "YYYY-MM-DD"
                       )}
                       onChange={e =>
@@ -140,6 +149,16 @@ export class EditDonation extends Component {
                       type="text"
                     />
                   </FormGroup>
+                  <br></br>
+                  <label>
+                    Thank You Sent
+                    <br></br>
+                      <input
+                          name="thankYouSent"
+                          type="checkbox"
+                          checked={this.state.thankYou}
+                          onChange={e => this.setState({thankYou: e.target.checked})} />
+                    </label>
                   <br></br>
                   <br></br>
                   <Button block bssize="large" type="submit">

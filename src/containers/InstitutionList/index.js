@@ -13,19 +13,27 @@ import Pagination from '../../components/Pagination';
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllInstitutions: actions.getAllInstitutions,
-        deleteInstitution: actions.deleteInstitution
+        deleteInstitution: actions.deleteInstitution,
+        getAllInstitutionsSortedAscendingName: actions.getAllInstitutionsSortedAscendingName,
+        getAllInstitutionsSortedDescendingName: actions.getAllInstitutionsSortedDescendingName,
+        getAllInstitutionsSortedAscendingState: actions.getAllInstitutionsSortedAscendingState,
+        getAllInstitutionsSortedDescendingState: actions.getAllInstitutionsSortedDescendingState
     }, dispatch);
 }
 
 export class InstitutionList extends Component {
     constructor(props) {
         super(props)
+        this.elementsPerPage= 10;
         this.myRef = React.createRef();
         this.state = {
             data: [],
-            pageOfInstitution: []
+            pageOfInstitution: [],
+            pageNumber: 1
         }
         this.onChangePage = this.onChangePage.bind(this);
+        this.onNameButtonClick = this.onNameButtonClick.bind(this);
+        this.onStateButtonClick = this.onStateButtonClick.bind(this);
     }
 
     componentWillMount() {
@@ -35,10 +43,47 @@ export class InstitutionList extends Component {
             })
         })
     }
-    onChangePage(pageOfInstitution) {
+    onChangePage(pageOfInstitution, page) {
         // update state with new page of items
-        this.setState({ pageOfInstitution: pageOfInstitution });
+        this.setState({ pageOfInstitution: pageOfInstitution, pageNumber: page });
     }
+
+    onNameButtonClick() {
+        if (!this.orderNameDescending) {
+            this.props.getAllInstitutionsSortedAscendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllInstitutionsSortedDescendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderNameDescending = !this.orderNameDescending;
+    }
+
+    onStateButtonClick() {
+        if (!this.orderStateDescending) {
+            this.props.getAllInstitutionsSortedAscendingState().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllInstitutionsSortedDescendingState().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderStateDescending = !this.orderStateDescending;
+    }
+
 
     handleSubmit = (e, id, index) => {
         e.preventDefault();
@@ -48,7 +93,7 @@ export class InstitutionList extends Component {
             if (response.type === 'SUCCESS') {
                 this.setState({
                     success: true,
-                    data: this.state.data.filter((_, i) => i !== index)
+                    data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
                 })
             }
             if (response.type === 'FAILURE') {
@@ -77,10 +122,14 @@ export class InstitutionList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <button onClick={this.onNameButtonClick.bind(this)}>
+                                <th>Name</th>
+                            </button>
                             <th>Address</th>
                             <th>City</th>
-                            <th>State</th>
+                            <button onClick={this.onStateButtonClick.bind(this)}>
+                                <th>State</th>
+                            </button>
                             <th>Zip Code</th>
                             <th>Actions</th>
                         </tr>
@@ -118,7 +167,7 @@ export class InstitutionList extends Component {
                         }
                     </tbody>
                 </Table>
-                <Pagination items={this.state.data} onChangePage={this.onChangePage} />
+                <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage} />
             </div>
         );
     }

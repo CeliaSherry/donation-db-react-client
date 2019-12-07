@@ -8,26 +8,35 @@ import Button from "react-bootstrap/Button";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import queryString from "query-string";
+import { withRouter } from 'react-router-dom'
+import Pagination from "../../components/Pagination";
 import Alert from "react-bootstrap/Alert";
+
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getDonationsForDonor: actions.getDonationsForDonor,
+      getAllDonations: actions.getAllDonations,
       deleteDonation: actions.deleteDonation
     },
     dispatch
   );
 }
 
-export class DonationList extends Component {
+export class GeneralDonationsList extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.elementsPerPage= 10;
     this.state = {
-      data: []
+      data: [],
+      pageOfDonation: [],
+      pageNumber: 1
     };
+    this.onChangePage = this.onChangePage.bind(this);
   }
+
   handleSubmit = (e, id, index) => {
     e.preventDefault();
     const { deleteDonation } = this.props;
@@ -36,7 +45,7 @@ export class DonationList extends Component {
       if (response.type === "SUCCESS") {
         this.setState({
           success: true,
-          data: this.state.data.filter((_, i) => i !== index)
+          data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
         });
       }
       if (response.type === "FAILURE") {
@@ -49,79 +58,79 @@ export class DonationList extends Component {
     window.scrollTo(0, this.myRef.current.top);
   };
 
+
   componentWillMount() {
-    this.props
-      .getDonationsForDonor(this.props.match.params.donorId)
-      .then(response => {
+    const values = queryString.parse(this.props.location.search)
+    if (Object.keys(values).length === 0) {
+      this.props.getAllDonations().then(response => {
         this.setState({
           data: response.payload
-        });
-      });
+        })
+      })
+    } else {
+      var month = 0;
+      var year = 0;
+      var thanks = 3;
+      if (!(values.month === "")) {
+        month = parseInt(values.month);
+      }
+      if (!(values.year === "")) {
+        year = parseInt(values.year);
+      }
+      if (!(values.thanks === "")) {
+        thanks = values.thanks === "Yes" ? 1 : 0;
+      }
+      this.props.getAllDonations(values.name, month, year, thanks, values.contact, values.institution, thanks).then(response => {
+        this.setState({
+          data: response.payload
+        })
+      })
+    }
+  }
+
+  onChangePage(pageOfDonation, page) {
+    // update state with new page of items
+    this.setState({ pageOfDonation: pageOfDonation, pageNumber: page});
   }
 
   render() {
     return (
-      this.state.data && this.state.data.length == 0 ? 
-      <div style={{ display: "flex", justifyContent: "center" }}><h4>No donations recorded</h4></div>
-      :
-      <div  id="donationsList">
+      <div>
         <div ref={this.myRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
+          {this.state.success && this.state.submitted ?
+              <Alert isOpen={this.state.visible} style={{ width: "48rem" }} variant='success'> Successful donor
+                deletion</Alert>
+              : !this.state.success && this.state.submitted ?
+                  <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
-            {this.state.success && this.state.submitted ? (
-              <Alert
-                isOpen={this.state.visible}
-                style={{ width: "48rem" }}
-                variant="success"
-              >
-                {" "}
-                Donation deleted!
-              </Alert>
-            ) : !this.state.success && this.state.submitted ? (
-              <Alert style={{ width: "48rem" }} variant="danger">
-                {" "}
-                Error!
-              </Alert>
-            ) : (
-              ""
-            )}
-
-            <Button
-              style={{ float: "right", width: "10em", marginBottom: "10px" }}
-              variant="dark"
-            >
-              <Link
-               style={{ color: "white"}}
-                to={{
-                  pathname: `/donor/${this.props.match.params.donorId}/donation/create`,
-                  state: { donorName: this.props.location.state.donorName }
-                }}
-              >
-                Add Donation
-              </Link>
-            </Button>
+              <h3>Donations</h3>
           </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
-          <Card.Header as="h5">Donations</Card.Header>
             <Table responsive>
               <thead>
                 <tr>
+                  <th>Donor</th>
                   <th>Date</th>
                   <th data-field="donationAmount" data-sortable="true">
                     Amount
                   </th>
-                  <th>Notes</th>
+                  <th>Contact</th>
+                  <th>Institution</th>
                   <th>Thank You Sent</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.data.length > 0
-                  ? this.state.data.map((donation, index) => (
-                      <tr>
+                  ? this.state.pageOfDonation.map((donation, index) => (
+                        <tr key={index}>
+                        <td>{donation.donor? <Link to={{ pathname: `/donor/${donation.donor.id}/edit` }}>{donation.donor.donorName}</Link> : "Unknown"}</td>
                         <td>
                           {" "}
                           <Moment utc format="MM/DD/YYYY">
@@ -129,29 +138,31 @@ export class DonationList extends Component {
                           </Moment>
                         </td>
                         <td>${donation.donationAmount}</td>
-                        <td>{donation.note}</td>
-                        <td>{donation.thankYou.toString()}</td>
-                        <td style={{marginRight: "10px"}}>
+                          <td>{donation.donor.contact? <Link to={{ pathname: `/contacts/${donation.donor.contact.id}/edit` }}>{donation.donor.contact.contactName}</Link> : "Unknown"}</td>
+                          <td>{donation.donor.contact && donation.donor.contact.institution? <Link to={{ pathname: `/institutions/${donation.donor.contact.institution.id}/edit` }}> {donation.donor.contact.institution.institutionName} </Link>: "Unknown"}</td>
+                          <td>{donation.thankYou.toString()}</td>
+                          <td style={{ paddingTop: "20px"}}>
                           <Link
-                            style={{ color: "black"  ,marginRight: "10px" }} 
                               title = "Edit Donation"
-                              style={{ color: "black" }}
+                            style={{ color: "black" }}
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
                                 donorId: this.props.match.params.donorId,
-                                donorName: this.props.location.state.donorName
+                                donorName: queryString.parse(this.props.location.search).name
                               }
                             }}
                           >
                             <FaEdit />
                           </Link>
+                        </td>
+                        <td>
                           <Button
+                              title = "Delete Donation"
                             style={{
                               marginBottom: "10px",
-                              marginLeft: "10px"
+                              marginRight: "10px"
                             }}
-                            title = "Delete Donation"
                             onClick={e =>
                               this.handleSubmit(e, donation.id, index)
                             }
@@ -165,16 +176,15 @@ export class DonationList extends Component {
                   : ""}
               </tbody>
             </Table>
+            <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage}/>
           </Card>
         </div>
-        :''
       </div>
-                          
     );
   }
 }
 
-export default connect(
+export default withRouter(connect(
   null,
   mapDispatchToProps
-)(DonationList);
+)(GeneralDonationsList));

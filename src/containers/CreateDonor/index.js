@@ -18,13 +18,68 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       createDonorWithContact: actions.createDonorWithContact,
-      createDonationForDonor: actions.createDonationForDonor
+      createDonationForDonor: actions.createDonationForDonor,
+      getInstitution: actions.getInstitution,
+      getAllInstitutions: actions.getAllInstitutions
     },
     dispatch
   );
 }
 
 export class CreateDonor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Select Institution',
+      donationDate: moment(new Date()).format("YYYY-MM-DD"),
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      city: "",
+      addrState: "",
+      zipCode: "",
+      institution: "",
+      contact: "",
+      data: [],
+      uniqueData: []
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+  onlyUnique(value, index, self) { 
+    if(value != null){
+      return self.indexOf(value) === index;
+    }
+    
+  }
+  componentWillMount() {
+    this.props.getAllInstitutions().then(response => {
+      this.state.uniqueData = (response.payload.map(institution => (
+        institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
+      ))).filter(this.onlyUnique).sort()
+        this.setState({
+            data: response.payload
+        })
+    })
+}
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    if (event.target.value !== "Select Institution") {
+      this.props.getInstitution(event.target.value).then(response => {
+        this.setState({
+          institutionName: response.payload.institutionName,
+          address: response.payload.address,
+          city: response.payload.city,
+          addrState: response.payload.state,
+          zipCode: response.payload.zipCode
+        })
+      })
+    }
+
+  }
+
   state = {
     donorName: "",
     donorEmail: "",
@@ -131,7 +186,7 @@ export class CreateDonor extends Component {
           this.setState({ success: false });
           this.setState({ submitted: false });
         }
-       
+
       });
     }
     setTimeout(() => {
@@ -161,8 +216,8 @@ export class CreateDonor extends Component {
               Error!
             </Alert>
           ) : (
-            ""
-          )}
+                ""
+              )}
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "68rem" }}>
@@ -183,8 +238,8 @@ export class CreateDonor extends Component {
                         Donor name is required
                       </span>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </FormGroup>
 
                   <br></br>
@@ -257,8 +312,8 @@ export class CreateDonor extends Component {
                     {this.state.submitted && this.state.errorDate ? (
                       <span style={{ color: "red" }}>Amount is required</span>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </FormGroup>
 
                   <br></br>
@@ -350,10 +405,26 @@ export class CreateDonor extends Component {
                   <br></br>
                   <hr style={{ color: "black", borderWidth: "2px" }} />
                   <h5>Institution details</h5>
+                  <label>
+          <select value={this.state.value} onChange={this.handleChange}>
+                      <option value="Select Institution">Select Institution</option>
+                      {
+                        this.state.uniqueData.length > 0 ?
+                        this.state.uniqueData.map(institution => (
+                              <option key = {institution} value = {institution}>
+                                {institution}
+                              </option>
+                      ))
+                      : ''
+                      }
+                    </select>
+                  </label>
+                  <br></br>
                   <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
                       placeholder="Institution name"
+                      value={this.state.institutionName || ''}
                       onChange={e =>
                         this.setState({ institutionName: e.target.value })
                       }
@@ -363,6 +434,7 @@ export class CreateDonor extends Component {
                   <FormGroup bssize="large">
                     <FormControl
                       placeholder="Address"
+                      value={this.state.address || ''}
                       onChange={e =>
                         this.setState({ institutionaAdress: e.target.value })
                       }
@@ -373,6 +445,7 @@ export class CreateDonor extends Component {
                     <Col>
                       <Form.Control
                         placeholder="City"
+                        value={this.state.city || ''}
                         onChange={e =>
                           this.setState({ institutionCity: e.target.value })
                         }
@@ -381,6 +454,7 @@ export class CreateDonor extends Component {
                     <Col>
                       <Form.Control
                         placeholder="State"
+                        value={this.state.addrState || ''}
                         onChange={e =>
                           this.setState({ institutionState: e.target.value })
                         }
@@ -389,6 +463,7 @@ export class CreateDonor extends Component {
                     <Col>
                       <Form.Control
                         placeholder="Zip"
+                        value={this.state.zipCode || ''}
                         onChange={e =>
                           this.setState({ institutionZipCode: e.target.value })
                         }

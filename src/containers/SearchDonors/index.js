@@ -30,11 +30,6 @@ export class SearchDonors extends Component {
         donorZipCode: "",
         contactName: "",
         institutionName: "",
-        success: false,
-        submitted: false,
-        visible: false,
-        errorName: false,
-        errorDate: false
     };
 
     handleSubmit = e => {

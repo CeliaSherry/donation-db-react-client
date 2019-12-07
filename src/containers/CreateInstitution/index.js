@@ -50,7 +50,11 @@ export class CreateInstitution extends Component {
         this.setState({ success: false })
       }
       setTimeout(() => {
-        this.setState({ submitted: false });
+        this.setState({ submitted: false }
+        );
+        if (this.state.success === true) {
+          this.props.history.push("/institutions");
+        }
       }, 3000);
 
     });

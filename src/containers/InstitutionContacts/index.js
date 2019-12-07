@@ -31,13 +31,15 @@ export class InstitutionContacts extends Component {
     }
 
     render() {
-        const { data } = this.state;
         return (
             <div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-       
+
           <div style={{ width: "80em", paddingLeft: "2em" }}>
-          <h3>Contacts</h3>
+              {this.state.data[0] != null ? (
+                  <h3>Contacts for {this.state.data[0].institution.institutionName}</h3>
+              ) : (<h3>Contacts</h3>
+              )}
             <Button
               style={{ float: "right", width: "10em" , marginBottom: "10px"}}
               href="/contacts/create"

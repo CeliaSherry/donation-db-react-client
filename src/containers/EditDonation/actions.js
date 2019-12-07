@@ -11,7 +11,7 @@ export function getDonation(donationId){
     };
 }
 
-export function updateDonation(donationId, amount,date,note,donor){
+export function updateDonation(donationId, amount,date,note,donor, thanks){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
@@ -24,7 +24,8 @@ export function updateDonation(donationId, amount,date,note,donor){
                 donationAmount: amount,
                 donationDate: date,
                 note: note,
-                donor: donor
+                donor: donor,
+                thankYou: thanks
             }),
             method:'PUT',
         },

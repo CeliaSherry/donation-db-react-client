@@ -16,13 +16,70 @@ import FormControl from "react-bootstrap/FormControl";
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     createContact: actions.createContact,
+    getInstitution: actions.getInstitution,
+    getAllInstitutions: actions.getAllInstitutions
   }, dispatch);
 }
 
 
 
 export class CreateContact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Select Institution',
+      institutionName: "",
+      institutionAddress: "",
+      institutionCity: "",
+      institutionState: "",
+      institutionZipCode: "",
+      data: [],
+      uniqueData: []
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  onlyUnique(value, index, self) { 
+    if(value != null){
+      return self.indexOf(value) === index;
+    }
+    
+  }
+
+  componentWillMount() {
+    this.props.getAllInstitutions().then(response => {
+   this.state.uniqueData = (response.payload.map(institution => (
+     institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
+   ))).filter(this.onlyUnique).sort()
+  
+        this.setState({
+            data: response.payload
+            
+        })
+    })
+}
+
+
+
+handleChange(event) {
+  this.setState({ value: event.target.value });
+  if (event.target.value != "Select Institution") {
+    this.props.getInstitution(event.target.value).then(response => {
+      this.setState({
+        institutionName: response.payload.institutionName,
+        institutionAddress: response.payload.address,
+        institutionCity: response.payload.city,
+        institutionState: response.payload.state,
+        institutionZipCode: response.payload.zipCode
+      })
+    })
+  }
+
+}
+
   state = {
+    value: 'Select Institution',
     contactName: '',
     email: '',
     phone: '',
@@ -53,16 +110,17 @@ export class CreateContact extends Component {
         this.setState({ success: false })
       }
       setTimeout(() => {
-        this.setState({ submitted: false });
-      }, 3000);
+        this.setState({ submitted: false }
+        );
+        if (this.state.success === true) {
+          this.props.history.push("/contacts");
+        }}, 3000);
 
     });
   }
 
 
-
   render() {
-
     return (
       <div >
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -130,15 +188,34 @@ export class CreateContact extends Component {
                   <br></br>
                   <Card.Header as="h6">Institution Details</Card.Header>
                   <br></br>
+                  <label>
+          <select value={this.state.value} onChange={this.handleChange}>
+                      <option value="Select Institution">Select Institution</option>
+                      
+                      {
+                        this.state.uniqueData.length > 0 ?
+                        this.state.uniqueData.map(institution => (
+                              <option key = {institution} value = {institution}>
+                                {institution}
+                              </option>
+                      ))
+                      : ''
+                      }
+                    </select>
+                  </label>
+                  <br></br>
+                  <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
                       placeholder="Institution Name"
+                      value={this.state.institutionName || ''}
                       onChange={(e) => this.setState({ institutionName: e.target.value })} />
                   </FormGroup>
                   <br></br>
                   <FormGroup bsSize="large">
                     <FormControl
                       placeholder="Institution Address"
+                      value={this.state.institutionAddress || ''}
                       onChange={(e) => this.setState({ institutionAddress: e.target.value })} />
                   </FormGroup>
                   <br></br>
@@ -146,18 +223,21 @@ export class CreateContact extends Component {
                     <Col>
                       <Form.Control
                         placeholder="City"
+                        value={this.state.institutionCity || ''}
                         onChange={(e) => this.setState({ institutionCity: e.target.value })}
                       />
                     </Col>
                     <Col>
                       <Form.Control
                         placeholder="State"
+                        value={this.state.institutionState || ''}
                         onChange={(e) => this.setState({ institutionState: e.target.value })}
                       />
                     </Col>
                     <Col>
                       <Form.Control
                         placeholder="Zip"
+                        value={this.state.institutionZipCode || ''}
                         onChange={(e) => this.setState({ institutionZipCode: e.target.value })}
                       />
                     </Col>
@@ -167,7 +247,6 @@ export class CreateContact extends Component {
                     block
                     bssize="large"
                     onClick={this.handleSubmit}
-                    href={`/contacts`}
                     type="submit"
     
                   >

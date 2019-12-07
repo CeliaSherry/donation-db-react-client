@@ -17,6 +17,7 @@ const defaultProps = {
 class Pagination extends React.Component {
     constructor(props) {
         super(props);
+        defaultProps.pageSize = this.props.elementsPerPage
         this.state = { pager: {} };
     }
 
@@ -31,6 +32,7 @@ class Pagination extends React.Component {
         // reset page if items array has changed
         if (this.props.items !== prevProps.items) {
             this.setPage(this.props.initialPage);
+
         }
     }
 
@@ -52,7 +54,7 @@ class Pagination extends React.Component {
         this.setState({ pager: pager });
 
         // call change page function in parent component
-        this.props.onChangePage(pageOfItems);
+        this.props.onChangePage(pageOfItems, page);
     }
 
     getPager(totalItems, currentPage, pageSize) {
