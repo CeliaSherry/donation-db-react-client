@@ -5,7 +5,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaSort } from 'react-icons/fa';
+
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
@@ -131,15 +132,19 @@ export class DonorList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <button onClick={this.onNameButtonClick.bind(this)}>
-                                <th>Name</th>
+                        <th>
+                            <button style= {{ background: "transparent", border: "none"}} onClick={this.onNameButtonClick.bind(this)}>
+                               Name <FaSort/>
                             </button>
+                            </th>
                             <th>Total Amount Donated</th>
                             <th>Total Times Donated</th>
                             <th>Last Donated</th>
-                            <button onClick={this.onContactButtonClick.bind(this)}>
-                                <th>Contact</th>
+                            <th>
+                            <button style= {{ background: "transparent", border: "none"}} onClick={this.onContactButtonClick.bind(this)}>
+                                Contact <FaSort/>
                             </button>
+                            </th>
                             <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
