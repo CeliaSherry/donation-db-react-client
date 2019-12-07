@@ -61,7 +61,6 @@ export class GeneralDonationsList extends Component {
 
   componentWillMount() {
     const values = queryString.parse(this.props.location.search)
-    console.log(Object.keys(values).length)
     if (Object.keys(values).length === 0) {
       this.props.getAllDonations().then(response => {
         this.setState({
@@ -81,7 +80,7 @@ export class GeneralDonationsList extends Component {
       if (!(values.thanks === "")) {
         thanks = values.thanks === "Yes" ? 1 : 0;
       }
-      this.props.getAllDonations(values.name, month, year, thanks, values.contact, values.institution).then(response => {
+      this.props.getAllDonations(values.name, month, year, thanks, values.contact, values.institution, thanks).then(response => {
         this.setState({
           data: response.payload
         })
@@ -121,9 +120,9 @@ export class GeneralDonationsList extends Component {
                   <th data-field="donationAmount" data-sortable="true">
                     Amount
                   </th>
-                  <th>Thank You Sent</th>
                   <th>Contact</th>
                   <th>Institution</th>
+                  <th>Thank You Sent</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -139,10 +138,10 @@ export class GeneralDonationsList extends Component {
                           </Moment>
                         </td>
                         <td>${donation.donationAmount}</td>
-                        <td></td>
                           <td>{donation.donor.contact? <Link to={{ pathname: `/contacts/${donation.donor.contact.id}/edit` }}>{donation.donor.contact.contactName}</Link> : "Unknown"}</td>
                           <td>{donation.donor.contact && donation.donor.contact.institution? <Link to={{ pathname: `/institutions/${donation.donor.contact.institution.id}/edit` }}> {donation.donor.contact.institution.institutionName} </Link>: "Unknown"}</td>
-                        <td style={{ paddingTop: "20px"}}>
+                          <td>{donation.thankYou.toString()}</td>
+                          <td style={{ paddingTop: "20px"}}>
                           <Link
                               title = "Edit Donation"
                             style={{ color: "black" }}

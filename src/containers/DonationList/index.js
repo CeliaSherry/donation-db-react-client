@@ -114,8 +114,8 @@ export class DonationList extends Component {
                     Amount
                   </th>
                   <th>Notes</th>
-                  <th></th>
-                  <th></th>
+                  <th>Thank You Sent</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,9 +130,11 @@ export class DonationList extends Component {
                         </td>
                         <td>${donation.donationAmount}</td>
                         <td>{donation.note}</td>
-                        <td style={{ paddingTop: "20px"}}>
+                        <td>{donation.thankYou.toString()}</td>
+                        <td style={{marginRight: "10px"}}>
                           <Link
-                            style={{ color: "black" }}
+                              title = "Edit Donation"
+                              style={{ color: "black" }}
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
@@ -143,13 +145,12 @@ export class DonationList extends Component {
                           >
                             <FaEdit />
                           </Link>
-                        </td>
-                        <td>
                           <Button
                             style={{
                               marginBottom: "10px",
-                              marginRight: "10px"
+                              marginLeft: "10px"
                             }}
+                            title = "Delete Donation"
                             onClick={e =>
                               this.handleSubmit(e, donation.id, index)
                             }

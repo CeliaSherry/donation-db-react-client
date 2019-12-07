@@ -26,6 +26,7 @@ export class CreateDonation extends Component {
     donationDate: moment(new Date()).format("YYYY-MM-DD"),
     note: "",
     success: false,
+    thankYou: false,
     submitted: false,
     visible: false,
     error: false
@@ -33,9 +34,8 @@ export class CreateDonation extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { donationAmount, donationDate, note } = this.state;
+    const { donationAmount, donationDate, note, thankYou} = this.state;
     const { createDonationForDonor } = this.props;
-    console.log(donationAmount);
     if (donationAmount == null) {
       this.setState({ error: true });
     } else {
@@ -44,7 +44,8 @@ export class CreateDonation extends Component {
         this.props.match.params.donorId,
         donationAmount,
         donationDate,
-        note
+        note,
+        thankYou
       ).then(response => {
         this.setState({ submitted: true });
         if (response.type === "SUCCESS") {
@@ -95,6 +96,8 @@ export class CreateDonation extends Component {
               <div className="Login">
                 <Form>
                   <FormGroup bssize="large">
+                    <label htmlFor="inputAmount">Amount</label>
+
                     <FormControl
                       type="number"
                       onChange={e =>
@@ -106,7 +109,10 @@ export class CreateDonation extends Component {
                   </FormGroup>
 
                   <br></br>
+                  <label htmlFor="inputDate">Date</label>
+
                   <FormGroup bssize="large">
+
                     <input
                       type="date"
                       value={this.state.donationDate}
@@ -116,7 +122,21 @@ export class CreateDonation extends Component {
                     />
                   </FormGroup>
                   <br></br>
+                  <label>
+                    Thank You Sent
+                    <br></br>
+                    <input
+                        name="thankYouSent"
+                        type="checkbox"
+                        checked={this.state.thankYou}
+                        onChange={e => this.setState({thankYou: e.target.checked})} />
+                  </label>
+                  <br></br>
+                  <br></br>
+
                   <FormGroup bssize="large">
+                    <label htmlFor="inputNote">Note</label>
+
                     <FormControl
                       placeholder="Notes"
                       style={{ height: "140px" }}
