@@ -12,7 +12,12 @@ import Pagination from '../../components/Pagination';
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAllContacts: actions.getAllContacts,
-        deleteContact: actions.deleteContact
+        deleteContact: actions.deleteContact,
+        getAllContactsSortedAscendingName: actions.getAllContactsSortedAscendingName,
+        getAllContactsSortedDescendingName: actions.getAllContactsSortedDescendingName,
+        getAllContactsGroupedByInstitution: actions.getAllContactsGroupedByInstitution,
+        getAllContactsSortedAscendingState: actions.getAllContactsSortedAscendingState,
+        getAllContactsSortedDescendingState: actions.getAllContactsSortedDescendingState
     }, dispatch);
 }
 
@@ -27,6 +32,9 @@ export class ContactList extends Component {
             pageNumber: 1
         }
         this.onChangePage = this.onChangePage.bind(this);
+        this.onNameButtonClick = this.onNameButtonClick.bind(this);
+        this.onInstitutionButtonClick = this.onInstitutionButtonClick.bind(this);
+        this.onStateButtonClick = this.onStateButtonClick.bind(this);
     }
 
     componentWillMount() {
@@ -41,6 +49,51 @@ export class ContactList extends Component {
         // update state with new page of items
         this.setState({ pageOfContact: pageOfContact, pageNumber: page});
     }
+
+    onNameButtonClick() {
+        if (!this.orderNameDescending) {
+            this.props.getAllContactsSortedAscendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllContactsSortedDescendingName().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderNameDescending = !this.orderNameDescending;
+    }
+
+    onStateButtonClick() {
+        if (!this.orderStateDescending) {
+            this.props.getAllContactsSortedAscendingState().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        else{
+            this.props.getAllContactsSortedDescendingState().then(response => {
+                this.setState({
+                                  data: response.payload
+                              })
+            })
+        }
+        this.orderStateDescending = !this.orderStateDescending;
+    }
+
+    onInstitutionButtonClick() {
+        this.props.getAllContactsGroupedByInstitution().then(response => {
+            this.setState({
+                              data: response.payload
+                          })
+        })
+    }
+
 
     handleSubmit = (e, id, index) => {
         e.preventDefault();
@@ -77,12 +130,18 @@ export class ContactList extends Component {
                 <Table responsive>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <button onClick={this.onNameButtonClick.bind(this)}>
+                                <th>Name</th>
+                            </button>
                             <th>Address</th>
                             <th>City</th>
-                            <th>State</th>
+                            <button onClick={this.onStateButtonClick.bind(this)}>
+                                <th>State</th>
+                            </button>
                             <th>Zip Code</th>
-                            <th>Institution</th>
+                            <button onClick={this.onInstitutionButtonClick.bind(this)}>
+                                <th>Institution</th>
+                            </button>
                             <th>Actions</th>
                         </tr>
                     </thead>
