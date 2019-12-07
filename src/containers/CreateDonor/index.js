@@ -56,8 +56,8 @@ export class CreateDonor extends Component {
   componentWillMount() {
     this.props.getAllInstitutions().then(response => {
       this.state.uniqueData = (response.payload.map(institution => (
-        institution.institutionName
-      ))).filter(this.onlyUnique)
+        institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
+      ))).filter(this.onlyUnique).sort()
         this.setState({
             data: response.payload
         })
