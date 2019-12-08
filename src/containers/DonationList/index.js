@@ -128,7 +128,7 @@ export class DonationList extends Component {
                             {donation.donationDate}
                           </Moment>
                         </td>
-                        <td>${donation.donationAmount}</td>
+                        <td>${donation.donationAmount.toFixed(2) }</td>
                         <td>{donation.note}</td>
                         <td>{donation.thankYou.toString()}</td>
                         <td style={{marginRight: "10px"}}>

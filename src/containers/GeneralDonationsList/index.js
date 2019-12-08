@@ -130,14 +130,14 @@ export class GeneralDonationsList extends Component {
                 {this.state.data.length > 0
                   ? this.state.pageOfDonation.map((donation, index) => (
                         <tr key={index}>
-                        <td>{donation.donor? <Link to={{ pathname: `/donor/${donation.donor.id}/edit` }}>{donation.donor.donorName}</Link> : "Unknown"}</td>
+                        <td>{donation.donor? <Link to={{ pathname: `/donor/${donation.donor.id}/details`, state: {donorName: donation.donor.donorName, timesDonated: true} }}>{donation.donor.donorName}</Link> : "Unknown"}</td>
                         <td>
                           {" "}
                           <Moment utc format="MM/DD/YYYY">
                             {donation.donationDate}
                           </Moment>
                         </td>
-                        <td>${donation.donationAmount}</td>
+                        <td>${donation.donationAmount.toFixed(2)}</td>
                           <td>{donation.donor.contact? <Link to={{ pathname: `/contacts/${donation.donor.contact.id}/edit` }}>{donation.donor.contact.contactName}</Link> : "Unknown"}</td>
                           <td>{donation.donor.contact && donation.donor.contact.institution? <Link to={{ pathname: `/institutions/${donation.donor.contact.institution.id}/edit` }}> {donation.donor.contact.institution.institutionName} </Link>: "Unknown"}</td>
                           <td>{donation.thankYou.toString()}</td>

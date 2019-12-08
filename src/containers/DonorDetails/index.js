@@ -3,11 +3,9 @@ import Button from "react-bootstrap/Button";
 import * as actions from "./actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import Alert from "react-bootstrap/Alert";
 import { EditDonor } from "../EditDonor";
 import DonationsList from "../DonationList";
 
-//TODO get institution to work! Fix zipcode leading 0 issue
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
@@ -58,7 +56,7 @@ export class DonorDetails extends Component {
 
 
   render() { 
-      const disableButton = this.props.location.state.timesDonated > 0 ? true: false;
+      const disableButton = this.props.location.state.timesDonated > 0;
     return (
       <div  >
         <div style={{ display: "flex", justifyContent: "center" }}>
