@@ -52,7 +52,7 @@ export class EditContact extends Component {
     this.props.getInstitutions().then(response => {
       
       this.state.uniqueData = (response.payload.map(institution => (
-        institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
+        institution != null && institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
       ))).filter(this.onlyUnique).sort()
       this.setState({
         data: response.payload
@@ -206,7 +206,7 @@ export class EditContact extends Component {
                   </label>
                   <br></br>
                   <br></br>
-                          <FormControl value={this.state.institution.institutionName || ''}
+                          <FormControl value={ this.state.institution != null ? this.state.institution.institutionName : '' || ''}
                                        onChange={e => this.setState({institution: {
                                          ...this.state.institution,
                                          institutionName: e.target.value}
