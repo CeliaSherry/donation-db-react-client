@@ -59,7 +59,7 @@ export class EditInstitution extends Component {
         e.preventDefault();
         const { institutionName, address, state, city, zipCode } = this.state;
         const { updateInstitution } = this.props;
-        updateInstitution(institutionName, address, state, city, zipCode).then(response => {
+        updateInstitution(this.props.match.params.institutionId,institutionName, address, state, city, zipCode).then(response => {
           this.setState({ submitted: true })
           if (response.type === 'SUCCESS') {
             this.setState({ success: true })
@@ -69,9 +69,18 @@ export class EditInstitution extends Component {
           }
           setTimeout(() => {
             this.setState({ submitted: false });
+            if (this.state.success === true) {
+                this.props.history.push(
+                  `/institutions`
+                );
+                this.props.history.push({
+                  pathname: `/institutions`
+                });
+              }
           }, 3000);
     
         });
+        window.scrollTo(0, this.myRef.current.top);
       }
 
     render() {
