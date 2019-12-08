@@ -123,7 +123,7 @@ export class GeneralDonationsList extends Component {
                   <th>Contact</th>
                   <th>Institution</th>
                   <th>Thank You Sent</th>
-                  <th>Action</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,11 +140,11 @@ export class GeneralDonationsList extends Component {
                         <td>${donation.donationAmount.toFixed(2)}</td>
                           <td>{donation.donor.contact? <Link to={{ pathname: `/contacts/${donation.donor.contact.id}/edit` }}>{donation.donor.contact.contactName}</Link> : "Unknown"}</td>
                           <td>{donation.donor.contact && donation.donor.contact.institution? <Link to={{ pathname: `/institutions/${donation.donor.contact.institution.id}/edit` }}> {donation.donor.contact.institution.institutionName} </Link>: "Unknown"}</td>
-                          <td>{donation.thankYou.toString()}</td>
-                          <td style={{ paddingTop: "20px"}}>
+                          <td>{donation.thankYou ? "Yes" : "No"}</td>
+                          <td style={{marginRight: "10px"}}>
                           <Link
                               title = "Edit Donation"
-                            style={{ color: "black" }}
+                            style={{ color: "black",marginRight: "10px"  }}
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
@@ -155,8 +155,7 @@ export class GeneralDonationsList extends Component {
                           >
                             <FaEdit />
                           </Link>
-                        </td>
-                        <td>
+                       
                           <Button
                               title = "Delete Donation"
                             style={{

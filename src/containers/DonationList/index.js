@@ -130,7 +130,7 @@ export class DonationList extends Component {
                         </td>
                         <td>${donation.donationAmount.toFixed(2) }</td>
                         <td>{donation.note}</td>
-                        <td>{donation.thankYou.toString()}</td>
+                        <td>{donation.thankYou ? "Yes" : "No"}</td>
                         <td style={{marginRight: "10px"}}>
                           <Link
                             style={{ color: "black"  ,marginRight: "10px" }} 
