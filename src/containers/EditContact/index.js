@@ -80,7 +80,7 @@ export class EditContact extends Component {
   // }
   handleChange(event) {
     this.setState({ value: event.target.value });
-    if (event.target.value != "Select Institution") {
+    if (event.target.value !== "Select Institution") {
       this.setState({
         institution: {
           institutionName: event.target.value

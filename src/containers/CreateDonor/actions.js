@@ -109,3 +109,36 @@ export function getAllInstitutions(){
         },
     };
 }
+
+export function getAllContacts(){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            endpoint: `http://localhost:8080/api/contacts`,
+            method:'GET',
+        },
+    };
+}
+
+export function addDonorToExistingContact(contactId, donorName, donorEmail, donorPhone, donorAddress, donorState, donorCity, donorZipCode){
+    return{
+        [RSAA]:{
+            types: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+            endpoint: `http://localhost:8080/api/contact/${contactId}/donor`,
+            body:    JSON.stringify({
+                donorName: donorName,
+                email: donorEmail,
+                phone: donorPhone,
+                address: donorAddress,
+                state: donorState,
+                city: donorCity,
+                zipCode: donorZipCode,
+              }),
+            method:'POST',
+        },
+    };
+}

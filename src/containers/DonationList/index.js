@@ -61,7 +61,7 @@ export class DonationList extends Component {
 
   render() {
     return (
-      this.state.data && this.state.data.length == 0 ? 
+      this.state.data && this.state.data.length === 0 ? 
       <div style={{ display: "flex", justifyContent: "center" }}><h4>No donations recorded</h4></div>
       :
       <div  id="donationsList">
