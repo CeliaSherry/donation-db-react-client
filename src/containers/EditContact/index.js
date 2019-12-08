@@ -206,7 +206,7 @@ export class EditContact extends Component {
                   </label>
                   <br></br>
                   <br></br>
-                          <FormControl value={this.state.institution.institutionName || ''}
+                          <FormControl value={this.state.institution != null ? this.state.institution.institutionName : "" || ''}
                                        onChange={e => this.setState({institution: {
                                          ...this.state.institution,
                                          institutionName: e.target.value}
