@@ -34,6 +34,7 @@ export class EditContact extends Component {
       institution: {
         institutionName: "",
       },
+      data: [],
       uniqueData: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,13 +48,18 @@ export class EditContact extends Component {
     
   }
 
-  componentDidMount() {
+  componentWillMount(){
     this.props.getInstitutions().then(response => {
+      
       this.state.uniqueData = (response.payload.map(institution => (
         institution.institutionName != null ? institution.institutionName.toUpperCase() : institution.institutionName
       ))).filter(this.onlyUnique).sort()
+      this.setState({
+        data: response.payload
+        
     })
 
+    })
     this.props.getContact(this.props.match.params.contactId).then(response => {
       this.setState({
         name: response.payload.contactName,
@@ -68,6 +74,10 @@ export class EditContact extends Component {
       })
     })
   }
+
+  // componentDidMount() {
+ 
+  // }
   handleChange(event) {
     this.setState({ value: event.target.value });
     if (event.target.value != "Select Institution") {
