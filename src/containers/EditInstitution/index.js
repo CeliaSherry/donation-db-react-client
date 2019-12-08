@@ -41,7 +41,7 @@ export class EditInstitution extends Component {
                 institutionName: response.payload.institutionName,
                 address: response.payload.address,
                 city: response.payload.city,
-                addrState: response.payload.state,
+                state: response.payload.state,
                 zipCode: response.payload.zipCode
             })
         })
@@ -128,8 +128,8 @@ export class EditInstitution extends Component {
                                         <Col>
                                             <FormGroup controlId="state" bssize="large">
                                                 <label htmlFor="inputState">State</label>
-                                                <FormControl value={this.state.addrState || ''}
-                                                    onChange={e => this.setState({ addrState: e.target.value })}
+                                                <FormControl value={this.state.state || ''}
+                                                    onChange={e => this.setState({ state: e.target.value })}
                                                     type="text" />
                                             </FormGroup>
                                         </Col>
