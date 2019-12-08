@@ -5,9 +5,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash, FaPlus, FaSort } from 'react-icons/fa';
+import { FaSort } from 'react-icons/fa';
 
-import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
 import { withRouter } from 'react-router-dom'
@@ -129,7 +128,7 @@ export class DonorList extends Component {
                         : !this.state.success && this.state.submitted ?
                             <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
                 </div>
-                <Table responsive>
+                <Table responsive bordered hover>
                     <thead>
                         <tr>
                         <th>
@@ -145,7 +144,6 @@ export class DonorList extends Component {
                                 Contact <FaSort/>
                             </button>
                             </th>
-                            <th style={{ paddingLeft: "50px" }}>Actions</th>
                         </tr>
                     </thead>
 
@@ -154,40 +152,13 @@ export class DonorList extends Component {
                             this.state.data.length > 0 ?
                                 this.state.pageOfDonor.map((donor, index) => (
                                     <tr key={index}>
-                                        <td><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName, timesDonated: donor.totalDonatedCount } }}>{donor.donorName}</Link></td>
-                                        <td>${donor.totalDonated.toFixed(2)}</td>
-                                        <td>{donor.totalDonatedCount}</td>
-                                        <td>{donor.lastDonated ? <Moment format="MM/DD/YYYY">
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName, timesDonated: donor.totalDonatedCount } }}>{donor.donorName}</Link></td>
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>${donor.totalDonated.toFixed(2)}</td>
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.totalDonatedCount}</td>
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.lastDonated ? <Moment format="MM/DD/YYYY">
                                             {donor.lastDonated}
                                         </Moment> : "--"}</td>
-                                        <td>{donor.contact ? <Link to={{ pathname: `/contacts/${donor.contact.id}/edit` }}>{donor.contact.contactName}</Link> : "Unknown"}</td>
-                                        <td>
-                                            <Link
-                                                title="Add Donation"
-                                                style={{ color: "black", marginLeft: "15px", marginRight: "10px" }}
-                                                to={{
-                                                    pathname: `/donor/${donor.id}/donation/create`,
-                                                    state: { donorName: donor.donorName }
-                                                }}
-                                            >
-                                                <FaPlus style={{ height: "32px", paddingBottom: "4px", marginRight: "10px" }} />
-                                            </Link>
-                                            <Button
-                                                title="Edit Info"
-                                                style={{ marginBottom: "10px", marginRight: "10px" }}
-                                                href={`/donor/${donor.id}/edit`}
-                                                variant="clear" >
-                                                <FaEdit />
-                                            </Button>
-                                            <Button
-                                                title="Delete Donor"
-                                                style={{ marginBottom: "10px" }}
-                                                onClick={(e) => this.handleSubmit(e, donor.id, index)}
-                                                variant="clear"
-                                            >
-                                                <FaTrash />
-                                            </Button>
-                                        </td>
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.contact ? <Link to={{ pathname: `/contacts/${donor.contact.id}/edit` }}>{donor.contact.contactName}</Link> : "Unknown"}</td>
                                     </tr>
                                 )) : ''
                         }

@@ -24,8 +24,6 @@ export class Contacts extends Component {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
-            <br></br>
-            <br></br>
             <ContactList />
           </Card>
         </div>

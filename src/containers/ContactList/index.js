@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actions from "./actions";
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSort } from 'react-icons/fa';
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Pagination from '../../components/Pagination';
@@ -127,21 +127,27 @@ export class ContactList extends Component {
                         : !this.state.success && this.state.submitted ?
                             <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
                 </div>
-                <Table responsive>
+                <Table  responsive bordered hover>
                     <thead>
                         <tr>
-                            <button onClick={this.onNameButtonClick.bind(this)}>
-                                <th>Name</th>
+                        <th>
+                            <button style= {{ background: "transparent", border: "none"}}  onClick={this.onNameButtonClick.bind(this)}>
+                                Name  <FaSort/>
                             </button>
+                            </th>
                             <th>Address</th>
                             <th>City</th>
-                            <button onClick={this.onStateButtonClick.bind(this)}>
-                                <th>State</th>
+                            <th>
+                            <button  style= {{ background: "transparent", border: "none"}}  onClick={this.onStateButtonClick.bind(this)}>
+                               State <FaSort/>
                             </button>
+                            </th>
                             <th>Zip Code</th>
-                            <button onClick={this.onInstitutionButtonClick.bind(this)}>
-                                <th>Institution</th>
+                            <th>
+                            <button style= {{ background: "transparent", border: "none"}}  onClick={this.onInstitutionButtonClick.bind(this)}>
+                                Institution <FaSort/>
                             </button>
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
