@@ -1,9 +1,9 @@
 import { RSAA } from 'redux-api-middleware';
 
-export function getAllDonors(donorName,email,phone,address,city,state,zip){
+export function getAllDonors(donorName,email,phone,address,city,state,zip, contact){
    var url = `http://localhost:8080/api/donors`
     if(donorName!== undefined && email!== undefined && phone!== undefined && address!== undefined && city!== undefined && state!== undefined && zip!== undefined){
-        url = `http://localhost:8080/api/donors?name=${donorName}&email=${email}&phone=${phone}&address=${address}&city=${city}&state=${state}&zip=${zip}`
+        url = `http://localhost:8080/api/donors?name=${donorName}&email=${email}&phone=${phone}&address=${address}&city=${city}&state=${state}&zip=${zip}&contact=${contact}`
     }
     return{
         [RSAA]:{

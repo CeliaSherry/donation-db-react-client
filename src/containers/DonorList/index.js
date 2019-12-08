@@ -52,7 +52,7 @@ export class DonorList extends Component {
         }
 
         else {
-            this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip).then(response => {
+            this.props.getAllDonors(values.name, values.email, values.phone, values.address, values.city, values.state, values.zip, values.contact).then(response => {
                 this.setState({
                     data: response.payload
                 })
@@ -155,7 +155,7 @@ export class DonorList extends Component {
                                         <td style={{paddingTop: "15px", paddingBottom: "25px"}}><Link to={{ pathname: `/donor/${donor.id}/details`, state: { donorName: donor.donorName, timesDonated: donor.totalDonatedCount } }}>{donor.donorName}</Link></td>
                                         <td style={{paddingTop: "15px", paddingBottom: "25px"}}>${donor.totalDonated.toFixed(2)}</td>
                                         <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.totalDonatedCount}</td>
-                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.lastDonated ? <Moment format="MM/DD/YYYY">
+                                        <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.lastDonated ? <Moment utc format="MM/DD/YYYY">
                                             {donor.lastDonated}
                                         </Moment> : "--"}</td>
                                         <td style={{paddingTop: "15px", paddingBottom: "25px"}}>{donor.contact ? <Link to={{ pathname: `/contacts/${donor.contact.id}/edit` }}>{donor.contact.contactName}</Link> : "Unknown"}</td>

@@ -5,19 +5,10 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
-import { bindActionCreators } from "redux";
-import * as actions from "./actions";
 import { connect } from "react-redux";
 import FormControl from "react-bootstrap/FormControl";
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(
-        {
-            getFilteredDonors: actions.getFilteredDonors,
-        },
-        dispatch
-    );
-}
+
 
 export class SearchDonors extends Component {
     state = {
@@ -28,15 +19,14 @@ export class SearchDonors extends Component {
         donorState: "",
         donorCity: "",
         donorZipCode: "",
-        contactName: "",
-        institutionName: "",
+        contactName: ""
     };
 
     handleSubmit = e => {
         e.preventDefault();
         this.setState({ submitted: true });
         this.props.history.push({
-            pathname: `/donors?name=${this.state.donorName}&email=${this.state.donorEmail}&phone=${this.state.donorPhone}&address=${this.state.donorAddress}&city=${this.state.donorCity}&state=${this.state.donorState}&zip=${this.state.donorZipCode}`});
+            pathname: `/donors?name=${this.state.donorName}&email=${this.state.donorEmail}&phone=${this.state.donorPhone}&address=${this.state.donorAddress}&city=${this.state.donorCity}&state=${this.state.donorState}&zip=${this.state.donorZipCode}&contact=${this.state.contactName}`});
     }
 
     render() {
@@ -122,15 +112,6 @@ export class SearchDonors extends Component {
                                         />
                                     </FormGroup>
                                     <br></br>
-                                    <FormGroup bsSize="large">
-                                        <FormControl
-                                            placeholder="Institution name"
-                                            onChange={e =>
-                                                this.setState({ institutionName: e.target.value })
-                                            }
-                                        />
-                                    </FormGroup>
-                                    <br></br>
                                     <Button
                                         type="submit"
                                         block
@@ -150,6 +131,5 @@ export class SearchDonors extends Component {
 }
 
 export default connect(
-    null,
-    mapDispatchToProps
+    null
 )(SearchDonors);
