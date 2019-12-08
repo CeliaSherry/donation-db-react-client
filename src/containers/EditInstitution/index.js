@@ -41,7 +41,7 @@ export class EditInstitution extends Component {
                 institutionName: response.payload.institutionName,
                 address: response.payload.address,
                 city: response.payload.city,
-                addrState: response.payload.state,
+                state: response.payload.state,
                 zipCode: response.payload.zipCode
             })
         })
@@ -59,7 +59,7 @@ export class EditInstitution extends Component {
         e.preventDefault();
         const { institutionName, address, state, city, zipCode } = this.state;
         const { updateInstitution } = this.props;
-        updateInstitution(institutionName, address, state, city, zipCode).then(response => {
+        updateInstitution(this.props.match.params.institutionId,institutionName, address, state, city, zipCode).then(response => {
           this.setState({ submitted: true })
           if (response.type === 'SUCCESS') {
             this.setState({ success: true })
@@ -69,9 +69,18 @@ export class EditInstitution extends Component {
           }
           setTimeout(() => {
             this.setState({ submitted: false });
+            if (this.state.success === true) {
+                this.props.history.push(
+                  `/institutions`
+                );
+                this.props.history.push({
+                  pathname: `/institutions`
+                });
+              }
           }, 3000);
     
         });
+        window.scrollTo(0, this.myRef.current.top);
       }
 
     render() {
@@ -119,8 +128,8 @@ export class EditInstitution extends Component {
                                         <Col>
                                             <FormGroup controlId="state" bssize="large">
                                                 <label htmlFor="inputState">State</label>
-                                                <FormControl value={this.state.addrState || ''}
-                                                    onChange={e => this.setState({ addrState: e.target.value })}
+                                                <FormControl value={this.state.state || ''}
+                                                    onChange={e => this.setState({ state: e.target.value })}
                                                     type="text" />
                                             </FormGroup>
                                         </Col>
