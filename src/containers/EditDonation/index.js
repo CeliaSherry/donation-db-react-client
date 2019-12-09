@@ -21,7 +21,6 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-
 export class EditDonation extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +30,7 @@ export class EditDonation extends Component {
       donationAmount: "",
       donationDate: "",
       note: "",
-      donor:"",
+      donor: "",
       thankYou: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,21 +40,20 @@ export class EditDonation extends Component {
     this.props
       .getDonation(this.props.match.params.donationId)
       .then(response => {
-        this.id= response.payload.donor.id
+        this.id = response.payload.donor.id;
         this.setState({
           donationAmount: response.payload.donationAmount,
           donationDate: response.payload.donationDate,
           note: response.payload.note,
           donor: response.payload.donor,
-          thankYou: response.payload.thankYou,
-        }
-      );
+          thankYou: response.payload.thankYou
+        });
       });
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const { donationAmount, donationDate, note, donor, thankYou} = this.state;
+    const { donationAmount, donationDate, note, donor, thankYou } = this.state;
     const { updateDonation } = this.props;
     updateDonation(
       this.props.match.params.donationId,
@@ -63,7 +61,7 @@ export class EditDonation extends Component {
       donationDate,
       note,
       donor,
-        thankYou
+      thankYou
     ).then(response => {
       this.setState({ submitted: true });
       if (response.type === "SUCCESS") {
@@ -75,8 +73,10 @@ export class EditDonation extends Component {
       setTimeout(() => {
         this.setState({ submitted: false });
         if (this.state.success === true) {
-          this.props.history.push({pathname:`/donor/${this.props.location.state.donorId}/details`,
-          state:{donorName:this.props.location.state.donorName}});
+          this.props.history.push({
+            pathname: `/donor/${this.props.location.state.donorId}/details`,
+            state: { donorName: this.props.location.state.donorName }
+          });
         }
       }, 3000);
     });
@@ -128,12 +128,11 @@ export class EditDonation extends Component {
                   <label htmlFor="inputDate">Date</label>
 
                   <FormGroup bssize="large">
-
                     <input
                       type="date"
-                      value={moment.utc(this.state.donationDate).format(
-                        "YYYY-MM-DD"
-                      )}
+                      value={moment
+                        .utc(this.state.donationDate)
+                        .format("YYYY-MM-DD")}
                       onChange={e =>
                         this.setState({ donationDate: e.target.value })
                       }
@@ -153,12 +152,15 @@ export class EditDonation extends Component {
                   <label>
                     Thank You Sent
                     <br></br>
-                      <input
-                          name="thankYouSent"
-                          type="checkbox"
-                          checked={this.state.thankYou}
-                          onChange={e => this.setState({thankYou: e.target.checked})} />
-                    </label>
+                    <input
+                      name="thankYouSent"
+                      type="checkbox"
+                      checked={this.state.thankYou}
+                      onChange={e =>
+                        this.setState({ thankYou: e.target.checked })
+                      }
+                    />
+                  </label>
                   <br></br>
                   <br></br>
                   <Button block bssize="large" type="submit">

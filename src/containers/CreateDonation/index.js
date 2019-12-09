@@ -34,7 +34,7 @@ export class CreateDonation extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { donationAmount, donationDate, note, thankYou} = this.state;
+    const { donationAmount, donationDate, note, thankYou } = this.state;
     const { createDonationForDonor } = this.props;
     if (donationAmount == null) {
       this.setState({ error: true });
@@ -91,7 +91,9 @@ export class CreateDonation extends Component {
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "48rem" }}>
-            <Card.Header as="h5">Add Donation for donor {this.props.location.state.donorName}</Card.Header>
+            <Card.Header as="h5">
+              Add Donation for donor {this.props.location.state.donorName}
+            </Card.Header>
             <Card.Body>
               <div className="Login">
                 <Form>
@@ -105,14 +107,17 @@ export class CreateDonation extends Component {
                       }
                       placeholder="$"
                     />
-                 {this.state.error ? <span style={{ color: "red" }}>Amount is required</span> : ''}
+                    {this.state.error ? (
+                      <span style={{ color: "red" }}>Amount is required</span>
+                    ) : (
+                      ""
+                    )}
                   </FormGroup>
 
                   <br></br>
                   <label htmlFor="inputDate">Date</label>
 
                   <FormGroup bssize="large">
-
                     <input
                       type="date"
                       value={this.state.donationDate}
@@ -126,10 +131,13 @@ export class CreateDonation extends Component {
                     Thank You Sent
                     <br></br>
                     <input
-                        name="thankYouSent"
-                        type="checkbox"
-                        checked={this.state.thankYou}
-                        onChange={e => this.setState({thankYou: e.target.checked})} />
+                      name="thankYouSent"
+                      type="checkbox"
+                      checked={this.state.thankYou}
+                      onChange={e =>
+                        this.setState({ thankYou: e.target.checked })
+                      }
+                    />
                   </label>
                   <br></br>
                   <br></br>
