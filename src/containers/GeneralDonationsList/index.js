@@ -9,10 +9,9 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import queryString from "query-string";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import Alert from "react-bootstrap/Alert";
-
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -28,7 +27,7 @@ export class GeneralDonationsList extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-    this.elementsPerPage= 10;
+    this.elementsPerPage = 10;
     this.state = {
       data: [],
       pageOfDonation: [],
@@ -45,7 +44,10 @@ export class GeneralDonationsList extends Component {
       if (response.type === "SUCCESS") {
         this.setState({
           success: true,
-          data: this.state.data.filter((_, i) => i !== (index + ((this.state.pageNumber - 1) * this.elementsPerPage)))
+          data: this.state.data.filter(
+            (_, i) =>
+              i !== index + (this.state.pageNumber - 1) * this.elementsPerPage
+          )
         });
       }
       if (response.type === "FAILURE") {
@@ -58,15 +60,14 @@ export class GeneralDonationsList extends Component {
     window.scrollTo(0, this.myRef.current.top);
   };
 
-
   componentWillMount() {
-    const values = queryString.parse(this.props.location.search)
+    const values = queryString.parse(this.props.location.search);
     if (Object.keys(values).length === 0) {
       this.props.getAllDonations().then(response => {
         this.setState({
           data: response.payload
-        })
-      })
+        });
+      });
     } else {
       var month = 0;
       var year = 0;
@@ -80,17 +81,27 @@ export class GeneralDonationsList extends Component {
       if (!(values.thanks === "")) {
         thanks = values.thanks === "Yes" ? 1 : 0;
       }
-      this.props.getAllDonations(values.name, month, year, thanks, values.contact, values.institution, thanks).then(response => {
-        this.setState({
-          data: response.payload
-        })
-      })
+      this.props
+        .getAllDonations(
+          values.name,
+          month,
+          year,
+          thanks,
+          values.contact,
+          values.institution,
+          thanks
+        )
+        .then(response => {
+          this.setState({
+            data: response.payload
+          });
+        });
     }
   }
 
   onChangePage(pageOfDonation, page) {
     // update state with new page of items
-    this.setState({ pageOfDonation: pageOfDonation, pageNumber: page});
+    this.setState({ pageOfDonation: pageOfDonation, pageNumber: page });
   }
 
   render() {
@@ -98,15 +109,27 @@ export class GeneralDonationsList extends Component {
       <div>
         <div ref={this.myRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {this.state.success && this.state.submitted ?
-              <Alert isOpen={this.state.visible} style={{ width: "48rem" }} variant='success'> Successful donor
-                deletion</Alert>
-              : !this.state.success && this.state.submitted ?
-                  <Alert style={{ width: "48rem" }} variant='danger'> Error!</Alert> : ''}
+          {this.state.success && this.state.submitted ? (
+            <Alert
+              isOpen={this.state.visible}
+              style={{ width: "48rem" }}
+              variant="success"
+            >
+              {" "}
+              Successful donor deletion
+            </Alert>
+          ) : !this.state.success && this.state.submitted ? (
+            <Alert style={{ width: "48rem" }} variant="danger">
+              {" "}
+              Error!
+            </Alert>
+          ) : (
+            ""
+          )}
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
-              <h3>Donations</h3>
+            <h3>Donations</h3>
           </div>
         </div>
 
@@ -129,8 +152,24 @@ export class GeneralDonationsList extends Component {
               <tbody>
                 {this.state.data.length > 0
                   ? this.state.pageOfDonation.map((donation, index) => (
-                        <tr key={index}>
-                        <td>{donation.donor? <Link to={{ pathname: `/donor/${donation.donor.id}/details`, state: {donorName: donation.donor.donorName, timesDonated: true} }}>{donation.donor.donorName}</Link> : "Unknown"}</td>
+                      <tr key={index}>
+                        <td>
+                          {donation.donor ? (
+                            <Link
+                              to={{
+                                pathname: `/donor/${donation.donor.id}/details`,
+                                state: {
+                                  donorName: donation.donor.donorName,
+                                  timesDonated: true
+                                }
+                              }}
+                            >
+                              {donation.donor.donorName}
+                            </Link>
+                          ) : (
+                            "Unknown"
+                          )}
+                        </td>
                         <td>
                           {" "}
                           <Moment utc format="MM/DD/YYYY">
@@ -138,26 +177,57 @@ export class GeneralDonationsList extends Component {
                           </Moment>
                         </td>
                         <td>${donation.donationAmount.toFixed(2)}</td>
-                          <td>{donation.donor.contact? <Link to={{ pathname: `/contacts/${donation.donor.contact.id}/edit` }}>{donation.donor.contact.contactName}</Link> : "Unknown"}</td>
-                          <td>{donation.donor.contact && donation.donor.contact.institution? <Link to={{ pathname: `/institutions/${donation.donor.contact.institution.id}/edit` }}> {donation.donor.contact.institution.institutionName} </Link>: "Unknown"}</td>
-                          <td>{donation.thankYou ? "Yes" : "No"}</td>
-                          <td style={{marginRight: "10px"}}>
+                        <td>
+                          {donation.donor.contact ? (
+                            <Link
+                              to={{
+                                pathname: `/contacts/${donation.donor.contact.id}/edit`
+                              }}
+                            >
+                              {donation.donor.contact.contactName}
+                            </Link>
+                          ) : (
+                            "Unknown"
+                          )}
+                        </td>
+                        <td>
+                          {donation.donor.contact &&
+                          donation.donor.contact.institution ? (
+                            <Link
+                              to={{
+                                pathname: `/institutions/${donation.donor.contact.institution.id}/edit`
+                              }}
+                            >
+                              {" "}
+                              {
+                                donation.donor.contact.institution
+                                  .institutionName
+                              }{" "}
+                            </Link>
+                          ) : (
+                            "Unknown"
+                          )}
+                        </td>
+                        <td>{donation.thankYou ? "Yes" : "No"}</td>
+                        <td style={{ marginRight: "10px" }}>
                           <Link
-                              title = "Edit Donation"
-                            style={{ color: "black",marginRight: "10px"  }}
+                            title="Edit Donation"
+                            style={{ color: "black", marginRight: "10px" }}
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
                                 donorId: this.props.match.params.donorId,
-                                donorName: queryString.parse(this.props.location.search).name
+                                donorName: queryString.parse(
+                                  this.props.location.search
+                                ).name
                               }
                             }}
                           >
                             <FaEdit />
                           </Link>
-                       
+
                           <Button
-                              title = "Delete Donation"
+                            title="Delete Donation"
                             style={{
                               marginBottom: "10px",
                               marginRight: "10px"
@@ -175,7 +245,11 @@ export class GeneralDonationsList extends Component {
                   : ""}
               </tbody>
             </Table>
-            <Pagination items={this.state.data} onChangePage={this.onChangePage} elementsPerPage={this.elementsPerPage}/>
+            <Pagination
+              items={this.state.data}
+              onChangePage={this.onChangePage}
+              elementsPerPage={this.elementsPerPage}
+            />
           </Card>
         </div>
       </div>
@@ -183,7 +257,9 @@ export class GeneralDonationsList extends Component {
   }
 }
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps
-)(GeneralDonationsList));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(GeneralDonationsList)
+);

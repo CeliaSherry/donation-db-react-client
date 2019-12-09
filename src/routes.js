@@ -4,7 +4,6 @@ import CreateContact from "./containers/CreateContact"
 import CreateDonation from "./containers/CreateDonation"
 import EditDonor from "./containers/EditDonor"
 import EditDonation from "./containers/EditDonation"
-// import {Switch, IndexRoute } from "react-router";
 import CreateInstitution from "./containers/CreateInstitution";
 import React from "react";
 import createHistory from "history/createBrowserHistory";

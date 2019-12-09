@@ -60,11 +60,12 @@ export class DonationList extends Component {
   }
 
   render() {
-    return (
-      this.state.data && this.state.data.length === 0 ? 
-      <div style={{ display: "flex", justifyContent: "center" }}><h4>No donations recorded</h4></div>
-      :
-      <div  id="donationsList">
+    return this.state.data && this.state.data.length === 0 ? (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <h4>No donations recorded</h4>
+      </div>
+    ) : (
+      <div id="donationsList">
         <div ref={this.myRef} />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: "80em" }}>
@@ -91,7 +92,7 @@ export class DonationList extends Component {
               variant="dark"
             >
               <Link
-               style={{ color: "white"}}
+                style={{ color: "white" }}
                 to={{
                   pathname: `/donor/${this.props.match.params.donorId}/donation/create`,
                   state: { donorName: this.props.location.state.donorName }
@@ -102,10 +103,9 @@ export class DonationList extends Component {
             </Button>
           </div>
         </div>
-
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Card style={{ width: "80em" }}>
-          <Card.Header as="h5">Donations</Card.Header>
+            <Card.Header as="h5">Donations</Card.Header>
             <Table responsive>
               <thead>
                 <tr>
@@ -128,14 +128,14 @@ export class DonationList extends Component {
                             {donation.donationDate}
                           </Moment>
                         </td>
-                        <td>${donation.donationAmount.toFixed(2) }</td>
+                        <td>${donation.donationAmount.toFixed(2)}</td>
                         <td>{donation.note}</td>
                         <td>{donation.thankYou ? "Yes" : "No"}</td>
-                        <td style={{marginRight: "10px"}}>
+                        <td style={{ marginRight: "10px" }}>
                           <Link
-                            style={{ color: "black"  ,marginRight: "10px" }} 
-                              title = "Edit Donation"
-                              style={{ color: "black" }}
+                            style={{ color: "black", marginRight: "10px" }}
+                            title="Edit Donation"
+                            style={{ color: "black" }}
                             to={{
                               pathname: `/donation/${donation.id}/edit`,
                               state: {
@@ -151,7 +151,7 @@ export class DonationList extends Component {
                               marginBottom: "10px",
                               marginLeft: "10px"
                             }}
-                            title = "Delete Donation"
+                            title="Delete Donation"
                             onClick={e =>
                               this.handleSubmit(e, donation.id, index)
                             }
@@ -169,7 +169,6 @@ export class DonationList extends Component {
         </div>
         :''
       </div>
-                          
     );
   }
 }
