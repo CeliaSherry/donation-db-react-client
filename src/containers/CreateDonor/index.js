@@ -75,7 +75,8 @@ export class CreateDonor extends Component {
       data: [],
       uniqueData: [],
       contactData: [],
-      existingContact: false
+      existingContact: false,
+      contactOptionData: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -150,7 +151,8 @@ export class CreateDonor extends Component {
     visible: false,
     errorName: false,
     errorDate: false,
-    selectedOption: ""
+    selectedOption: "",
+    contactOptionData: []
   };
 
   handleSubmit = e => {
@@ -195,7 +197,7 @@ export class CreateDonor extends Component {
       this.setState({ errorName: false });
       this.setState({ errorDate: false });
 
-      if (contactId !== "" || contactId !== null) {
+      if (contactId !== "" || contactId) {
         addDonorToExistingContact(
           contactId,
           donorName,
@@ -207,7 +209,6 @@ export class CreateDonor extends Component {
           donorZipCode
         ).then(response => {
           if (response.type === "SUCCESS") {
-            console.log(response);
             createDonationForDonor(
               response.payload.id,
               donationAmount,
@@ -270,24 +271,19 @@ export class CreateDonor extends Component {
     }
     setTimeout(() => {
       if (this.state.success === true) {
-        // this.props.history.push("/donors");
+        this.props.history.push("/donors");
       }
     }, 3000);
   };
 
   handleContactInputChange = selectedOption => {
-    if (selectedOption !== null) {
-      this.setState({ contactName: selectedOption.label });
-    }
+    this.setState({ contactName: selectedOption });
   };
 
   handleContactChange = selectedOption => {
-    if (selectedOption !== null && selectedOption.id !== null) {
+    if (selectedOption !== null && selectedOption.id) {
       let contact = this.state.contactData[selectedOption.index];
       this.setState({ contactId: contact.id });
-      console.log(this.state.contactId);
-      console.log(contact);
-      this.setState({ contactName: contact.contactName });
       this.setState({ contactName: contact.contactName });
       this.setState({ contactEmail: contact.email });
       this.setState({ contactPhone: contact.phone });
@@ -303,8 +299,6 @@ export class CreateDonor extends Component {
         this.setState({ institutionZipCode: contact.institution.zipCode });
       }
     }
-
-    //  this.setState({ contactEmail: contact.email })
   };
 
   getContactsOptions(data) {
@@ -320,6 +314,16 @@ export class CreateDonor extends Component {
   }
 
   render() {
+    let optionArray = [];
+    if (this.state.contactName) {
+      optionArray.push({
+        label: this.state.contactName,
+        value: this.state.contactName
+      });
+    } else {
+      optionArray = "";
+    }
+
     const contactOptions =
       this.state.contactData && this.state.contactData.length > 0
         ? this.getContactsOptions(this.state.contactData)
@@ -469,10 +473,14 @@ export class CreateDonor extends Component {
                   <h5>Contact details</h5>
                   <br></br>
                   <CreatableSelect
+                    id="cs"
+                    value={optionArray}
+                    placeholder="Contact Name"
                     isClearable
-                    onInputChange={this.handleContactInputChange}
+                    onCreateOption={this.handleContactInputChange}
                     options={contactOptions}
                     onChange={this.handleContactChange}
+                    createOptionPosition={"first"}
                   />
 
                   {/* <FormGroup bssize="large">

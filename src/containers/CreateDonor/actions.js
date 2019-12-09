@@ -51,6 +51,7 @@ export function createDonationForDonor(donorId,donationAmount,donationDate,note)
 export function createDonorWithContact(donorName, donorEmail, donorPhone, donorAddress, donorState, donorCity, donorZipCode,
     contactName,contactEmail,contactPhone,contactAddress,contactState, contactCity,contactZipCode,
     institutionName,institutionAddress,institutionState,institutionCity,institutionZipCode ){
+
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
