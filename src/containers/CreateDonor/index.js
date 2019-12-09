@@ -281,7 +281,7 @@ export class CreateDonor extends Component {
   };
 
   handleContactChange = selectedOption => {
-    if (selectedOption !== null && selectedOption.id) {
+    if (selectedOption !== null && selectedOption.index) {
       let contact = this.state.contactData[selectedOption.index];
       this.setState({ contactId: contact.id });
       this.setState({ contactName: contact.contactName });
@@ -306,7 +306,7 @@ export class CreateDonor extends Component {
     data.forEach((contact, index) => {
       options.push({
         label: contact.contactName,
-        value: contact.contactId,
+        value: contact.contactName,
         index: index
       });
     });
@@ -482,16 +482,6 @@ export class CreateDonor extends Component {
                     onChange={this.handleContactChange}
                     createOptionPosition={"first"}
                   />
-
-                  {/* <FormGroup bssize="large">
-                    <FormControl
-                      onChange={e =>
-                        this.setState({ contactName: e.target.value })
-                      }
-                      placeholder="Contact name"
-                    />
-                    {/* {this.state.error ? <span style={{ color: "red" }}>Username is required</span> : ''} */}
-                  {/* </FormGroup> */}
 
                   <br></br>
                   <FormGroup bssize="large">
