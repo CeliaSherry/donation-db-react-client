@@ -32,7 +32,7 @@ export class EditContact extends Component {
       addrState: "",
       zipCode: "",
       institution: {
-        institutionName: "",
+        institutionName: ""
       },
       data: [],
       uniqueData: []
@@ -75,6 +75,13 @@ export class EditContact extends Component {
     })
   }
 
+  state = {
+    institutionName: "",
+    success: false,
+    submitted: false,
+    visible: false
+  };
+
   // componentDidMount() {
  
   // }
@@ -82,9 +89,11 @@ export class EditContact extends Component {
     this.setState({ value: event.target.value });
     if (event.target.value !== "Select Institution") {
       this.setState({
-        institution: {
+        institution:{
           institutionName: event.target.value
         },
+        institutionName: event.target.value
+          
       })
     }
   
@@ -206,11 +215,8 @@ export class EditContact extends Component {
                   </label>
                   <br></br>
                   <br></br>
-                          <FormControl value={ this.state.institution != null ? this.state.institution.institutionName : '' || ''}
-                                       onChange={e => this.setState({institution: {
-                                         ...this.state.institution,
-                                         institutionName: e.target.value}
-                                       })
+                          <FormControl value={this.state.institution != null ? this.state.institution.institutionName : "" || ''}
+                                       onChange={e => this.setState({institutionName: e.target.value})
                                       }
                                        
                                        type="text"/>

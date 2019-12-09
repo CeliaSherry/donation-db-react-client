@@ -28,7 +28,9 @@ export function updateContact(contactId, contactName,email,phone,address,state,c
                 state: state,
                 city: city,
                 zipCode: zip,
-                institution: {institutionName: institutionName},
+                institution:{
+                    institutionName: institutionName
+                }
             }),
             method:'PUT',
         },
