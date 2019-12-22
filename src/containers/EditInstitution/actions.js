@@ -5,7 +5,7 @@ export function getInstitution(institutionId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institutions/${institutionId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institutions/${institutionId}`,
             method:'GET',
         },
     };
@@ -19,7 +19,7 @@ export function updateInstitution(institutionId, institutionName,address,state,c
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            endpoint: `http://localhost:8080/api/institution/${institutionId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institution/${institutionId}`,
             body:    JSON.stringify({
                 institutionName: institutionName,
                 address: address,

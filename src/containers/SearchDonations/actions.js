@@ -5,7 +5,7 @@ export function getFilteredDonors(donorName,donationMonth,donationYear,thankYouS
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/search?name=${donorName}&month=${donationMonth}&year=${donationYear}&thankYou=${thankYouSent}&contact=${contactName}&institution=${institutionName}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/search?name=${donorName}&month=${donationMonth}&year=${donationYear}&thankYou=${thankYouSent}&contact=${contactName}&institution=${institutionName}`,
             method:'GET',
         },
     };

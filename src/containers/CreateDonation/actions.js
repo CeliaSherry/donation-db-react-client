@@ -9,7 +9,7 @@ export function createDonationForDonor(donorId,donationAmount,donationDate,note,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/donor/${donorId}/donation`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donor/${donorId}/donation`,
             body:    JSON.stringify({
                donationAmount: donationAmount,
                donationDate: donationDate,
