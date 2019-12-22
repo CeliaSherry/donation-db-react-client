@@ -34,6 +34,9 @@
     "routes": "^2.1.0",
     "store": "^2.0.12"
   },
+  "engines" : {
+    "npm": "6.13.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
