@@ -5,7 +5,7 @@ export function getContacts(institutionId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institution/${institutionId}/contacts`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institution/${institutionId}/contacts`,
             method:'GET',
         },
     };

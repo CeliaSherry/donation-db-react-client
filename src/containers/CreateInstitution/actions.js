@@ -10,7 +10,7 @@ export function createInstitution(institutionName, address, state, city, zipCode
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            endpoint: `http://localhost:8080/api/institutions`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institutions`,
             body: JSON.stringify({
                 institutionName: institutionName,
                 address: address,

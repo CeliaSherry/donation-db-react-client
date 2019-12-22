@@ -5,7 +5,7 @@ export function getDonationsForDonor(donorId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donor/${donorId}/donations`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donor/${donorId}/donations`,
             method:'GET',
         },
     };
@@ -16,7 +16,7 @@ export function deleteDonation(donationId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donation/${donationId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donation/${donationId}`,
             method:'DELETE',
         },
     };

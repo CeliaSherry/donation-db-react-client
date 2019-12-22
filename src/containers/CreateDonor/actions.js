@@ -10,7 +10,7 @@ export function createDonor(donorName,email,phone,address,state,city,zipCode){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/donors`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donors`,
             body:    JSON.stringify({
                donorName: donorName,
                email: email,
@@ -35,7 +35,7 @@ export function createDonationForDonor(donorId,donationAmount,donationDate,note)
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/donor/${donorId}/donation`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donor/${donorId}/donation`,
             body:    JSON.stringify({
                donationAmount: donationAmount,
                donationDate: donationDate,
@@ -59,7 +59,7 @@ export function createDonorWithContact(donorName, donorEmail, donorPhone, donorA
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/donors/with_details`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donors/with_details`,
             body:    JSON.stringify({
                 donorName: donorName,
                 email: donorEmail,
@@ -95,7 +95,7 @@ export function getInstitution(institutionName){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institution/${institutionName}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institution/${institutionName}`,
             method:'GET',
         },
     };
@@ -105,7 +105,7 @@ export function getAllInstitutions(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institutions`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institutions`,
             method:'GET',
         },
     };
@@ -115,7 +115,7 @@ export function getAllContacts(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/contacts`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/contacts`,
             method:'GET',
         },
     };
@@ -129,7 +129,7 @@ export function addDonorToExistingContact(contactId, donorName, donorEmail, dono
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
-            endpoint: `http://localhost:8080/api/contact/${contactId}/donor`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/contact/${contactId}/donor`,
             body:    JSON.stringify({
                 donorName: donorName,
                 email: donorEmail,

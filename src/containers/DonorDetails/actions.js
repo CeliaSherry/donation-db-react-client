@@ -5,7 +5,7 @@ export function getDonor(donorId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donors/${donorId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donors/${donorId}`,
             method:'GET',
         },
     };
@@ -19,7 +19,7 @@ export function updateDonor(donorId, donorName,email,phone,address,state,city,zi
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            endpoint: `http://localhost:8080/api/donor/${donorId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donor/${donorId}`,
             body:    JSON.stringify({
                 donorName: donorName,
                 email: email,
@@ -40,7 +40,7 @@ export function deleteDonor(donorId){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donor/${donorId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donor/${donorId}`,
             method:'DELETE',
         },
     };

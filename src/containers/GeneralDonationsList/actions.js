@@ -2,9 +2,9 @@ import { RSAA } from 'redux-api-middleware';
 
 
 export function getAllDonations(donorName,month,year,thanks,contact,institution){
-    var url = `http://localhost:8080/api/donations`
+    var url = `https://salty-citadel-44905.herokuapp.com/api/donations`
     if(donorName!== undefined && month!== undefined && year!== undefined && thanks!== undefined && contact!== undefined && institution!== undefined){
-        url = `http://localhost:8080/api/donations?name=${donorName}&month=${month}&=${month}&year=${year}&thanks=${thanks}&contact=${contact}&institution=${institution}`
+        url = `https://salty-citadel-44905.herokuapp.com/api/donations?name=${donorName}&month=${month}&=${month}&year=${year}&thanks=${thanks}&contact=${contact}&institution=${institution}`
     }
     return{
         [RSAA]:{
@@ -22,7 +22,7 @@ export function deleteDonation(donationId) {
     return {
         [RSAA]: {
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/donation/${donationId}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/donation/${donationId}`,
             method: 'DELETE',
         },
     };

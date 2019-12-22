@@ -10,7 +10,7 @@ export function createContact(contactName, email, phone, address, state, city, z
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            endpoint: `http://localhost:8080/api/contacts`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/contacts`,
             body: JSON.stringify({
                 contactName: contactName,
                 email: email,
@@ -29,7 +29,7 @@ export function getInstitution(institutionName){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institution/${institutionName}`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institution/${institutionName}`,
             method:'GET',
         },
     };
@@ -39,7 +39,7 @@ export function getAllInstitutions(){
     return{
         [RSAA]:{
             types: ['REQUEST', 'SUCCESS', 'FAILURE'],
-            endpoint: `http://localhost:8080/api/institutions`,
+            endpoint: `https://salty-citadel-44905.herokuapp.com/api/institutions`,
             method:'GET',
         },
     };
